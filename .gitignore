@@ -1,6 +1,13 @@
 reports/*
 !reports/.gitkeep
 
+# some hosters require a htaccess to change the PHP version
+/public/.htaccess
+.idea/*
+.idea/
+.DS_Store
+/phpstan.sh
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php

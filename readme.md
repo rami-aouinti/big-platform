@@ -28,10 +28,10 @@ Note: OS recommendation - Linux Ubuntu based.
 8. Redis 7
 9. Mailpit (only for debug emails on dev environment)
 
-## Setting up Docker and docker-compose
+## Setting up Docker and docker compose
 1.For installing Docker please follow steps mentioned on page [install on Ubuntu linux](https://docs.docker.com/install/linux/docker-ce/ubuntu/) or [install on Mac/Windows](https://docs.docker.com/engine/install/).
 
-2.For installing docker-compose as `Linux Standalone binary` please follow steps on the page [install compose](https://docs.docker.com/compose/install/standalone/) if you are using Linux OS.
+2.For installing docker compose as `Linux Standalone binary` please follow steps on the page [install compose](https://docs.docker.com/compose/install/standalone/) if you are using Linux OS.
 
 Note 1: Please run next cmd after above step 2 if you are using Linux OS: `sudo usermod -aG docker $USER`
 
@@ -144,7 +144,7 @@ If you have installed composer and want to install environment via composer you 
 composer create-project systemsdk/docker-symfony-api api-example-app
 ```
 
-2.Edit docker-compose-prod.yml and set necessary user/password for MySQL and RabbitMQ.
+2.Edit docker compose-prod.yml and set necessary user/password for MySQL and RabbitMQ.
 
 Note: Delete var/mysql-data folder if it is exist.
 

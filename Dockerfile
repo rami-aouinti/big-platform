@@ -25,6 +25,7 @@ RUN if [ "$BUILD_ARGUMENT_ENV" = "default" ]; then echo "Set BUILD_ARGUMENT_ENV 
 
 # install all the dependencies and enable PHP modules
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+      libjpeg-dev libpng-dev libfreetype6-dev libicu-dev zlib1g-dev libxml2-dev libreadline-dev libxslt1-dev libzip-dev \
       procps \
       nano \
       git \
@@ -43,6 +44,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     && pecl install amqp \
     && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
     && docker-php-ext-configure intl \
+    && docker-php-ext-configure gd --with-jpeg --with-freetype \
     && yes '' | pecl install -o -f redis && docker-php-ext-enable redis \
     && docker-php-ext-install \
       pdo_mysql \
@@ -50,6 +52,10 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
       intl \
       opcache \
       zip \
+      xsl \
+    && docker-php-ext-install gd pdo_mysql sockets intl opcache zip \
+    && pecl install amqp xlswriter \
+    && docker-php-ext-enable amqp redis xlswriter \
     && docker-php-ext-enable amqp \
     && rm -rf /tmp/* \
     && rm -rf /var/list/apt/* \
