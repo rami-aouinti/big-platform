@@ -1,7 +1,7 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
     secret: '%env(APP_SECRET)%'
-    csrf_protection: false
+    csrf_protection: true
     annotations: false
     http_method_override: false
     handle_all_throwables: true
@@ -17,9 +17,27 @@ framework:
     serializer:
         enable_annotations: true
 
+    exceptions:
+        App\Validator\ValidationFailedException:
+            log_level: debug
+
     php_errors:
         log: true
 
+    session:
+        handler_id: App\Security\SessionHandler
+        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+        cookie_secure: auto
+        cookie_samesite: lax
+        cookie_httponly: true
+        storage_factory_id: session.storage.factory.native
+
+    mailer:
+        dsn: '%env(MAILER_URL)%'
+
+    validation:
+        email_validation_mode: html5
+        enable_attributes: true
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.
     #session:

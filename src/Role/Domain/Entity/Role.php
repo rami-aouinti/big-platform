@@ -30,6 +30,9 @@ class Role implements EntityInterface
     use Blameable;
     use Timestampable;
 
+    #[ORM\Column(name: 'name', type: 'string', length: 50, nullable: true)]
+    private ?string $name = null;
+
     #[ORM\Column(
         name: 'description',
         type: Types::TEXT,
@@ -80,6 +83,18 @@ class Role implements EntityInterface
     public function __toString(): string
     {
         return self::class;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): Role
+    {
+        $this->name = strtoupper($name);
+
+        return $this;
     }
 
     public function getId(): string

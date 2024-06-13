@@ -48,6 +48,7 @@
         <env name="APP_DEBUG" value="false" force="true" />
     </php>
     <extensions>
+        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension" />
         <bootstrap class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension" />
     </extensions>
     <testsuites>

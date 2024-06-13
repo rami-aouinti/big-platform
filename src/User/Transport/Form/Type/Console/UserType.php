@@ -1,202 +1,145 @@
 <?php
 
-declare(strict_types=1);
+/*
+ * This file is part of the Kimai time-tracking app.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace App\User\Transport\Form\Type\Console;
 
-use App\General\Domain\Enum\Language;
-use App\General\Domain\Enum\Locale;
-use App\General\Transport\Form\Type\Interfaces\FormTypeLabelInterface;
-use App\General\Transport\Form\Type\Traits\AddBasicFieldToForm;
-use App\Tool\Application\Service\LocalizationService;
-use App\Tool\Domain\Service\Interfaces\LocalizationServiceInterface;
-use App\User\Application\DTO\User\User as UserDto;
-use App\User\Application\Resource\UserGroupResource;
-use App\User\Transport\Form\DataTransformer\UserGroupTransformer;
-use App\User\Transport\Form\Type\Traits\UserGroupChoices;
+use App\User\Domain\Entity\User;
+use App\Repository\Query\UserFormTypeQuery;
+use App\Repository\Query\VisibilityInterface;
+use App\Repository\UserRepository;
+use App\Utils\Color;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\Exception\AccessException;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Throwable;
-
-use function array_map;
 
 /**
- * @package App\User
+ * Custom form field type to select a user.
+ * @extends AbstractType<User>
  */
-class UserType extends AbstractType
+final class UserType extends AbstractType
 {
-    use AddBasicFieldToForm;
-    use UserGroupChoices;
-
-    /**
-     * Base form fields
-     *
-     * @var array<int, array<int, mixed>>
-     */
-    private static array $formFields = [
-        [
-            'username',
-            Type\TextType::class,
-            [
-                FormTypeLabelInterface::LABEL => 'Username',
-                FormTypeLabelInterface::REQUIRED => true,
-                FormTypeLabelInterface::EMPTY_DATA => '',
-            ],
-        ],
-        [
-            'firstName',
-            Type\TextType::class,
-            [
-                FormTypeLabelInterface::LABEL => 'First name',
-                FormTypeLabelInterface::REQUIRED => true,
-                FormTypeLabelInterface::EMPTY_DATA => '',
-            ],
-        ],
-        [
-            'lastName',
-            Type\TextType::class,
-            [
-                FormTypeLabelInterface::LABEL => 'Last name',
-                FormTypeLabelInterface::REQUIRED => true,
-                FormTypeLabelInterface::EMPTY_DATA => '',
-            ],
-        ],
-        [
-            'email',
-            Type\EmailType::class,
-            [
-                FormTypeLabelInterface::LABEL => 'Email address',
-                FormTypeLabelInterface::REQUIRED => true,
-                FormTypeLabelInterface::EMPTY_DATA => '',
-            ],
-        ],
-        [
-            'password',
-            Type\RepeatedType::class,
-            [
-                FormTypeLabelInterface::TYPE => Type\PasswordType::class,
-                FormTypeLabelInterface::REQUIRED => true,
-                FormTypeLabelInterface::FIRST_NAME => 'password1',
-                FormTypeLabelInterface::FIRST_OPTIONS => [
-                    FormTypeLabelInterface::LABEL => 'Password',
-                ],
-                FormTypeLabelInterface::SECOND_NAME => 'password2',
-                FormTypeLabelInterface::SECOND_OPTIONS => [
-                    FormTypeLabelInterface::LABEL => 'Repeat password',
-                ],
-            ],
-        ],
-    ];
-
-    public function __construct(
-        private readonly UserGroupResource $userGroupResource,
-        private readonly UserGroupTransformer $userGroupTransformer,
-        private readonly LocalizationService $localization,
-    ) {
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @throws Throwable
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function __construct(private readonly UserRepository $userRepository)
     {
-        parent::buildForm($builder, $options);
-
-        $this->addBasicFieldToForm($builder, self::$formFields);
-        $this->addLocalizationFieldsToForm($builder);
-
-        $builder
-            ->add(
-                'userGroups',
-                Type\ChoiceType::class,
-                [
-                    FormTypeLabelInterface::CHOICES => $this->getUserGroupChoices(),
-                    FormTypeLabelInterface::REQUIRED => true,
-                    FormTypeLabelInterface::EMPTY_DATA => '',
-                    'multiple' => true,
-                ]
-            );
-
-        $builder->get('userGroups')->addModelTransformer($this->userGroupTransformer);
     }
 
-    /**
-     * Configures the options for this type.
-     *
-     * @param OptionsResolver $resolver The resolver for the options
-     *
-     * @throws AccessException
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        parent::configureOptions($resolver);
-
         $resolver->setDefaults([
-            'data_class' => UserDto::class,
+            'class' => User::class,
+            'label' => 'user',
+            'choice_label' => function (User $user) {
+                return $user->getDisplayName();
+            },
+            'choice_attr' => function (User $user) {
+                $color = $user->getColor();
+
+                if ($color === null) {
+                    $color = (new Color())->getRandom($user->getDisplayName());
+                }
+
+                return [
+                    'data-id' => $user->getId(),
+                    'data-color' => $color,
+                    'data-title' => $user->getTitle(),
+                    'data-username' => $user->getUserIdentifier(),
+                    'data-alias' => $user->getAlias(),
+                    'data-initials' => $user->getInitials(),
+                    'data-accountNumber' => $user->getAccountNumber(),
+                    'data-display' => $user->getDisplayName(),
+                ];
+            },
+            'choice_translation_domain' => false,
+            // whether disabled users should be included in the result list
+            'include_disabled' => false,
+            // an array of users that should not be included in the result list
+            'ignore_users' => [],
+            // an array of users, which will always be included in the result list
+            // why? if the base entity could include disabled users, which should not be hidden in/removed from the list
+            // e.g. when editing a team that has disabled users, these users would be removed silently
+            // see https://github.com/kimai/kimai/pull/1841
+            'include_users' => [],
+            // includes the current user if it is a system-account, which is especially useful for forms pages,
+            // which have a user switcher and display the logged-in user by default
+            'include_current_user_if_system_account' => false,
+            'documentation' => [
+                'type' => 'integer',
+                'description' => 'User ID',
+            ],
+        ]);
+
+        $resolver->setDefault('choices', function (Options $options) {
+            $query = new UserFormTypeQuery();
+            $query->setUser($options['user']);
+
+            if ($options['include_disabled'] === true) {
+                $query->setVisibility(VisibilityInterface::SHOW_BOTH);
+            }
+
+            $qb = $this->userRepository->getQueryBuilderForFormType($query);
+            $users = $qb->getQuery()->getResult();
+
+            $ignoreIds = [];
+            /** @var User $user */
+            foreach ($options['ignore_users'] as $user) {
+                $ignoreIds[] = $user->getId();
+            }
+
+            $users = array_filter($users, function (User $user) use ($ignoreIds) {
+                if ($user->getId() === null) {
+                    return false;
+                }
+
+                return !\in_array($user->getId(), $ignoreIds, true);
+            });
+
+            /** @var array<int, User> $userById */
+            $userById = [];
+            /** @var User $user */
+            foreach ($users as $user) {
+                $userById[$user->getId()] = $user;
+            }
+
+            $includeUsers = $options['include_users'];
+            if ($options['include_current_user_if_system_account'] === true) {
+                if ($options['user'] instanceof User && $options['user']->isSystemAccount()) {
+                    $includeUsers[] = $options['user'];
+                }
+            }
+
+            /** @var User $user */
+            foreach ($includeUsers as $user) {
+                if ($user->getId() !== null && !\array_key_exists($user->getId(), $userById)) {
+                    $userById[$user->getId()] = $user;
+                }
+            }
+
+            usort($userById, function (User $a, User $b) {
+                return $a->getDisplayName() <=> $b->getDisplayName();
+            });
+
+            return array_values($userById);
+        });
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options): void
+    {
+        $view->vars['attr'] = array_merge($view->vars['attr'], [
+            'data-select-attributes' => 'color,title,username,initials,accountNumber,alias',
+            'data-renderer' => 'color',
         ]);
     }
 
-    /**
-     * @throws Throwable
-     */
-    private function addLocalizationFieldsToForm(FormBuilderInterface $builder): void
+    public function getParent(): string
     {
-        $builder
-            ->add(
-                'language',
-                Type\EnumType::class,
-                [
-                    FormTypeLabelInterface::CLASS_NAME => Language::class,
-                    FormTypeLabelInterface::LABEL => 'Language',
-                    FormTypeLabelInterface::REQUIRED => true,
-                    FormTypeLabelInterface::EMPTY_DATA => Language::getDefault(),
-                ],
-            );
-        $builder
-            ->add(
-                'locale',
-                Type\EnumType::class,
-                [
-                    FormTypeLabelInterface::CLASS_NAME => Locale::class,
-                    FormTypeLabelInterface::LABEL => 'Locale',
-                    FormTypeLabelInterface::REQUIRED => true,
-                    FormTypeLabelInterface::EMPTY_DATA => Locale::getDefault(),
-                ],
-            );
-        $builder
-            ->add(
-                'timezone',
-                Type\ChoiceType::class,
-                [
-                    FormTypeLabelInterface::LABEL => 'Timezone',
-                    FormTypeLabelInterface::REQUIRED => true,
-                    FormTypeLabelInterface::EMPTY_DATA => LocalizationServiceInterface::DEFAULT_TIMEZONE,
-                    FormTypeLabelInterface::CHOICES => $this->getTimeZoneChoices(),
-                ],
-            );
-    }
-
-    /**
-     * Method to get choices array for time zones.
-     *
-     * @throws Throwable
-     *
-     * @return array<string, string>
-     */
-    private function getTimeZoneChoices(): array
-    {
-        // Initialize output
-        $choices = [];
-        $iterator = static function (array $timezone) use (&$choices): void {
-            $choices[$timezone['value'] . ' (' . $timezone['offset'] . ')'] = $timezone['identifier'];
-        };
-        array_map($iterator, $this->localization->getFormattedTimezones());
-
-        return $choices;
+        return EntityType::class;
     }
 }

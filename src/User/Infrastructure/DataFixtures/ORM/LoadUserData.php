@@ -92,6 +92,7 @@ final class LoadUserData extends Fixture implements OrderedFixtureInterface
             ->setEmail('john.doe' . $suffix . '@test.com')
             ->setLanguage(Language::EN)
             ->setLocale(Locale::EN)
+            ->setLastLogin(new \DateTime('now'))
             ->setPlainPassword('password' . $suffix);
 
         if ($role !== null) {

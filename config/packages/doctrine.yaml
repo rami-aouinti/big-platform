@@ -20,6 +20,7 @@ doctrine:
         types:
             datetime: App\General\Domain\Doctrine\DBAL\Types\UTCDateTimeType
             datetimetz: App\General\Domain\Doctrine\DBAL\Types\UTCDateTimeType
+            datetime_immutable: App\Doctrine\UTCDateTimeImmutableType
             EnumLanguage: App\General\Domain\Doctrine\DBAL\Types\EnumLanguageType
             EnumLocale: App\General\Domain\Doctrine\DBAL\Types\EnumLocaleType
             EnumLogLogin: App\General\Domain\Doctrine\DBAL\Types\EnumLogLoginType
@@ -78,10 +79,20 @@ doctrine:
                         dir: '%kernel.project_dir%/src/User/Domain/Entity'
                         prefix: 'App\User\Domain\Entity'
                         alias: User
+                    App:
+                        type: attribute
+                        dir: '%kernel.project_dir%/src/Entity'
+                        prefix: 'App\Entity'
+                        alias: Kimai
+
                 dql:
                     datetime_functions:
                         datesub: DoctrineExtensions\Query\Mysql\DateSub
                         now: DoctrineExtensions\Query\Mysql\Now
+                        date: App\Doctrine\Extensions\Date
+                        day: App\Doctrine\Extensions\Day
+                        month: App\Doctrine\Extensions\Month
+                        year: App\Doctrine\Extensions\Year
                     string_functions:
                         uuid_o_t_to_bin: App\General\Infrastructure\DQL\UuidOTToBin
                         bin_to_uuid_o_t: App\General\Infrastructure\DQL\BinToUuidOT
