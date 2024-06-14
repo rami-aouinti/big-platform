@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Ldap;
 
@@ -23,8 +18,11 @@ use Symfony\Component\Security\Http\EntryPoint\Exception\NotAnEntryPointExceptio
 
 final class LdapAuthenticator implements AuthenticationEntryPointInterface, InteractiveAuthenticatorInterface
 {
-    public function __construct(private AuthenticatorInterface $authenticator, private LdapConfiguration $configuration, private LoggerInterface $logger)
-    {
+    public function __construct(
+        private AuthenticatorInterface $authenticator,
+        private LdapConfiguration $configuration,
+        private LoggerInterface $logger
+    ) {
     }
 
     public function supports(Request $request): bool

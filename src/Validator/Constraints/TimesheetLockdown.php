@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
@@ -18,9 +13,6 @@ final class TimesheetLockdown extends TimesheetConstraint
     ];
 
     public string $message = 'This period is locked, please choose a later date.';
-    /**
-     * @var \DateTime|string|null
-     */
     public \DateTime|string|null $now;
 
     public function getTargets(): string

@@ -1,17 +1,12 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
 use App\Configuration\SystemConfiguration;
+use App\Crm\Domain\Repository\ProjectRepository;
 use App\Entity\Project as ProjectEntity;
-use App\Repository\ProjectRepository;
 use App\Validator\Constraints\Project as ProjectEntityConstraint;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 use Symfony\Component\Validator\Constraint;
@@ -28,8 +23,7 @@ final class ProjectValidator extends ConstraintValidator
         private readonly ProjectRepository $projectRepository,
         #[TaggedIterator(ProjectConstraint::class)]
         private iterable $constraints = []
-    )
-    {
+    ) {
     }
 
     /**
@@ -45,7 +39,7 @@ final class ProjectValidator extends ConstraintValidator
             return;
         }
 
-        if (null !== $value->getStart() && null !== $value->getEnd() && $value->getStart()->getTimestamp() > $value->getEnd()->getTimestamp()) {
+        if ($value->getStart() !== null && $value->getEnd() !== null && $value->getStart()->getTimestamp() > $value->getEnd()->getTimestamp()) {
             $this->context->buildViolation(ProjectEntityConstraint::getErrorName(ProjectEntityConstraint::END_BEFORE_BEGIN_ERROR))
                 ->atPath('end')
                 ->setTranslationDomain('validators')
@@ -53,8 +47,12 @@ final class ProjectValidator extends ConstraintValidator
                 ->addViolation();
         }
 
-        if ((bool) $this->systemConfiguration->find('project.allow_duplicate_number') === false && (($number = $value->getNumber()) !== null)) {
-            foreach ($this->projectRepository->findBy(['number' => $number]) as $tmp) {
+        if ((bool)$this->systemConfiguration->find('project.allow_duplicate_number') === false && (($number = $value->getNumber()) !== null)) {
+            foreach (
+                $this->projectRepository->findBy([
+                    'number' => $number,
+                ]) as $tmp
+            ) {
                 if ($tmp->getId() !== $value->getId()) {
                     $this->context->buildViolation(Project::getErrorName(Project::PROJECT_NUMBER_EXISTING))
                         ->setParameter('%number%', $number)

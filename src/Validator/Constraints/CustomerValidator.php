@@ -1,17 +1,12 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
 use App\Configuration\SystemConfiguration;
+use App\Crm\Domain\Repository\CustomerRepository;
 use App\Entity\Customer as CustomerEntity;
-use App\Repository\CustomerRepository;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -21,8 +16,7 @@ final class CustomerValidator extends ConstraintValidator
     public function __construct(
         private readonly SystemConfiguration $systemConfiguration,
         private readonly CustomerRepository $customerRepository
-    )
-    {
+    ) {
     }
 
     /**
@@ -38,8 +32,12 @@ final class CustomerValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, CustomerEntity::class);
         }
 
-        if ((bool) $this->systemConfiguration->find('customer.rules.allow_duplicate_number') === false && (($number = $value->getNumber()) !== null)) {
-            foreach ($this->customerRepository->findBy(['number' => $number]) as $tmp) {
+        if ((bool)$this->systemConfiguration->find('customer.rules.allow_duplicate_number') === false && (($number = $value->getNumber()) !== null)) {
+            foreach (
+                $this->customerRepository->findBy([
+                    'number' => $number,
+                ]) as $tmp
+            ) {
                 if ($tmp->getId() !== $value->getId()) {
                     $this->context->buildViolation(Customer::getErrorName(Customer::CUSTOMER_NUMBER_EXISTING))
                         ->setParameter('%number%', $number)

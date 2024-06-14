@@ -1,17 +1,12 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\User;
 
-use App\Role\Domain\Entity\Role;
+use App\Crm\Domain\Repository\RolePermissionRepository;
 use App\Entity\RolePermission;
-use App\Repository\RolePermissionRepository;
+use App\Role\Domain\Entity\Role;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 

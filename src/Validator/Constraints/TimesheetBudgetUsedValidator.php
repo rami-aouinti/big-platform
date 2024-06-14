@@ -1,23 +1,18 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
-use App\Activity\ActivityStatisticService;
 use App\Configuration\LocaleService;
 use App\Configuration\SystemConfiguration;
-use App\Customer\CustomerStatisticService;
-use App\Entity\Timesheet as TimesheetEntity;
-use App\Model\BudgetStatisticModel;
-use App\Project\ProjectStatisticService;
-use App\Repository\TimesheetRepository;
-use App\Timesheet\RateServiceInterface;
+use App\Crm\Application\Model\BudgetStatisticModel;
+use App\Crm\Application\Service\Activity\ActivityStatisticService;
+use App\Crm\Application\Service\Customer\CustomerStatisticService;
+use App\Crm\Application\Service\Project\ProjectStatisticService;
+use App\Crm\Application\Service\Timesheet\RateServiceInterface;
+use App\Crm\Domain\Entity\Timesheet as TimesheetEntity;
+use App\Crm\Domain\Repository\TimesheetRepository;
 use App\Utils\Duration;
 use App\Utils\LocaleFormatter;
 use DateTime;
@@ -26,6 +21,10 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+/**
+ * @package App\Validator\Constraints
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class TimesheetBudgetUsedValidator extends ConstraintValidator
 {
     public function __construct(
@@ -104,13 +103,14 @@ final class TimesheetBudgetUsedValidator extends ConstraintValidator
         if ($id !== null) {
             $rawData = $this->timesheetRepository->getRawData($id);
 
-            $activityId = (int) $rawData['activity'];
-            $projectId = (int) $rawData['project'];
-            $customerId = (int) $rawData['customer'];
+            $activityId = (int)$rawData['activity'];
+            $projectId = (int)$rawData['project'];
+            $customerId = (int)$rawData['customer'];
 
             // if an existing entry was updated, but the relevant fields for budget calculation were not touched: do not validate!
             // this could for example happen when export flag is changed OR if "prevent overbooking"  config was recently activated and this is an old entry
-            if ($duration === $rawData['duration'] &&
+            if (
+                $duration === $rawData['duration'] &&
                 $rate === $rawData['rate'] &&
                 $value->isBillable() === $rawData['billable'] &&
                 $begin->format('Y.m.d') === $rawData['begin']->format('Y.m.d') &&
@@ -125,12 +125,12 @@ final class TimesheetBudgetUsedValidator extends ConstraintValidator
             // only subtract the previously logged data in case the record was billable
             // if it wasn't billable, then its values are not included in the statistic models used later on
             if ($rawData['billable']) {
-                if (null !== $value->getActivity() && $activityId === $value->getActivity()->getId()) {
+                if ($value->getActivity() !== null && $activityId === $value->getActivity()->getId()) {
                     $activityDuration -= $rawData['duration'];
                     $activityRate -= $rawData['rate'];
                 }
 
-                if (null !== $value->getProject()) {
+                if ($value->getProject() !== null) {
                     if ($projectId === $value->getProject()->getId()) {
                         $projectDuration -= $rawData['duration'];
                         $projectRate -= $rawData['rate'];
@@ -219,7 +219,7 @@ final class TimesheetBudgetUsedValidator extends ConstraintValidator
             ->setParameters([
                 '%used%' => $helper->money($rate, $currency),
                 '%budget%' => $helper->money($budget, $currency),
-                '%free%' => $helper->money($free, $currency)
+                '%free%' => $helper->money($free, $currency),
             ])
             ->addViolation()
         ;
@@ -243,7 +243,7 @@ final class TimesheetBudgetUsedValidator extends ConstraintValidator
             ->setParameters([
                 '%used%' => $durationFormat->format($duration),
                 '%budget%' => $durationFormat->format($budget),
-                '%free%' => $durationFormat->format($free)
+                '%free%' => $durationFormat->format($free),
             ])
             ->addViolation()
         ;

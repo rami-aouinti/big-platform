@@ -1,18 +1,13 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Reporting\ProjectView;
 
+use App\Crm\Application\Model\BudgetStatisticModelInterface;
+use App\Crm\Application\Model\ProjectBudgetStatisticModel;
+use App\Crm\Application\Model\Statistic\BudgetStatistic;
 use App\Entity\Project;
-use App\Model\BudgetStatisticModelInterface;
-use App\Model\ProjectBudgetStatisticModel;
-use App\Model\Statistic\BudgetStatistic;
 use DateTime;
 
 final class ProjectViewModel
@@ -22,8 +17,9 @@ final class ProjectViewModel
     private int $durationMonth = 0;
     private ?DateTime $lastRecord = null;
 
-    public function __construct(private ProjectBudgetStatisticModel $budgetStatisticModel)
-    {
+    public function __construct(
+        private ProjectBudgetStatisticModel $budgetStatisticModel
+    ) {
     }
 
     public function getProject(): Project
@@ -59,15 +55,6 @@ final class ProjectViewModel
     public function setDurationMonth(int $durationMonth): void
     {
         $this->durationMonth = $durationMonth;
-    }
-
-    private function getTotals(): BudgetStatistic
-    {
-        if ($this->budgetStatisticModel->getStatisticTotal() === null) {
-            throw new \InvalidArgumentException('Totals must not be null');
-        }
-
-        return $this->budgetStatisticModel->getStatisticTotal();
     }
 
     public function getDurationTotal(): int
@@ -117,5 +104,14 @@ final class ProjectViewModel
     public function getBudgetStatisticModel(): BudgetStatisticModelInterface
     {
         return $this->budgetStatisticModel;
+    }
+
+    private function getTotals(): BudgetStatistic
+    {
+        if ($this->budgetStatisticModel->getStatisticTotal() === null) {
+            throw new \InvalidArgumentException('Totals must not be null');
+        }
+
+        return $this->budgetStatisticModel->getStatisticTotal();
     }
 }

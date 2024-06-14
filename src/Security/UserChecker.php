@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Security;
 
@@ -21,7 +16,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 final class UserChecker implements UserCheckerInterface
 {
     /**
-     * @param UserInterface $user
      * @throws AccountStatusException
      */
     public function checkPreAuth(UserInterface $user): void
@@ -33,12 +27,12 @@ final class UserChecker implements UserCheckerInterface
         if (!$user->isEnabled()) {
             $ex = new DisabledException('User account is disabled.');
             $ex->setUser($user);
+
             throw $ex;
         }
     }
 
     /**
-     * @param UserInterface $user
      * @throws AccountStatusException
      */
     public function checkPostAuth(UserInterface $user): void
@@ -50,6 +44,7 @@ final class UserChecker implements UserCheckerInterface
         if (!$user->isEnabled()) {
             $ex = new DisabledException('User account is disabled.');
             $ex->setUser($user);
+
             throw $ex;
         }
     }

@@ -1,18 +1,13 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Reporting\YearlyUserList;
 
-use App\User\Transport\Form\Type\Console\ProjectType;
-use App\User\Transport\Form\Type\Console\ReportSumType;
-use App\User\Transport\Form\Type\Console\TeamType;
-use App\User\Transport\Form\Type\Console\YearPickerType;
+use App\Crm\Transport\Form\Type\ProjectType;
+use App\Crm\Transport\Form\Type\ReportSumType;
+use App\Crm\Transport\Form\Type\TeamType;
+use App\Crm\Transport\Form\Type\YearPickerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

@@ -1,15 +1,10 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
-use App\Model\QuickEntryModel;
+use App\Crm\Application\Model\QuickEntryModel;
 use App\Validator\Constraints\QuickEntryModel as QuickEntryModelConstraint;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

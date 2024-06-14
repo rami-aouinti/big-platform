@@ -1,16 +1,11 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Doctrine;
 
-use App\Entity\Timesheet;
-use App\Timesheet\CalculatorInterface;
+use App\Crm\Application\Service\Timesheet\CalculatorInterface;
+use App\Crm\Domain\Entity\Timesheet;
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\OnFlushEventArgs;
@@ -36,8 +31,7 @@ final class TimesheetSubscriber implements EventSubscriber, DataSubscriberInterf
     public function __construct(
         #[TaggedIterator(CalculatorInterface::class)]
         private readonly iterable $calculators
-    )
-    {
+    ) {
     }
 
     public function getSubscribedEvents(): array

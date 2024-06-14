@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
@@ -27,7 +22,7 @@ final class HexColorValidator extends ConstraintValidator
             return;
         }
 
-        if (!\is_string($color) || 1 !== preg_match('/^#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$/i', $color)) {
+        if (!\is_string($color) || preg_match('/^#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$/i', $color) !== 1) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $this->formatValue($color))
                 ->setCode(HexColor::HEX_COLOR_ERROR)

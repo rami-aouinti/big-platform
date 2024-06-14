@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Twig\Runtime;
 
@@ -17,25 +12,14 @@ final class MarkdownExtension implements RuntimeExtensionInterface
 {
     private ?bool $markdownEnabled = null;
 
-    public function __construct(private Markdown $markdown, private SystemConfiguration $configuration)
-    {
-    }
-
-    private function isMarkdownEnabled(): bool
-    {
-        if (null === $this->markdownEnabled) {
-            $this->markdownEnabled = $this->configuration->isTimesheetMarkdownEnabled();
-        }
-
-        return $this->markdownEnabled;
+    public function __construct(
+        private Markdown $markdown,
+        private SystemConfiguration $configuration
+    ) {
     }
 
     /**
      * Transforms entity and user comments (customer, project, activity ...) into HTML.
-     *
-     * @param string|null $content
-     * @param bool $fullLength
-     * @return string
      */
     public function commentContent(?string $content, bool $fullLength = true): string
     {
@@ -58,10 +42,6 @@ final class MarkdownExtension implements RuntimeExtensionInterface
 
     /**
      * Transforms the entities comment (customer, project, activity ...) into a one-liner.
-     *
-     * @param string|null $content
-     * @param bool $fullLength
-     * @return string
      */
     public function commentOneLiner(?string $content, bool $fullLength = true): string
     {
@@ -88,9 +68,6 @@ final class MarkdownExtension implements RuntimeExtensionInterface
 
     /**
      * Transforms the timesheet description content into HTML.
-     *
-     * @param string|null $content
-     * @return string
      */
     public function timesheetContent(?string $content): string
     {
@@ -107,12 +84,18 @@ final class MarkdownExtension implements RuntimeExtensionInterface
 
     /**
      * Transforms the given Markdown content into HTML
-     *
-     * @param string $content
-     * @return string
      */
     public function markdownToHtml(string $content): string
     {
         return $this->markdown->withFullMarkdownSupport($content);
+    }
+
+    private function isMarkdownEnabled(): bool
+    {
+        if ($this->markdownEnabled === null) {
+            $this->markdownEnabled = $this->configuration->isTimesheetMarkdownEnabled();
+        }
+
+        return $this->markdownEnabled;
     }
 }

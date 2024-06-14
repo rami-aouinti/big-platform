@@ -1,23 +1,19 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Widget\Type;
 
 use App\Configuration\SystemConfiguration;
-use App\Timesheet\DateTimeFactory;
+use App\Crm\Application\Service\Timesheet\DateTimeFactory;
 
 abstract class AbstractCounterYear extends AbstractWidgetType
 {
     private bool $isFinancialYear = false;
 
-    public function __construct(private SystemConfiguration $systemConfiguration)
-    {
+    public function __construct(
+        private SystemConfiguration $systemConfiguration
+    ) {
     }
 
     /**
@@ -38,13 +34,6 @@ abstract class AbstractCounterYear extends AbstractWidgetType
         return $this->getYearData($begin, $end, $options);
     }
 
-    /**
-     * @param array<string, string|bool|int|null|array<string, mixed>> $options
-     */
-    abstract protected function getYearData(\DateTimeInterface $begin, \DateTimeInterface $end, array $options = []): mixed;
-
-    abstract protected function getFinancialYearTitle(): string;
-
     public function getTitle(): string
     {
         if ($this->isFinancialYear) {
@@ -58,4 +47,11 @@ abstract class AbstractCounterYear extends AbstractWidgetType
     {
         return 'widget/widget-counter.html.twig';
     }
+
+    /**
+     * @param array<string, string|bool|int|null|array<string, mixed>> $options
+     */
+    abstract protected function getYearData(\DateTimeInterface $begin, \DateTimeInterface $end, array $options = []): mixed;
+
+    abstract protected function getFinancialYearTitle(): string;
 }

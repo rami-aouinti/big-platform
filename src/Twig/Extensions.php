@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Twig;
 
@@ -17,6 +12,10 @@ use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Twig\TwigTest;
 
+/**
+ * @package App\Twig
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class Extensions extends AbstractExtension
 {
     public const REPORT_DATE = 'Y-m-d';
@@ -30,7 +29,10 @@ final class Extensions extends AbstractExtension
             new TwigFilter('color', [$this, 'color']),
             new TwigFilter('font_contrast', [$this, 'calculateFontContrastColor']),
             new TwigFilter('default_color', [$this, 'defaultColor']),
-            new TwigFilter('nl2str', [$this, 'replaceNewline'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
+            new TwigFilter('nl2str', [$this, 'replaceNewline'], [
+                'pre_escape' => 'html',
+                'is_safe' => ['html'],
+            ]),
         ];
     }
 
@@ -64,7 +66,7 @@ final class Extensions extends AbstractExtension
             ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
         );
 
-        if (false === $key) {
+        if ($key === false) {
             return 1;
         }
 
@@ -73,9 +75,6 @@ final class Extensions extends AbstractExtension
 
     /**
      * Returns null instead of the default color if $defaultColor is not set to true.
-     *
-     * @param EntityWithMetaFields $entity
-     * @return string|null
      */
     public function color(EntityWithMetaFields $entity, bool $defaultColor = false): ?string
     {
@@ -99,7 +98,6 @@ final class Extensions extends AbstractExtension
 
     /**
      * @param object $object
-     * @return null|string
      */
     public function getClassName($object): ?string
     {
@@ -112,7 +110,7 @@ final class Extensions extends AbstractExtension
 
     public function multilineIndent(?string $string, string $indent): string
     {
-        if (null === $string || '' === $string) {
+        if ($string === null || $string === '') {
             return '';
         }
 
@@ -136,7 +134,10 @@ final class Extensions extends AbstractExtension
         return Constants::HOMEPAGE . '/documentation/' . $url;
     }
 
-    public function replaceNewline($input, string $newline)
+    /**
+     * @return array|string|string[]
+     */
+    public function replaceNewline($input, string $newline): array|string
     {
         if (!\is_string($input)) {
             return $input;

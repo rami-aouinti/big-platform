@@ -1,15 +1,10 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
-use App\Form\Model\MultiUserTimesheet;
+use App\Crm\Transport\Form\Model\MultiUserTimesheet;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -18,7 +13,6 @@ final class TimesheetMultiUserValidator extends ConstraintValidator
 {
     /**
      * @param Timesheet|mixed $value
-     * @param Constraint $constraint
      */
     public function validate(mixed $value, Constraint $constraint): void
     {

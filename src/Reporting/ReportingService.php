@@ -1,27 +1,23 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Reporting;
 
+use App\Crm\Transport\Event\ReportingEvent;
 use App\User\Domain\Entity\User;
-use App\Event\ReportingEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 final class ReportingService
 {
-    public function __construct(private EventDispatcherInterface $dispatcher, private AuthorizationCheckerInterface $security)
-    {
+    public function __construct(
+        private EventDispatcherInterface $dispatcher,
+        private AuthorizationCheckerInterface $security
+    ) {
     }
 
     /**
-     * @param User $user
      * @return ReportInterface[]
      */
     public function getAvailableReports(User $user): array

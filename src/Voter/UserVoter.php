@@ -1,16 +1,11 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Voter;
 
-use App\User\Domain\Entity\User;
 use App\Security\RolePermissionManager;
+use App\User\Domain\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -38,8 +33,9 @@ final class UserVoter extends Voter
         'supervisor',
     ];
 
-    public function __construct(private readonly RolePermissionManager $permissionManager)
-    {
+    public function __construct(
+        private readonly RolePermissionManager $permissionManager
+    ) {
     }
 
     public function supportsAttribute(string $attribute): bool

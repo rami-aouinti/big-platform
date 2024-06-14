@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Widget\Type;
 
@@ -59,7 +54,6 @@ abstract class AbstractWidget implements WidgetInterface
     }
 
     /**
-     * @param string $name
      * @param mixed $value
      */
     public function setOption(string $name, $value): void
@@ -79,6 +73,23 @@ abstract class AbstractWidget implements WidgetInterface
     public function isInternal(): bool
     {
         return false;
+    }
+
+    public function getTimezone(): \DateTimeZone
+    {
+        $timezone = date_default_timezone_get();
+        if ($this->user !== null) {
+            $timezone = $this->user->getTimezone();
+        }
+
+        return new \DateTimeZone($timezone);
+    }
+
+    public function getTemplateName(): string
+    {
+        $name = (new \ReflectionClass($this))->getShortName();
+
+        return sprintf('widget/widget-%s.html.twig', strtolower($name));
     }
 
     protected function createDate(string $date): \DateTime
@@ -114,22 +125,5 @@ abstract class AbstractWidget implements WidgetInterface
     protected function createTodayEndDate(): \DateTime
     {
         return $this->createDate('23:59:59');
-    }
-
-    public function getTimezone(): \DateTimeZone
-    {
-        $timezone = date_default_timezone_get();
-        if (null !== $this->user) {
-            $timezone = $this->user->getTimezone();
-        }
-
-        return new \DateTimeZone($timezone);
-    }
-
-    public function getTemplateName(): string
-    {
-        $name = (new \ReflectionClass($this))->getShortName();
-
-        return sprintf('widget/widget-%s.html.twig', strtolower($name));
     }
 }

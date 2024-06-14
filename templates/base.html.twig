@@ -52,7 +52,7 @@
 {% endblock %}
 
 {% block page_content_before %}
-    {% set event = trigger(constant('App\\Event\\ThemeEvent::CONTENT_BEFORE')) %}
+    {% set event = trigger(constant('App\\Crm\\Transport\\Event\\ThemeEvent::CONTENT_BEFORE')) %}
     {{ event.content|raw }}
     <div class="d-print-none hidden-no-space">
         {% block main_before %}{% endblock %}
@@ -61,7 +61,7 @@
 
 {% block page_content_after %}
     {% block main_after %}{% endblock %}
-    {% set event = trigger(constant('App\\Event\\ThemeEvent::CONTENT_AFTER')) %}
+    {% set event = trigger(constant('App\\Crm\\Transport\\Event\\ThemeEvent::CONTENT_AFTER')) %}
     {{ event.content|raw }}
     {% if page_setup is defined and page_setup.help is not null %}
         <div class="float-help">
@@ -74,10 +74,10 @@
 {% endblock %}
 
 {% block page_content %}
-    {% set event = trigger(constant('App\\Event\\ThemeEvent::CONTENT_START')) %}
+    {% set event = trigger(constant('App\\Crm\\Transport\\Event\\ThemeEvent::CONTENT_START')) %}
     {{ event.content|raw }}
     {% block main %}{% endblock %}
-    {% set event = trigger(constant('App\\Event\\ThemeEvent::CONTENT_END')) %}
+    {% set event = trigger(constant('App\\Crm\\Transport\\Event\\ThemeEvent::CONTENT_END')) %}
     {{ event.content|raw }}
 {% endblock %}
 
@@ -102,7 +102,7 @@
         {% endif %}
         {% include 'partials/user-shortcuts.html.twig' %}
         {% block navbar_extensions_after %}
-            {% set event = trigger(constant('App\\Event\\ThemeEvent::TOOLBAR')) %}
+            {% set event = trigger(constant('App\\Crm\\Transport\\Event\\ThemeEvent::TOOLBAR')) %}
             {{ event.content|raw }}
         {% endblock %}
     {% endif %}
@@ -112,27 +112,28 @@
 {% block page_pretitle %}{% endblock %}
 
 {% block stylesheets %}
+
     {% if tabler_bundle.isRightToLeft() %}
         {{ encore_entry_link_tags('app-rtl') }}
     {% else %}
         {{ encore_entry_link_tags('app') }}
     {% endif %}
-    {% set event = trigger(constant('App\\Event\\ThemeEvent::STYLESHEET')) %}
+    {% set event = trigger(constant('App\\Crm\\Transport\\Event\\ThemeEvent::STYLESHEET')) %}
     {{ event.content|raw }}
 {% endblock %}
 
 {% block head %}
     {% include 'partials/head.html.twig' %}
     {{ encore_entry_script_tags('app') }}
-    {% set event = trigger(constant('App\\Event\\ThemeEvent::HTML_HEAD')) %}
+    {% set event = trigger(constant('App\\Crm\\Transport\\Event\\ThemeEvent::HTML_HEAD')) %}
     {{ event.content|raw }}
 {% endblock %}
 
 {% block javascripts %}
-    {# no call to parent(), as we use a custom built for the frontend assets and don't want the default <script> #}
+
     {% import "macros/webloader.html.twig" as webloader %}
     {{ webloader.init_frontend_loader() }}
-    {% set event = trigger(constant('App\\Event\\ThemeEvent::JAVASCRIPT')) %}
+    {% set event = trigger(constant('App\\Crm\\Transport\\Event\\ThemeEvent::JAVASCRIPT')) %}
     {{ event.content|raw }}
 {% endblock %}
 

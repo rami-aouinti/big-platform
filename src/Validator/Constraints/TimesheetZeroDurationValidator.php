@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
@@ -17,8 +12,9 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class TimesheetZeroDurationValidator extends ConstraintValidator
 {
-    public function __construct(private readonly SystemConfiguration $configuration)
-    {
+    public function __construct(
+        private readonly SystemConfiguration $configuration
+    ) {
     }
 
     public function validate(mixed $value, Constraint $constraint): void

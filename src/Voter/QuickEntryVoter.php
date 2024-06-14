@@ -1,17 +1,12 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Voter;
 
-use App\User\Domain\Entity\User;
+use App\Crm\Application\Service\Timesheet\TrackingModeService;
 use App\Security\RolePermissionManager;
-use App\Timesheet\TrackingModeService;
+use App\User\Domain\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -23,13 +18,12 @@ final class QuickEntryVoter extends Voter
     public function __construct(
         private readonly RolePermissionManager $permissionManager,
         private readonly TrackingModeService $trackingModeService
-    )
-    {
+    ) {
     }
 
     public function supportsAttribute(string $attribute): bool
     {
-        return 'quick-entry' === $attribute;
+        return $attribute === 'quick-entry';
     }
 
     protected function supports(string $attribute, mixed $subject): bool

@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Pdf;
 
@@ -18,8 +13,54 @@ use Mpdf\Output\Destination;
 
 final class MPdfConverter implements HtmlToPdfConverter
 {
-    public function __construct(private FileHelper $fileHelper, private string $cacheDirectory)
+    public function __construct(
+        private FileHelper $fileHelper,
+        private string $cacheDirectory
+    ) {
+    }
+
+    /**
+     * @throws \Mpdf\MpdfException
+     */
+    public function convertToPdf(string $html, array $options = []): string
     {
+        $sanitized = array_merge(
+            $this->sanitizeOptions($options),
+            [
+                'tempDir' => $this->cacheDirectory,
+                'exposeVersion' => false,
+            ]
+        );
+
+        $mpdf = $this->initMpdf($sanitized);
+
+        // some OS'es do not follow the PHP default settings
+        if ((int)\ini_get('pcre.backtrack_limit') < 1000000) {
+            @ini_set('pcre.backtrack_limit', '1000000');
+        }
+
+        // large amount of data take time
+        @ini_set('max_execution_time', '120');
+
+        // reduce the size of content parts that are passed to MPDF, to prevent
+        // https://mpdf.github.io/troubleshooting/known-issues.html#blank-pages-or-some-sections-missing
+        $parts = explode('<pagebreak>', $html);
+        for ($i = 0; $i < \count($parts); $i++) {
+            if (stripos($parts[$i], '<!-- CONTENT_PART -->') !== false) {
+                $subParts = explode('<!-- CONTENT_PART -->', $parts[$i]);
+                foreach ($subParts as $subPart) {
+                    $mpdf->WriteHTML($subPart);
+                }
+            } else {
+                $mpdf->WriteHTML($parts[$i]);
+            }
+
+            if ($i < \count($parts) - 1) {
+                $mpdf->WriteHTML('<pagebreak>');
+            }
+        }
+
+        return $mpdf->Output('', Destination::STRING_RETURN);
     }
 
     private function sanitizeOptions(array $options): array
@@ -49,52 +90,7 @@ final class MPdfConverter implements HtmlToPdfConverter
     }
 
     /**
-     * @param string $html
-     * @param array $options
-     * @return string
-     * @throws \Mpdf\MpdfException
-     */
-    public function convertToPdf(string $html, array $options = []): string
-    {
-        $sanitized = array_merge(
-            $this->sanitizeOptions($options),
-            ['tempDir' => $this->cacheDirectory, 'exposeVersion' => false]
-        );
-
-        $mpdf = $this->initMpdf($sanitized);
-
-        // some OS'es do not follow the PHP default settings
-        if ((int) \ini_get('pcre.backtrack_limit') < 1000000) {
-            @ini_set('pcre.backtrack_limit', '1000000');
-        }
-
-        // large amount of data take time
-        @ini_set('max_execution_time', '120');
-
-        // reduce the size of content parts that are passed to MPDF, to prevent
-        // https://mpdf.github.io/troubleshooting/known-issues.html#blank-pages-or-some-sections-missing
-        $parts = explode('<pagebreak>', $html);
-        for ($i = 0; $i < \count($parts); $i++) {
-            if (stripos($parts[$i], '<!-- CONTENT_PART -->') !== false) {
-                $subParts = explode('<!-- CONTENT_PART -->', $parts[$i]);
-                foreach ($subParts as $subPart) {
-                    $mpdf->WriteHTML($subPart);
-                }
-            } else {
-                $mpdf->WriteHTML($parts[$i]);
-            }
-
-            if ($i < \count($parts) - 1) {
-                $mpdf->WriteHTML('<pagebreak>');
-            }
-        }
-
-        return $mpdf->Output('', Destination::STRING_RETURN);
-    }
-
-    /**
      * @param array<string, array<mixed>> $options
-     * @return Mpdf
      */
     private function initMpdf(array $options): Mpdf
     {

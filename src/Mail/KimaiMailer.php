@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Mail;
 
@@ -17,8 +12,10 @@ use Symfony\Component\Mime\RawMessage;
 
 final class KimaiMailer implements MailerInterface
 {
-    public function __construct(private readonly MailConfiguration $configuration, private readonly MailerInterface $mailer)
-    {
+    public function __construct(
+        private readonly MailConfiguration $configuration,
+        private readonly MailerInterface $mailer
+    ) {
     }
 
     public function send(RawMessage $message, Envelope $envelope = null): void

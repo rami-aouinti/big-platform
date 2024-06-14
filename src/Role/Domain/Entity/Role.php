@@ -90,7 +90,7 @@ class Role implements EntityInterface
         return $this->name;
     }
 
-    public function setName(string $name): Role
+    public function setName(string $name): self
     {
         $this->name = strtoupper($name);
 

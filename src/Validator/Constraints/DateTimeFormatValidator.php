@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
@@ -17,7 +12,6 @@ final class DateTimeFormatValidator extends ConstraintValidator
 {
     /**
      * @param string|mixed|null $value
-     * @param Constraint $constraint
      */
     public function validate(mixed $value, Constraint $constraint): void
     {
@@ -61,7 +55,7 @@ final class DateTimeFormatValidator extends ConstraintValidator
             }
         }
 
-        if (false === $valid) {
+        if ($valid === false) {
             $this->context->buildViolation(DateTimeFormat::getErrorName(DateTimeFormat::INVALID_FORMAT))
                 ->setTranslationDomain('validators')
                 ->setCode(DateTimeFormat::INVALID_FORMAT)

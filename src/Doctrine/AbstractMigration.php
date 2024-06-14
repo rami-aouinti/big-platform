@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Doctrine;
 
@@ -45,19 +40,6 @@ abstract class AbstractMigration extends BaseAbstractMigration
         $this->abortIfPlatformNotSupported();
     }
 
-    /**
-     * Abort the migration is the current platform is not supported.
-     *
-     * @throws Exception
-     */
-    private function abortIfPlatformNotSupported(): void
-    {
-        $platform = $this->connection->getDatabasePlatform();
-        if (!($platform instanceof MySQLPlatform)) {
-            $this->abortIf(true, 'Unsupported database platform: ' . \get_class($platform));
-        }
-    }
-
     protected function preventEmptyMigrationWarning(): void
     {
         $this->addSql('#prevent empty warning - no SQL to execute');
@@ -77,5 +59,18 @@ abstract class AbstractMigration extends BaseAbstractMigration
         }
 
         parent::addSql($sql, $params, $types);
+    }
+
+    /**
+     * Abort the migration is the current platform is not supported.
+     *
+     * @throws Exception
+     */
+    private function abortIfPlatformNotSupported(): void
+    {
+        $platform = $this->connection->getDatabasePlatform();
+        if (!($platform instanceof MySQLPlatform)) {
+            $this->abortIf(true, 'Unsupported database platform: ' . \get_class($platform));
+        }
     }
 }

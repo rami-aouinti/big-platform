@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Utils;
 
@@ -22,8 +17,9 @@ final class PageSetup
     private ?DataTable $dataTable = null;
     private ?FormInterface $paginationForm = null;
 
-    public function __construct(private string $title)
-    {
+    public function __construct(
+        private string $title
+    ) {
     }
 
     public function setPaginationForm(FormInterface $paginationForm): void

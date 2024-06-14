@@ -1,26 +1,23 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Widget\Type;
 
+use App\Crm\Application\Service\Project\ProjectStatisticService;
+use App\Crm\Domain\Repository\Loader\ProjectLoader;
+use App\Crm\Domain\Repository\Loader\TeamLoader;
 use App\Entity\Project;
 use App\Entity\Team;
-use App\Project\ProjectStatisticService;
-use App\Repository\Loader\ProjectLoader;
-use App\Repository\Loader\TeamLoader;
 use App\Widget\WidgetInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 final class UserTeamProjects extends AbstractWidget
 {
-    public function __construct(private ProjectStatisticService $statisticService, private EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        private ProjectStatisticService $statisticService,
+        private EntityManagerInterface $entityManager
+    ) {
     }
 
     public function getWidth(): int

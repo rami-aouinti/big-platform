@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
@@ -24,8 +19,7 @@ final class TimesheetValidator extends ConstraintValidator
     public function __construct(
         #[TaggedIterator(TimesheetConstraint::class)]
         private iterable $constraints
-    )
-    {
+    ) {
     }
 
     public function validate(mixed $value, Constraint $constraint): void

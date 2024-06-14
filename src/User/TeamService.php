@@ -1,15 +1,10 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\User;
 
-use App\Repository\TeamRepository;
+use App\Crm\Domain\Repository\TeamRepository;
 
 final class TeamService
 {
@@ -18,8 +13,9 @@ final class TeamService
      */
     private array $cache = [];
 
-    public function __construct(private TeamRepository $repository)
-    {
+    public function __construct(
+        private TeamRepository $repository
+    ) {
     }
 
     public function countTeams(): int

@@ -1,17 +1,12 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
 use App\Configuration\SystemConfiguration;
+use App\Crm\Domain\Repository\TimesheetRepository;
 use App\Entity\Timesheet as TimesheetEntity;
-use App\Repository\TimesheetRepository;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -21,8 +16,7 @@ final class TimesheetOverlappingValidator extends ConstraintValidator
     public function __construct(
         private readonly SystemConfiguration $configuration,
         private readonly TimesheetRepository $repository
-    )
-    {
+    ) {
     }
 
     public function validate(mixed $value, Constraint $constraint): void

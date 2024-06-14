@@ -1,17 +1,12 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Ldap;
 
 use App\Configuration\LdapConfiguration;
-use App\User\Domain\Entity\User;
 use App\Security\RoleService;
+use App\User\Domain\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -19,14 +14,16 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class LdapManager
 {
-    public function __construct(private LdapDriver $driver, private LdapConfiguration $config, private RoleService $roles)
-    {
+    public function __construct(
+        private LdapDriver $driver,
+        private LdapConfiguration $config,
+        private RoleService $roles
+    ) {
     }
 
     /**
      * Only executed for unknown local users.
      *
-     * @param string $username
      * @return User|null
      * @throws \Exception
      */
@@ -34,7 +31,9 @@ class LdapManager
     {
         $params = $this->config->getUserParameters();
 
-        $criteria = [$params['usernameAttribute'] => $username];
+        $criteria = [
+            $params['usernameAttribute'] => $username,
+        ];
 
         $params = $this->config->getUserParameters();
         $filter = $this->buildFilter($criteria);
@@ -44,26 +43,12 @@ class LdapManager
             throw new LdapDriverException('This search must only return a single user');
         }
 
-        if (0 === $entries['count']) {
+        if ($entries['count'] === 0) {
             return null;
         }
 
         // do not updateUser() here, as this would happen before bind()
         return $this->hydrate($entries[0]);
-    }
-
-    private function buildFilter(array $criteria, string $condition = '&'): string
-    {
-        $params = $this->config->getUserParameters();
-
-        $filters = [];
-        $filters[] = $params['filter'];
-        foreach ($criteria as $key => $value) {
-            $value = ldap_escape($value, '', LDAP_ESCAPE_FILTER);
-            $filters[] = sprintf('(%s=%s)', $key, $value);
-        }
-
-        return sprintf('(%s%s)', $condition, implode($filters));
     }
 
     public function bind(string $dn, string $password): bool
@@ -83,7 +68,7 @@ class LdapManager
     {
         // always look up the users current DN first, as the current user might be upgraded from local to LDAP
         $userFresh = $this->findUserByUsername($user->getUserIdentifier());
-        if (null === $userFresh || null === ($baseDn = $userFresh->getPreferenceValue('ldap_dn'))) {
+        if ($userFresh === null || null === ($baseDn = $userFresh->getPreferenceValue('ldap_dn'))) {
             throw new LdapDriverException(sprintf('Failed fetching user DN for %s', $user->getUserIdentifier()));
         }
         $user->setPreferenceValue('ldap_dn', $baseDn);
@@ -95,14 +80,14 @@ class LdapManager
             throw new LdapDriverException('This search must only return a single user');
         }
 
-        if (0 === $entries['count']) {
+        if ($entries['count'] === 0) {
             return;
         }
 
         $this->hydrateUser($user, $entries[0]);
 
         $roleParameter = $this->config->getRoleParameters();
-        if (null === $roleParameter['baseDn']) {
+        if ($roleParameter['baseDn'] === null) {
             return;
         }
 
@@ -120,17 +105,6 @@ class LdapManager
         if (!empty($roles)) {
             $this->hydrateRoles($user, $roles);
         }
-    }
-
-    private function getRoles(string $dn, array $roleParameter): array
-    {
-        $filter = $roleParameter['filter'] ?? '';
-
-        return $this->driver->search(
-            $roleParameter['baseDn'],
-            sprintf('(&%s(%s=%s))', $filter, $roleParameter['userDnAttribute'], ldap_escape($dn, '', LDAP_ESCAPE_FILTER)),
-            [$roleParameter['nameAttribute']]
-        );
     }
 
     // ===================================================================
@@ -153,7 +127,10 @@ class LdapManager
         }
         $attributeMap = array_merge(
             [
-                ['ldap_attr' => $userParams['usernameAttribute'], 'user_method' => 'setUserIdentifier'],
+                [
+                    'ldap_attr' => $userParams['usernameAttribute'],
+                    'user_method' => 'setUserIdentifier',
+                ],
             ],
             $attributeMap
         );
@@ -161,7 +138,7 @@ class LdapManager
         $this->hydrateUserWithAttributesMap($user, $ldapEntry, $attributeMap);
 
         $email = $user->getEmail();
-        if (null === $email) {
+        if ($email === null) {
             $user->setEmail($user->getUserIdentifier());
         }
 
@@ -174,10 +151,6 @@ class LdapManager
         $user->setPreferenceValue('ldap_dn', $ldapEntry['dn']);
     }
 
-    /**
-     * @param User $user
-     * @param array $entries
-     */
     public function hydrateRoles(User $user, array $entries): void
     {
         $roleParams = $this->config->getRoleParameters();
@@ -213,6 +186,31 @@ class LdapManager
         $user->setRoles($roles);
     }
 
+    private function buildFilter(array $criteria, string $condition = '&'): string
+    {
+        $params = $this->config->getUserParameters();
+
+        $filters = [];
+        $filters[] = $params['filter'];
+        foreach ($criteria as $key => $value) {
+            $value = ldap_escape($value, '', LDAP_ESCAPE_FILTER);
+            $filters[] = sprintf('(%s=%s)', $key, $value);
+        }
+
+        return sprintf('(%s%s)', $condition, implode($filters));
+    }
+
+    private function getRoles(string $dn, array $roleParameter): array
+    {
+        $filter = $roleParameter['filter'] ?? '';
+
+        return $this->driver->search(
+            $roleParameter['baseDn'],
+            sprintf('(&%s(%s=%s))', $filter, $roleParameter['userDnAttribute'], ldap_escape($dn, '', LDAP_ESCAPE_FILTER)),
+            [$roleParameter['nameAttribute']]
+        );
+    }
+
     private static function slugify(string $role): string
     {
         $role = preg_replace('/\W+/', '_', $role);
@@ -237,7 +235,7 @@ class LdapManager
                 unset($ldapValue['count']);
             }
 
-            if (1 === \count($ldapValue)) {
+            if (\count($ldapValue) === 1) {
                 $value = array_shift($ldapValue);
             } else {
                 $value = $ldapValue;

@@ -1,18 +1,13 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\DependencyInjection\Compiler;
 
-use App\Export\ExportRepositoryInterface;
-use App\Export\RendererInterface;
-use App\Export\ServiceExport;
-use App\Export\TimesheetExportInterface;
+use App\Crm\Application\Service\Invoice\RendererInterface;
+use App\Crm\Transport\API\Export\ExportRepositoryInterface;
+use App\Crm\Transport\API\Export\ServiceExport;
+use App\Crm\Transport\API\Export\TimesheetExportInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;

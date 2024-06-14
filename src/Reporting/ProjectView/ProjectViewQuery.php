@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Reporting\ProjectView;
 
@@ -19,8 +14,10 @@ final class ProjectViewQuery
     private bool $includeNoWork = false;
     private ?bool $budgetType = true;
 
-    public function __construct(private DateTime $today, private User $user)
-    {
+    public function __construct(
+        private DateTime $today,
+        private User $user
+    ) {
     }
 
     public function getUser(): User

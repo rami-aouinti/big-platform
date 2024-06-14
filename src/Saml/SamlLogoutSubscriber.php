@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Saml;
 
@@ -15,8 +10,9 @@ use Symfony\Component\Security\Http\Event\LogoutEvent;
 
 final class SamlLogoutSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly SamlAuthFactory $samlAuth)
-    {
+    public function __construct(
+        private readonly SamlAuthFactory $samlAuth
+    ) {
     }
 
     public static function getSubscribedEvents(): array

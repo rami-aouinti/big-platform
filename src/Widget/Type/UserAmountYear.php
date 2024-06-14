@@ -1,26 +1,24 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Widget\Type;
 
 use App\Configuration\SystemConfiguration;
-use App\Event\UserRevenueStatisticEvent;
-use App\Model\Revenue;
-use App\Repository\TimesheetRepository;
+use App\Crm\Application\Model\Revenue;
+use App\Crm\Domain\Repository\TimesheetRepository;
+use App\Crm\Transport\Event\UserRevenueStatisticEvent;
 use App\Widget\WidgetException;
 use App\Widget\WidgetInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 final class UserAmountYear extends AbstractCounterYear
 {
-    public function __construct(private TimesheetRepository $repository, SystemConfiguration $systemConfiguration, private EventDispatcherInterface $dispatcher)
-    {
+    public function __construct(
+        private TimesheetRepository $repository,
+        SystemConfiguration $systemConfiguration,
+        private EventDispatcherInterface $dispatcher
+    ) {
         parent::__construct($systemConfiguration);
     }
 
@@ -32,11 +30,6 @@ final class UserAmountYear extends AbstractCounterYear
     public function getPermissions(): array
     {
         return ['view_rate_own_timesheet'];
-    }
-
-    protected function getFinancialYearTitle(): string
-    {
-        return 'stats.amountFinancialYear';
     }
 
     public function getId(): string
@@ -54,6 +47,11 @@ final class UserAmountYear extends AbstractCounterYear
             'icon' => 'money',
             'color' => WidgetInterface::COLOR_YEAR,
         ], parent::getOptions($options));
+    }
+
+    protected function getFinancialYearTitle(): string
+    {
+        return 'stats.amountFinancialYear';
     }
 
     /**

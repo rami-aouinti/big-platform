@@ -1,33 +1,39 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\DependencyInjection;
 
 use App\Configuration\LocaleService;
 use App\Kernel;
+use Exception;
+use RecursiveArrayIterator;
+use RecursiveIteratorIterator;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Intl\Locales;
+
+use function array_key_exists;
+use function is_array;
 
 /**
  * This class that loads and manages the Kimai configuration and container parameter.
  */
 final class AppExtension extends Extension
 {
+    /**
+     * @throws Exception
+     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
+
         try {
             $config = $this->processConfiguration($configuration, $configs);
         } catch (InvalidConfigurationException $e) {
             trigger_error('Found invalid "kimai" configuration: ' . $e->getMessage());
+
             throw $e;
         }
 
@@ -72,12 +78,12 @@ final class AppExtension extends Extension
         // this should happen always at the end, so bundles do not mess with the base configuration
         if ($container->hasParameter('kimai.bundles.config')) {
             $bundleConfig = $container->getParameter('kimai.bundles.config');
-            if (!\is_array($bundleConfig)) {
-                throw new \Exception('Invalid bundle configuration found, skipping all bundle configuration');
+            if (!is_array($bundleConfig)) {
+                throw new Exception('Invalid bundle configuration found, skipping all bundle configuration');
             }
             foreach ($bundleConfig as $key => $value) {
-                if (\array_key_exists($key, $config)) {
-                    throw new \Exception(sprintf('Invalid bundle configuration "%s" found, skipping', $key));
+                if (array_key_exists($key, $config)) {
+                    throw new Exception(sprintf('Invalid bundle configuration "%s" found, skipping', $key));
                 }
                 $config[$key] = $value;
             }
@@ -92,7 +98,7 @@ final class AppExtension extends Extension
 
         // make configs a flat dotted notation during compile time, this will save us from the need to
         // parse each and every call to the config, but allows direct access
-        $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($config, \RecursiveArrayIterator::CHILD_ARRAYS_ONLY));
+        $iterator = new RecursiveIteratorIterator(new RecursiveArrayIterator($config, RecursiveArrayIterator::CHILD_ARRAYS_ONLY));
         $newConfig = [];
         foreach ($iterator as $value) {
             $keys = [];
@@ -103,6 +109,11 @@ final class AppExtension extends Extension
         }
 
         $container->setParameter('kimai.config', $newConfig);
+    }
+
+    public function getAlias(): string
+    {
+        return 'kimai';
     }
 
     private function setLanguageFormats(ContainerBuilder $container): void
@@ -122,7 +133,7 @@ final class AppExtension extends Extension
 
             $appLocales[$locale] = LocaleService::DEFAULT_SETTINGS;
 
-            if (\array_key_exists($locale, $settings)) {
+            if (array_key_exists($locale, $settings)) {
                 $appLocales[$locale] = array_merge($appLocales[$locale], $settings[$locale]);
             }
         }
@@ -135,9 +146,6 @@ final class AppExtension extends Extension
     /**
      * Performs some pre-compilation on the configured permissions from kimai.yaml
      * to save us from constant array lookups from during runtime.
-     *
-     * @param array $config
-     * @param ContainerBuilder $container
      */
     private function createPermissionParameter(array $config, ContainerBuilder $container): void
     {
@@ -158,6 +166,7 @@ final class AppExtension extends Extension
                         'Configured permission set "' . $set . '" for role "' . $role . '" is unknown'
                     );
                     $exception->setPath('kimai.permissions.maps.' . $role);
+
                     throw $exception;
                 }
                 $roles[$role] = array_merge($roles[$role] ?? [], $this->extractSinglePermissionsFromSet($config, $set));
@@ -166,7 +175,7 @@ final class AppExtension extends Extension
 
         // delete forbidden permissions from roles
         foreach (array_keys($config['maps']) as $name) {
-            if (\array_key_exists($name, $config['roles'])) {
+            if (array_key_exists($name, $config['roles'])) {
                 foreach ($config['roles'][$name] as $name2) {
                     $roles[$name][$name2] = true;
                 }
@@ -207,10 +216,5 @@ final class AppExtension extends Extension
         }
 
         return $result;
-    }
-
-    public function getAlias(): string
-    {
-        return 'kimai';
     }
 }

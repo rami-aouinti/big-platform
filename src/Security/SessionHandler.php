@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Security;
 
@@ -21,8 +16,7 @@ final class SessionHandler extends PdoSessionHandler
         Connection $connection,
         private readonly RateLimiterFactory $sessionPredictionLimiter,
         private readonly RequestStack $requestStack
-    )
-    {
+    ) {
         parent::__construct($connection->getNativeConnection(), [
             'db_table' => 'kimai2_sessions',
             'db_id_col' => 'id',
@@ -50,7 +44,7 @@ final class SessionHandler extends PdoSessionHandler
             $limiter = $this->sessionPredictionLimiter->create($this->requestStack->getMainRequest()?->getClientIp());
             $limit = $limiter->consume();
 
-            if (false === $limit->isAccepted()) {
+            if ($limit->isAccepted() === false) {
                 throw new BadRequestHttpException('Too many requests with invalid Session ID. Prediction attack?');
             }
         }

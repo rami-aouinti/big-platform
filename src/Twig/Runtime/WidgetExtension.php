@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Twig\Runtime;
 
@@ -19,14 +14,14 @@ use Twig\Extension\RuntimeExtensionInterface;
 
 final class WidgetExtension implements RuntimeExtensionInterface
 {
-    public function __construct(private WidgetService $service, private Security $security)
-    {
+    public function __construct(
+        private WidgetService $service,
+        private Security $security
+    ) {
     }
 
     /**
      * @param WidgetInterface|string $widget
-     * @param array $options
-     * @return string
      * @throws WidgetException
      */
     public function renderWidget(Environment $environment, $widget, array $options = []): string

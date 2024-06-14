@@ -1,18 +1,13 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\User\Transport\Form\Type\Console;
 
+use App\Crm\Domain\Repository\Query\UserFormTypeQuery;
+use App\Crm\Domain\Repository\Query\VisibilityInterface;
+use App\Crm\Domain\Repository\UserRepository;
 use App\User\Domain\Entity\User;
-use App\Repository\Query\UserFormTypeQuery;
-use App\Repository\Query\VisibilityInterface;
-use App\Repository\UserRepository;
 use App\Utils\Color;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -27,8 +22,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class UserType extends AbstractType
 {
-    public function __construct(private readonly UserRepository $userRepository)
-    {
+    public function __construct(
+        private readonly UserRepository $userRepository
+    ) {
     }
 
     public function configureOptions(OptionsResolver $resolver): void

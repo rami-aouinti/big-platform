@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Twig\Runtime;
 
@@ -21,9 +16,7 @@ final class QrCodeExtension implements RuntimeExtensionInterface
     }
 
     /**
-     * @param string $data
      * @param array<string, mixed> $writerOptions
-     * @return string
      */
     public function qrCodeDataUriFunction(string $data, array $writerOptions = []): string
     {

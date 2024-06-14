@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Utils;
 
@@ -38,6 +33,11 @@ final class SearchTerm
         $this->fields = $fields;
     }
 
+    public function __toString(): string
+    {
+        return $this->originalTerm;
+    }
+
     public function hasSearchField(string $name): bool
     {
         return \array_key_exists($name, $this->fields);
@@ -68,11 +68,6 @@ final class SearchTerm
     }
 
     public function getOriginalSearch(): string
-    {
-        return $this->originalTerm;
-    }
-
-    public function __toString(): string
     {
         return $this->originalTerm;
     }

@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Security;
 
@@ -36,33 +31,7 @@ final class RolePermissionManager
         private readonly PermissionService $service,
         private array $permissions,
         private readonly array $permissionNames
-    )
-    {
-    }
-
-    private function init(): void
-    {
-        if ($this->isInitialized) {
-            return;
-        }
-
-        foreach ($this->service->getPermissions() as $item) {
-            $perm = (string) $item['permission'];
-            $role = (string) $item['role'];
-
-            if (!\array_key_exists($role, $this->permissions)) {
-                $this->permissions[$role] = [];
-            }
-
-            $this->permissions[$role][$perm] = (bool) $item['allowed'];
-        }
-
-        // these permissions may not be revoked at any time, because super admin would lose the ability to reactivate any permission
-        foreach (self::SUPER_ADMIN_PERMISSIONS as $perm => $value) {
-            $this->permissions[User::ROLE_SUPER_ADMIN][$perm] = $value;
-        }
-
-        $this->isInitialized = true;
+    ) {
     }
 
     /**
@@ -107,5 +76,30 @@ final class RolePermissionManager
     public function getPermissions(): array
     {
         return array_keys($this->permissionNames);
+    }
+
+    private function init(): void
+    {
+        if ($this->isInitialized) {
+            return;
+        }
+
+        foreach ($this->service->getPermissions() as $item) {
+            $perm = (string)$item['permission'];
+            $role = (string)$item['role'];
+
+            if (!\array_key_exists($role, $this->permissions)) {
+                $this->permissions[$role] = [];
+            }
+
+            $this->permissions[$role][$perm] = (bool)$item['allowed'];
+        }
+
+        // these permissions may not be revoked at any time, because super admin would lose the ability to reactivate any permission
+        foreach (self::SUPER_ADMIN_PERMISSIONS as $perm => $value) {
+            $this->permissions[User::ROLE_SUPER_ADMIN][$perm] = $value;
+        }
+
+        $this->isInitialized = true;
     }
 }

@@ -1,17 +1,12 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Security;
 
 use App\Configuration\SystemConfiguration;
-use App\User\Domain\Entity\User;
 use App\Ldap\LdapUserProvider;
+use App\User\Domain\Entity\User;
 use Symfony\Component\Security\Core\User\ChainUserProvider;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -29,29 +24,10 @@ final class KimaiUserProvider implements UserProviderInterface, PasswordUpgrader
     /**
      * @param iterable<UserProviderInterface<User>> $providers
      */
-    public function __construct(private iterable $providers, private SystemConfiguration $configuration)
-    {
-    }
-
-    private function getInternalProvider(): ChainUserProvider
-    {
-        if ($this->provider === null) {
-            $activated = [];
-            foreach ($this->providers as $provider) {
-                if ($provider instanceof LdapUserProvider) {
-                    if (!class_exists('Laminas\Ldap\Ldap')) {
-                        continue;
-                    }
-                    if (!$this->configuration->isLdapActive()) {
-                        continue;
-                    }
-                }
-                $activated[] = $provider;
-            }
-            $this->provider = new ChainUserProvider(new \ArrayIterator($activated));
-        }
-
-        return $this->provider;
+    public function __construct(
+        private iterable $providers,
+        private SystemConfiguration $configuration
+    ) {
     }
 
     public function getProviders(): array
@@ -77,5 +53,26 @@ final class KimaiUserProvider implements UserProviderInterface, PasswordUpgrader
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
         $this->getInternalProvider()->upgradePassword($user, $newHashedPassword);
+    }
+
+    private function getInternalProvider(): ChainUserProvider
+    {
+        if ($this->provider === null) {
+            $activated = [];
+            foreach ($this->providers as $provider) {
+                if ($provider instanceof LdapUserProvider) {
+                    if (!class_exists('Laminas\Ldap\Ldap')) {
+                        continue;
+                    }
+                    if (!$this->configuration->isLdapActive()) {
+                        continue;
+                    }
+                }
+                $activated[] = $provider;
+            }
+            $this->provider = new ChainUserProvider(new \ArrayIterator($activated));
+        }
+
+        return $this->provider;
     }
 }

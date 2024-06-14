@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Twig\SecurityPolicy;
 
@@ -23,7 +18,9 @@ use Twig\Template;
  */
 final class ForbiddenPolicy implements SecurityPolicyInterface
 {
-    /** @var array<string, array<string>> */
+    /**
+     * @var array<string, array<string>>
+     */
     private array $forbiddenMethods = [];
 
     /**
@@ -39,11 +36,12 @@ final class ForbiddenPolicy implements SecurityPolicyInterface
         array $forbiddenMethods = [],
         private array $forbiddenProperties = [],
         private array $forbiddenFunctions = []
-    )
-    {
+    ) {
         $this->forbiddenMethods = [];
         foreach ($forbiddenMethods as $class => $m) {
-            $this->forbiddenMethods[$class] = array_map(function ($value) { return strtr($value, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'); }, \is_array($m) ? $m : [$m]);
+            $this->forbiddenMethods[$class] = array_map(function ($value) {
+                return strtr($value, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
+            }, \is_array($m) ? $m : [$m]);
         }
     }
 
@@ -86,6 +84,7 @@ final class ForbiddenPolicy implements SecurityPolicyInterface
 
         if ($forbidden) {
             $class = \get_class($obj);
+
             throw new SecurityNotAllowedMethodError(sprintf('Calling "%s" method on a "%s" object is not allowed.', $method, $class), $class, $method);
         }
     }
@@ -103,6 +102,7 @@ final class ForbiddenPolicy implements SecurityPolicyInterface
 
         if ($forbidden) {
             $class = \get_class($obj);
+
             throw new SecurityNotAllowedPropertyError(sprintf('Calling "%s" property on a "%s" object is not allowed.', $property, $class), $class, $property);
         }
     }

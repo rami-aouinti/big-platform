@@ -1,22 +1,25 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Twig;
 
-use App\Entity\Bookmark;
+use App\Crm\Domain\Entity\Bookmark;
+use App\Crm\Domain\Repository\BookmarkRepository;
 use App\User\Domain\Entity\User;
-use App\Repository\BookmarkRepository;
 use App\Utils\ProfileManager;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
+use function array_key_exists;
+use function is_array;
+use function is_string;
+
+/**
+ * @package App\Twig
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class DatatableExtensions extends AbstractExtension
 {
     /**
@@ -26,25 +29,21 @@ final class DatatableExtensions extends AbstractExtension
     private array $tableNames = [];
     private ?string $prefix = null;
 
-    public function __construct(private BookmarkRepository $bookmarkRepository, private ProfileManager $profileManager)
-    {
+    public function __construct(
+        private readonly BookmarkRepository $bookmarkRepository,
+        private readonly ProfileManager $profileManager
+    ) {
     }
 
+    /**
+     * @return TwigFunction[]
+     */
     public function getFunctions(): array
     {
         return [
             new TwigFunction('initialize_datatable', [$this, 'initializeDatatable']),
             new TwigFunction('datatable_column_class', [$this, 'getDatatableColumnClass']),
         ];
-    }
-
-    private function getDatatableName(string $dataTable): string
-    {
-        if (!\array_key_exists($dataTable, $this->tableNames)) {
-            $this->tableNames[$dataTable] = $this->profileManager->getDatatableName($dataTable, $this->prefix);
-        }
-
-        return $this->tableNames[$dataTable];
     }
 
     public function initializeDatatable(User $user, Session $session, string $dataTable, array $defaultColumns): array
@@ -54,12 +53,12 @@ final class DatatableExtensions extends AbstractExtension
             $dataTable = $this->getDatatableName($dataTable);
         }
 
-        if (!\array_key_exists($dataTable, $this->dataTables)) {
+        if (!array_key_exists($dataTable, $this->dataTables)) {
             $columns = [];
             foreach ($defaultColumns as $key => $settings) {
                 $columns[$key] = [
                     'visible' => $this->checkInColumDefinition($defaultColumns, $key),
-                    'class' => \array_key_exists($key, $defaultColumns) ? $this->getClass($settings) : ''
+                    'class' => array_key_exists($key, $defaultColumns) ? $this->getClass($settings) : '',
                 ];
                 // add an auto-generated class
                 $columns[$key]['class'] = trim($columns[$key]['class'] . ' col_' . $key);
@@ -69,12 +68,12 @@ final class DatatableExtensions extends AbstractExtension
             if ($bookmark !== null) {
                 $content = $bookmark->getContent();
                 foreach ($content as $key => $value) {
-                    if (!\array_key_exists($key, $columns)) {
+                    if (!array_key_exists($key, $columns)) {
                         // if a column does not exist any longer, it needs to be skipped, otherwise an error will
                         // be raised while accessing the visible/class keys
                         continue;
                     }
-                    $columns[$key]['visible'] = (bool) $value;
+                    $columns[$key]['visible'] = (bool)$value;
                 }
 
                 // disable all columns, which were not bookmarked as visible
@@ -104,20 +103,29 @@ final class DatatableExtensions extends AbstractExtension
     {
         $dataTable = $this->getDatatableName($dataTable);
 
-        if (!\array_key_exists($dataTable, $this->dataTables)) {
+        if (!array_key_exists($dataTable, $this->dataTables)) {
             return '';
         }
 
-        if (!\array_key_exists($column, $this->dataTables[$dataTable])) {
+        if (!array_key_exists($column, $this->dataTables[$dataTable])) {
             return '';
         }
 
         return $this->dataTables[$dataTable][$column]['class'];
     }
 
+    private function getDatatableName(string $dataTable): string
+    {
+        if (!array_key_exists($dataTable, $this->tableNames)) {
+            $this->tableNames[$dataTable] = $this->profileManager->getDatatableName($dataTable, $this->prefix);
+        }
+
+        return $this->tableNames[$dataTable];
+    }
+
     private function checkInColumDefinition(array $columns, string $column): bool
     {
-        if (!\array_key_exists($column, $columns)) {
+        if (!array_key_exists($column, $columns)) {
             return false;
         }
 
@@ -171,15 +179,15 @@ final class DatatableExtensions extends AbstractExtension
 
     private function getClass($class): string
     {
-        if (\is_array($class)) {
-            if (!\array_key_exists('class', $class)) {
+        if (is_array($class)) {
+            if (!array_key_exists('class', $class)) {
                 return '';
             }
 
             return $class['class'];
         }
 
-        if (!\is_string($class)) {
+        if (!is_string($class)) {
             return '';
         }
 

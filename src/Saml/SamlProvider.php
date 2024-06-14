@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Saml;
 
@@ -45,7 +40,7 @@ final class SamlProvider
         }
 
         try {
-            if (null === $user) {
+            if ($user === null) {
                 $user = $this->userService->createNewUser();
                 $user->setUserIdentifier($token->getUserIdentifier());
             }
@@ -53,6 +48,7 @@ final class SamlProvider
             $this->userService->saveUser($user);
         } catch (\Exception $ex) {
             $this->logger->error($ex->getMessage());
+
             throw new AuthenticationException(
                 sprintf('Failed creating or hydrating user "%s": %s', $token->getUserIdentifier(), $ex->getMessage())
             );
@@ -99,7 +95,7 @@ final class SamlProvider
             $value = $this->getPropertyValue($token, $attribute);
             $setter = 'set' . ucfirst($field);
             if (method_exists($user, $setter)) {
-                $user->$setter($value);
+                $user->{$setter}($value);
             } else {
                 // this should never happen, because it is validated when the container is built
                 throw new \RuntimeException('Invalid SAML mapping field: ' . $field);

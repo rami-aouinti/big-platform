@@ -1,19 +1,14 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Reporting\CustomerMonthlyProjects;
 
+use App\Crm\Domain\Repository\TimesheetRepository;
 use App\Entity\Activity;
 use App\Entity\Customer;
 use App\Entity\Project;
 use App\User\Domain\Entity\User;
-use App\Repository\TimesheetRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\Join;
@@ -23,13 +18,11 @@ final class CustomerMonthlyProjectsRepository
     public function __construct(
         private readonly TimesheetRepository $repository,
         private readonly EntityManagerInterface $entityManager
-    )
-    {
+    ) {
     }
 
     /**
      * @param User[] $users
-     * @return array
      * @internal
      */
     public function getGroupedByCustomerProjectActivityUser(DateTime $begin, DateTime $end, array $users, ?Customer $customer): array
@@ -100,9 +93,9 @@ final class CustomerMonthlyProjectsRepository
                 ];
             }
 
-            $stats[$projectId]['duration'] += (int) $row['duration'];
-            $stats[$projectId]['rate'] += (int) $row['rate'];
-            $stats[$projectId]['internalRate'] += (int) $row['internalRate'];
+            $stats[$projectId]['duration'] += (int)$row['duration'];
+            $stats[$projectId]['rate'] += (int)$row['rate'];
+            $stats[$projectId]['internalRate'] += (int)$row['internalRate'];
 
             if (!isset($stats[$projectId]['activities'][$activityId])) {
                 $stats[$projectId]['activities'][$activityId] = [
@@ -115,9 +108,9 @@ final class CustomerMonthlyProjectsRepository
                 ];
             }
 
-            $stats[$projectId]['activities'][$activityId]['duration'] += (int) $row['duration'];
-            $stats[$projectId]['activities'][$activityId]['rate'] += (int) $row['rate'];
-            $stats[$projectId]['activities'][$activityId]['internalRate'] += (int) $row['internalRate'];
+            $stats[$projectId]['activities'][$activityId]['duration'] += (int)$row['duration'];
+            $stats[$projectId]['activities'][$activityId]['rate'] += (int)$row['rate'];
+            $stats[$projectId]['activities'][$activityId]['internalRate'] += (int)$row['internalRate'];
 
             if (!isset($stats[$projectId]['activities'][$activityId]['users'][$userId])) {
                 $stats[$projectId]['activities'][$activityId]['users'][$userId] = [
@@ -129,9 +122,9 @@ final class CustomerMonthlyProjectsRepository
                 ];
             }
 
-            $stats[$projectId]['activities'][$activityId]['users'][$userId]['duration'] += (int) $row['duration'];
-            $stats[$projectId]['activities'][$activityId]['users'][$userId]['rate'] += (int) $row['rate'];
-            $stats[$projectId]['activities'][$activityId]['users'][$userId]['internalRate'] += (int) $row['internalRate'];
+            $stats[$projectId]['activities'][$activityId]['users'][$userId]['duration'] += (int)$row['duration'];
+            $stats[$projectId]['activities'][$activityId]['users'][$userId]['rate'] += (int)$row['rate'];
+            $stats[$projectId]['activities'][$activityId]['users'][$userId]['internalRate'] += (int)$row['internalRate'];
         }
 
         $qb = $this->entityManager->createQueryBuilder();

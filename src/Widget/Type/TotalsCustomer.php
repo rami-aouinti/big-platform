@@ -1,22 +1,18 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Widget\Type;
 
-use App\Repository\CustomerRepository;
-use App\Repository\Query\CustomerQuery;
+use App\Crm\Domain\Repository\CustomerRepository;
+use App\Crm\Domain\Repository\Query\CustomerQuery;
 use App\Widget\WidgetInterface;
 
 final class TotalsCustomer extends AbstractWidget
 {
-    public function __construct(private CustomerRepository $customer)
-    {
+    public function __construct(
+        private CustomerRepository $customer
+    ) {
     }
 
     public function getTitle(): string

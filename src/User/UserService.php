@@ -1,25 +1,20 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\User;
 
 use App\Configuration\SystemConfiguration;
+use App\Crm\Domain\Entity\UserPreference;
+use App\Crm\Domain\Repository\UserRepository;
+use App\Crm\Transport\Event\UserCreateEvent;
+use App\Crm\Transport\Event\UserCreatePostEvent;
+use App\Crm\Transport\Event\UserCreatePreEvent;
+use App\Crm\Transport\Event\UserDeletePostEvent;
+use App\Crm\Transport\Event\UserDeletePreEvent;
+use App\Crm\Transport\Event\UserUpdatePostEvent;
+use App\Crm\Transport\Event\UserUpdatePreEvent;
 use App\User\Domain\Entity\User;
-use App\Entity\UserPreference;
-use App\Event\UserCreateEvent;
-use App\Event\UserCreatePostEvent;
-use App\Event\UserCreatePreEvent;
-use App\Event\UserDeletePostEvent;
-use App\Event\UserDeletePreEvent;
-use App\Event\UserUpdatePostEvent;
-use App\Event\UserUpdatePreEvent;
-use App\Repository\UserRepository;
 use App\Validator\ValidationFailedException;
 use InvalidArgumentException;
 use Psr\EventDispatcher\EventDispatcherInterface;
@@ -74,9 +69,9 @@ class UserService
     {
         if ($user->getId() === null) {
             return $this->saveNewUser($user);
-        } else {
-            return $this->updateUser($user);
         }
+
+        return $this->updateUser($user);
     }
 
     /**
@@ -84,7 +79,7 @@ class UserService
      */
     public function saveNewUser(User $user): User
     {
-        if (null !== $user->getId()) {
+        if ($user->getId() !== null) {
             throw new InvalidArgumentException('Cannot create user, already persisted');
         }
 
@@ -98,20 +93,6 @@ class UserService
         $this->dispatcher->dispatch(new UserCreatePostEvent($user));
 
         return $user;
-    }
-
-    /**
-     * @param User $user
-     * @param string[] $groups
-     * @throws ValidationFailedException
-     */
-    private function validateUser(User $user, array $groups = []): void
-    {
-        $errors = $this->validator->validate($user, null, $groups);
-
-        if ($errors->count() > 0) {
-            throw new ValidationFailedException($errors, 'Validation Failed');
-        }
     }
 
     public function updateUser(User $user, array $groups = []): User
@@ -146,7 +127,9 @@ class UserService
 
     public function findUserByEmail(string $email): ?User
     {
-        return $this->repository->findOneBy(['email' => $email]);
+        return $this->repository->findOneBy([
+            'email' => $email,
+        ]);
     }
 
     public function findUserByName(string $name): ?User
@@ -156,12 +139,16 @@ class UserService
 
     public function findUserByDisplayName(string $name): ?User
     {
-        return $this->repository->findOneBy(['alias' => $name]);
+        return $this->repository->findOneBy([
+            'alias' => $name,
+        ]);
     }
 
     public function findUserByConfirmationToken(string $token): ?User
     {
-        return $this->repository->findOneBy(['confirmationToken' => $token]);
+        return $this->repository->findOneBy([
+            'confirmationToken' => $token,
+        ]);
     }
 
     public function generateSecurityToken(): string
@@ -169,11 +156,31 @@ class UserService
         return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
     }
 
+    public function deleteUser(User $delete, ?User $replace = null): void
+    {
+        $this->dispatcher->dispatch(new UserDeletePreEvent($delete, $replace));
+        $this->repository->deleteUser($delete, $replace);
+        $this->dispatcher->dispatch(new UserDeletePostEvent($delete, $replace));
+    }
+
+    /**
+     * @param string[] $groups
+     * @throws ValidationFailedException
+     */
+    private function validateUser(User $user, array $groups = []): void
+    {
+        $errors = $this->validator->validate($user, null, $groups);
+
+        if ($errors->count() > 0) {
+            throw new ValidationFailedException($errors, 'Validation Failed');
+        }
+    }
+
     private function hashPassword(User $user): void
     {
         $plain = $user->getPlainPassword();
 
-        if ($plain === null || 0 === \strlen($plain)) {
+        if ($plain === null || \strlen($plain) === 0) {
             return;
         }
 
@@ -186,19 +193,12 @@ class UserService
     {
         $plain = $user->getPlainApiToken();
 
-        if ($plain === null || 0 === \strlen($plain)) {
+        if ($plain === null || \strlen($plain) === 0) {
             return;
         }
 
         $password = $this->passwordHasher->hashPassword($user, $plain);
         $user->setApiToken($password);
         $user->eraseCredentials();
-    }
-
-    public function deleteUser(User $delete, ?User $replace = null): void
-    {
-        $this->dispatcher->dispatch(new UserDeletePreEvent($delete, $replace));
-        $this->repository->deleteUser($delete, $replace);
-        $this->dispatcher->dispatch(new UserDeletePostEvent($delete, $replace));
     }
 }

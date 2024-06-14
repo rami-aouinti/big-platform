@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Ldap;
 
@@ -21,8 +16,10 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
  */
 final class LdapUserProvider implements UserProviderInterface
 {
-    public function __construct(private LdapManager $ldapManager, private ?LoggerInterface $logger = null)
-    {
+    public function __construct(
+        private LdapManager $ldapManager,
+        private ?LoggerInterface $logger = null
+    ) {
     }
 
     public function loadUserByIdentifier(string $identifier): UserInterface

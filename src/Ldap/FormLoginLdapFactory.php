@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Ldap;
 
@@ -59,7 +54,9 @@ final class FormLoginLdapFactory extends AbstractFactory implements Authenticato
         }
 
         $container->setDefinition('security.listener.' . $key . '.' . $firewallName, new Definition(LdapCredentialsSubscriber::class))
-            ->addTag('kernel.event_subscriber', ['dispatcher' => 'security.event_dispatcher.' . $firewallName])
+            ->addTag('kernel.event_subscriber', [
+                'dispatcher' => 'security.event_dispatcher.' . $firewallName,
+            ])
             ->addArgument(new Reference(LdapManager::class))
         ;
 

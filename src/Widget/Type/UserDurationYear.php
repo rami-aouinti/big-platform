@@ -1,23 +1,20 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Widget\Type;
 
 use App\Configuration\SystemConfiguration;
-use App\Repository\TimesheetRepository;
+use App\Crm\Domain\Repository\TimesheetRepository;
 use App\Widget\WidgetException;
 use App\Widget\WidgetInterface;
 
 final class UserDurationYear extends AbstractCounterYear
 {
-    public function __construct(private TimesheetRepository $repository, SystemConfiguration $systemConfiguration)
-    {
+    public function __construct(
+        private TimesheetRepository $repository,
+        SystemConfiguration $systemConfiguration
+    ) {
         parent::__construct($systemConfiguration);
     }
 

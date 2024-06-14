@@ -1,19 +1,14 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Voter;
 
+use App\Crm\Application\Service\Timesheet\LockdownService;
+use App\Crm\Transport\Form\Model\MultiUserTimesheet;
 use App\Entity\Timesheet;
-use App\User\Domain\Entity\User;
-use App\Form\Model\MultiUserTimesheet;
 use App\Security\RolePermissionManager;
-use App\Timesheet\LockdownService;
+use App\User\Domain\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -48,7 +43,7 @@ final class TimesheetVoter extends Voter
         self::EDIT_RATE,
         self::EDIT_EXPORT,
         'edit_billable',
-        'duplicate'
+        'duplicate',
     ];
 
     private ?bool $lockdownGrace = null;
@@ -59,8 +54,7 @@ final class TimesheetVoter extends Voter
     public function __construct(
         private readonly RolePermissionManager $permissionManager,
         private readonly LockdownService $lockdownService
-    )
-    {
+    ) {
     }
 
     public function supportsAttribute(string $attribute): bool
@@ -95,28 +89,24 @@ final class TimesheetVoter extends Voter
                 }
                 $permission .= $attribute;
                 break;
-
             case self::EDIT:
                 if (!$this->canEdit($user, $subject)) {
                     return false;
                 }
                 $permission .= $attribute;
                 break;
-
             case self::DELETE:
                 if (!$this->canDelete($user, $subject)) {
                     return false;
                 }
                 $permission .= $attribute;
                 break;
-
             case 'duplicate':
                 if (!$this->canStart($subject)) {
                     return false;
                 }
                 $permission = self::EDIT;
                 break;
-
             case self::VIEW_RATE:
             case self::EDIT_RATE:
             case self::STOP:
@@ -126,7 +116,6 @@ final class TimesheetVoter extends Voter
             case 'edit_billable':
                 $permission .= $attribute;
                 break;
-
             default:
                 return false;
         }
@@ -151,11 +140,11 @@ final class TimesheetVoter extends Voter
         // we could check the amount of active entries (maybe slow)
         // if a teamlead starts an entry for another user, check that this user is part of his team (needs to be done for teams)
 
-        if (null === $timesheet->getActivity()) {
+        if ($timesheet->getActivity() === null) {
             return false;
         }
 
-        if (null === $timesheet->getProject()) {
+        if ($timesheet->getProject() === null) {
             return false;
         }
 

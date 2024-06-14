@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
@@ -18,13 +13,13 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class UserValidator extends ConstraintValidator
 {
-    public function __construct(private UserService $userService)
-    {
+    public function __construct(
+        private UserService $userService
+    ) {
     }
 
     /**
      * @param UserEntity $value
-     * @param Constraint $constraint
      */
     public function validate(mixed $value, Constraint $constraint): void
     {
@@ -56,7 +51,7 @@ final class UserValidator extends ConstraintValidator
     {
         $existingByEmail = $this->userService->findUserByEmail($email);
 
-        if (null !== $existingByEmail && $userId !== $existingByEmail->getId()) {
+        if ($existingByEmail !== null && $userId !== $existingByEmail->getId()) {
             $context->buildViolation(User::getErrorName($code))
                 ->atPath($path)
                 ->setTranslationDomain('validators')
@@ -69,7 +64,7 @@ final class UserValidator extends ConstraintValidator
     {
         $existingByName = $this->userService->findUserByName($username);
 
-        if (null !== $existingByName && $userId !== $existingByName->getId()) {
+        if ($existingByName !== null && $userId !== $existingByName->getId()) {
             $context->buildViolation(User::getErrorName($code))
                 ->atPath($path)
                 ->setTranslationDomain('validators')

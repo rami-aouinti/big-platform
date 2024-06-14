@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\User\Domain\Entity;
 
-use App\Entity\ColorTrait;
-use App\Entity\Team;
-use App\Entity\TeamMember;
-use App\Entity\UserPreference;
-use App\Export\Annotation as Exporter;
+use App\Crm\Domain\Entity\ColorTrait;
+use App\Crm\Domain\Entity\Team;
+use App\Crm\Domain\Entity\TeamMember;
+use App\Crm\Domain\Entity\UserPreference;
+use App\Crm\Transport\API\Export\Annotation as Exporter;
 use App\General\Domain\Doctrine\DBAL\Types\Types as AppTypes;
 use App\General\Domain\Entity\Interfaces\EntityInterface;
 use App\General\Domain\Entity\Traits\Timestampable;
@@ -17,37 +17,37 @@ use App\General\Domain\Enum\Language;
 use App\General\Domain\Enum\Locale;
 use App\Tool\Domain\Service\Interfaces\LocalizationServiceInterface;
 use App\User\Domain\Entity\Interfaces\UserGroupAwareInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 use App\User\Domain\Entity\Traits\Blameable;
 use App\User\Domain\Entity\Traits\UserRelations;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
-use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
-use Ramsey\Uuid\UuidInterface;
-use Symfony\Bridge\Doctrine\Validator\Constraints as AssertCollection;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
-use Throwable;
 use App\Utils\StringHelper;
 use App\Validator\Constraints as Constraints;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use JMS\Serializer\Annotation as Serializer;
 use KevinPapst\TablerBundle\Model\UserInterface as ThemeUserInterface;
 use OpenApi\Attributes as OA;
+use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
+use Ramsey\Uuid\UuidInterface;
 use Scheb\TwoFactorBundle\Model\Totp\TotpConfiguration;
 use Scheb\TwoFactorBundle\Model\Totp\TotpConfigurationInterface;
 use Scheb\TwoFactorBundle\Model\Totp\TwoFactorInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints as AssertCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+use Throwable;
 
 /**
  * @package App\User
  */
-#[ORM\Entity(repositoryClass: 'App\Repository\UserRepository')]
+#[ORM\Entity(repositoryClass: 'App\Crm\Domain\Repository\UserRepository')]
 #[ORM\Table(name: 'user')]
 #[ORM\UniqueConstraint(
     name: 'uq_username',
@@ -92,14 +92,14 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
 
     final public const int PASSWORD_MIN_LENGTH = 8;
 
-    public const DEFAULT_LANGUAGE = 'en';
-    public const DEFAULT_FIRST_WEEKDAY = 'monday';
+    public const string DEFAULT_LANGUAGE = 'en';
+    public const string DEFAULT_FIRST_WEEKDAY = 'monday';
 
-    public const AUTH_INTERNAL = 'kimai';
-    public const AUTH_LDAP = 'ldap';
-    public const AUTH_SAML = 'saml';
+    public const string AUTH_INTERNAL = 'kimai';
+    public const string AUTH_LDAP = 'ldap';
+    public const string AUTH_SAML = 'saml';
 
-    public const WIZARDS = ['intro', 'profile'];
+    public const array WIZARDS = ['intro', 'profile'];
 
     #[ORM\Id]
     #[ORM\Column(
@@ -350,13 +350,17 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     #[ORM\Column(name: 'totp_secret', type: 'string', length: 255, nullable: true)]
     private ?string $totpSecret = null;
 
-    #[ORM\Column(name: 'totp_enabled', type: 'boolean', nullable: false, options: ['default' => false])]
+    #[ORM\Column(name: 'totp_enabled', type: 'boolean', nullable: false, options: [
+        'default' => false,
+    ])]
     private bool $totpEnabled = false;
 
-    #[ORM\Column(name: 'system_account', type: 'boolean', nullable: false, options: ['default' => false])]
+    #[ORM\Column(name: 'system_account', type: 'boolean', nullable: false, options: [
+        'default' => false,
+    ])]
     private bool $systemAccount = false;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\ManyToOne(targetEntity: self::class)]
     #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     #[Serializer\Expose]
     #[Serializer\Groups(['User_Entity'])]
@@ -388,12 +392,40 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         $this->memberships = new ArrayCollection();
     }
 
+    public function __serialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'username' => $this->username,
+            'enabled' => $this->enabled,
+            'email' => $this->email,
+            'password' => $this->password,
+        ];
+    }
+
+    public function __unserialize(array $data): void
+    {
+        if (!\array_key_exists('id', $data)) {
+            return;
+        }
+        $this->id = $data['id'];
+        $this->username = $data['username'];
+        $this->enabled = $data['enabled'];
+        $this->email = $data['email'];
+        $this->password = $data['password'];
+    }
+
+    public function __toString(): string
+    {
+        return $this->getDisplayName();
+    }
+
     public function getId(): string
     {
         return $this->id->toString();
     }
 
-    public function setRoles(array $roles): User
+    public function setRoles(array $roles): self
     {
         $this->roles = [];
 
@@ -416,7 +448,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         }
     }
 
-    public function setAlias(?string $alias): User
+    public function setAlias(?string $alias): self
     {
         $this->alias = StringHelper::ensureMaxLength($alias, 60);
 
@@ -433,7 +465,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         return $this->title;
     }
 
-    public function setTitle(?string $title): User
+    public function setTitle(?string $title): self
     {
         $this->title = StringHelper::ensureMaxLength($title, 50);
 
@@ -445,7 +477,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         return $this->avatar;
     }
 
-    public function setAvatar(?string $avatar): User
+    public function setAvatar(?string $avatar): self
     {
         $this->avatar = $avatar;
 
@@ -457,7 +489,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         return $this->apiToken;
     }
 
-    public function setApiToken(?string $apiToken): User
+    public function setApiToken(?string $apiToken): self
     {
         $this->apiToken = $apiToken;
 
@@ -477,7 +509,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         return $this->plainApiToken;
     }
 
-    public function setPlainApiToken(?string $plainApiToken): User
+    public function setPlainApiToken(?string $plainApiToken): self
     {
         $this->plainApiToken = $plainApiToken;
 
@@ -530,9 +562,8 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
 
     /**
      * @param iterable<UserPreference> $preferences
-     * @return User
      */
-    public function setPreferences(iterable $preferences): User
+    public function setPreferences(iterable $preferences): self
     {
         $this->preferences = new ArrayCollection();
 
@@ -544,14 +575,13 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     }
 
     /**
-     * @param string $name
      * @param bool|int|string|float|null $value
      */
     public function setPreferenceValue(string $name, $value = null): void
     {
         $pref = $this->getPreference($name);
 
-        if (null === $pref) {
+        if ($pref === null) {
             $pref = new UserPreference($name);
             $this->addPreference($pref);
         }
@@ -705,29 +735,26 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
 
     public function getFirstDayOfWeek(): string
     {
-        return $this->getPreferenceValue(UserPreference::FIRST_WEEKDAY, \App\User\Domain\Entity\User::DEFAULT_FIRST_WEEKDAY, false);
+        return $this->getPreferenceValue(UserPreference::FIRST_WEEKDAY, self::DEFAULT_FIRST_WEEKDAY, false);
     }
 
     public function isExportDecimal(): bool
     {
-        return (bool) $this->getPreferenceValue('export_decimal', false, false);
+        return (bool)$this->getPreferenceValue('export_decimal', false, false);
     }
 
     public function getSkin(): string
     {
-        return (string) $this->getPreferenceValue(UserPreference::SKIN, 'default', false);
+        return (string)$this->getPreferenceValue(UserPreference::SKIN, 'default', false);
     }
 
     /**
-     * @param string $name
      * @param bool|int|float|string|null $default
-     * @param bool $allowNull
-     * @return bool|int|float|string|null
      */
     public function getPreferenceValue(string $name, mixed $default = null, bool $allowNull = true): bool|int|float|string|null
     {
         $preference = $this->getPreference($name);
-        if (null === $preference) {
+        if ($preference === null) {
             return $default;
         }
 
@@ -736,13 +763,9 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         return $allowNull ? $value : ($value ?? $default);
     }
 
-    /**
-     * @param UserPreference $preference
-     * @return User
-     */
-    public function addPreference(UserPreference $preference): User
+    public function addPreference(UserPreference $preference): self
     {
-        if (null === $this->preferences) {
+        if ($this->preferences === null) {
             $this->preferences = new ArrayCollection();
         }
 
@@ -771,23 +794,12 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
             return;
         }
 
-        if (null !== $this->findMemberByTeam($team)) {
+        if ($this->findMemberByTeam($team) !== null) {
             return;
         }
 
         $this->memberships->add($member);
         $team->addMember($member);
-    }
-
-    private function findMemberByTeam(Team $team): ?TeamMember
-    {
-        foreach ($this->memberships as $member) {
-            if ($member->getTeam() === $team) {
-                return $member;
-            }
-        }
-
-        return null;
     }
 
     public function removeMembership(TeamMember $member): void
@@ -819,8 +831,6 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
 
     /**
      * Checks if the user is member of any team.
-     *
-     * @return bool
      */
     public function hasTeamAssignment(): bool
     {
@@ -829,11 +839,8 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
 
     /**
      * Checks if the given user is a team member.
-     *
-     * @param User $user
-     * @return bool
      */
-    public function hasTeamMember(User $user): bool
+    public function hasTeamMember(self $user): bool
     {
         foreach ($this->memberships as $membership) {
             if ($membership->getTeam() !== null && $membership->getTeam()->hasUser($user)) {
@@ -847,7 +854,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     /**
      * Use this function to check if the current user can read data from the given user.
      */
-    public function canSeeUser(User $user): bool
+    public function canSeeUser(self $user): bool
     {
         if ($user->getId() === $this->getId()) {
             return true;
@@ -893,8 +900,6 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
 
     /**
      * Required in the User profile screen to edit his teams.
-     *
-     * @param Team $team
      */
     public function addTeam(Team $team): void
     {
@@ -913,8 +918,6 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
 
     /**
      * Required in the User profile screen to edit his teams.
-     *
-     * @param Team $team
      */
     public function removeTeam(Team $team): void
     {
@@ -948,7 +951,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         return false;
     }
 
-    public function isTeamleadOfUser(User $user): bool
+    public function isTeamleadOfUser(self $user): bool
     {
         foreach ($this->memberships as $membership) {
             if ($membership->isTeamlead() && $membership->getTeam() !== null && $membership->getTeam()->hasUser($user)) {
@@ -961,21 +964,19 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
 
     public function canSeeAllData(): bool
     {
-        return $this->isSuperAdmin() || true === $this->isAllowedToSeeAllData;
+        return $this->isSuperAdmin() || $this->isAllowedToSeeAllData === true;
     }
 
     /**
      * This method should not be called by plugins and returns true on success or false on a failure.
      *
      * @internal immutable property that cannot be set by plugins
-     * @param bool $canSeeAllData
-     * @return bool
      * @throws Exception
      */
     public function initCanSeeAllData(bool $canSeeAllData): bool
     {
         // prevent manipulation from plugins
-        if (null !== $this->isAllowedToSeeAllData) {
+        if ($this->isAllowedToSeeAllData !== null) {
             return false;
         }
 
@@ -998,7 +999,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         return $this->auth;
     }
 
-    public function setAuth(string $auth): User
+    public function setAuth(string $auth): self
     {
         $this->auth = $auth;
 
@@ -1068,14 +1069,14 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         return $this->enabled;
     }
 
-    public function setEnabled(bool $enabled): User
+    public function setEnabled(bool $enabled): self
     {
         $this->enabled = $enabled;
 
         return $this;
     }
 
-    public function setLastLogin(\DateTime $time = null): User
+    public function setLastLogin(\DateTime $time = null): self
     {
         $this->lastLogin = $time;
 
@@ -1153,42 +1154,9 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         return $this->hasRole(static::ROLE_ADMIN);
     }
 
-    /**
-     * @param $role
-     *
-     * @return bool
-     */
     public function hasRole($role): bool
     {
         return \in_array(strtoupper($role), $this->getRoles(), true);
-    }
-
-    public function __serialize(): array
-    {
-        return [
-            'id' => $this->id,
-            'username' => $this->username,
-            'enabled' => $this->enabled,
-            'email' => $this->email,
-            'password' => $this->password,
-        ];
-    }
-
-    public function __unserialize(array $data): void
-    {
-        if (!\array_key_exists('id', $data)) {
-            return;
-        }
-        $this->id = $data['id'];
-        $this->username = $data['username'];
-        $this->enabled = $data['enabled'];
-        $this->email = $data['email'];
-        $this->password = $data['password'];
-    }
-
-    public function __toString(): string
-    {
-        return $this->getDisplayName();
     }
 
     #[Serializer\VirtualProperty]
@@ -1345,37 +1313,37 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
 
     public function getWorkHoursMonday(): int
     {
-        return (int) $this->getPreferenceValue(UserPreference::WORK_HOURS_MONDAY, 0);
+        return (int)$this->getPreferenceValue(UserPreference::WORK_HOURS_MONDAY, 0);
     }
 
     public function getWorkHoursTuesday(): int
     {
-        return (int) $this->getPreferenceValue(UserPreference::WORK_HOURS_TUESDAY, 0);
+        return (int)$this->getPreferenceValue(UserPreference::WORK_HOURS_TUESDAY, 0);
     }
 
     public function getWorkHoursWednesday(): int
     {
-        return (int) $this->getPreferenceValue(UserPreference::WORK_HOURS_WEDNESDAY, 0);
+        return (int)$this->getPreferenceValue(UserPreference::WORK_HOURS_WEDNESDAY, 0);
     }
 
     public function getWorkHoursThursday(): int
     {
-        return (int) $this->getPreferenceValue(UserPreference::WORK_HOURS_THURSDAY, 0);
+        return (int)$this->getPreferenceValue(UserPreference::WORK_HOURS_THURSDAY, 0);
     }
 
     public function getWorkHoursFriday(): int
     {
-        return (int) $this->getPreferenceValue(UserPreference::WORK_HOURS_FRIDAY, 0);
+        return (int)$this->getPreferenceValue(UserPreference::WORK_HOURS_FRIDAY, 0);
     }
 
     public function getWorkHoursSaturday(): int
     {
-        return (int) $this->getPreferenceValue(UserPreference::WORK_HOURS_SATURDAY, 0);
+        return (int)$this->getPreferenceValue(UserPreference::WORK_HOURS_SATURDAY, 0);
     }
 
     public function getWorkHoursSunday(): int
     {
-        return (int) $this->getPreferenceValue(UserPreference::WORK_HOURS_SUNDAY, 0);
+        return (int)$this->getPreferenceValue(UserPreference::WORK_HOURS_SUNDAY, 0);
     }
 
     public function getWorkStartingDay(): ?\DateTimeInterface
@@ -1403,7 +1371,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     {
         $group = $this->getPreferenceValue(UserPreference::PUBLIC_HOLIDAY_GROUP);
 
-        return $group === null ? $group : (string) $group;
+        return $group === null ? $group : (string)$group;
     }
 
     public function getHolidaysPerYear(): float
@@ -1463,15 +1431,6 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         $this->setPreferenceValue(UserPreference::HOLIDAYS_PER_YEAR, $holidays ?? 0.0);
     }
 
-    private function getFormattedHoliday(int|float|string|null $holidays): float
-    {
-        if (!is_numeric($holidays)) {
-            $holidays = 0.0;
-        }
-
-        return (float) number_format((round($holidays * 2) / 2), 1);
-    }
-
     public function hasContractSettings(): bool
     {
         return $this->hasWorkHourConfiguration() || $this->getHolidaysPerYear() !== 0.0;
@@ -1512,13 +1471,33 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         return $this->supervisor !== null;
     }
 
-    public function getSupervisor(): ?User
+    public function getSupervisor(): ?self
     {
         return $this->supervisor;
     }
 
-    public function setSupervisor(?User $supervisor): void
+    public function setSupervisor(?self $supervisor): void
     {
         $this->supervisor = $supervisor;
+    }
+
+    private function findMemberByTeam(Team $team): ?TeamMember
+    {
+        foreach ($this->memberships as $member) {
+            if ($member->getTeam() === $team) {
+                return $member;
+            }
+        }
+
+        return null;
+    }
+
+    private function getFormattedHoliday(int|float|string|null $holidays): float
+    {
+        if (!is_numeric($holidays)) {
+            $holidays = 0.0;
+        }
+
+        return (float)number_format((round($holidays * 2) / 2), 1);
     }
 }

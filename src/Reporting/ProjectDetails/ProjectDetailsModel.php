@@ -1,21 +1,16 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Reporting\ProjectDetails;
 
+use App\Crm\Application\Model\ActivityStatistic;
+use App\Crm\Application\Model\BudgetStatisticModel;
+use App\Crm\Application\Model\Statistic\UserYear;
+use App\Crm\Application\Model\Statistic\Year;
+use App\Crm\Application\Model\UserStatistic;
 use App\Entity\Project;
 use App\User\Domain\Entity\User;
-use App\Model\ActivityStatistic;
-use App\Model\BudgetStatisticModel;
-use App\Model\Statistic\UserYear;
-use App\Model\Statistic\Year;
-use App\Model\UserStatistic;
 
 final class ProjectDetailsModel
 {
@@ -35,13 +30,11 @@ final class ProjectDetailsModel
      * @var ActivityStatistic[]
      */
     private array $activities = [];
-    /**
-     * @var BudgetStatisticModel
-     */
     private ?BudgetStatisticModel $budgetStatisticModel = null;
 
-    public function __construct(private Project $project)
-    {
+    public function __construct(
+        private Project $project
+    ) {
     }
 
     public function getProject(): Project
@@ -68,7 +61,6 @@ final class ProjectDetailsModel
     }
 
     /**
-     * @param string $year
      * @return ActivityStatistic[]
      */
     public function getYearActivities(string $year): array
@@ -119,7 +111,6 @@ final class ProjectDetailsModel
     }
 
     /**
-     * @param string $year
      * @return UserYear[]
      */
     public function getUserYears(string $year): array

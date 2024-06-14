@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Utils;
 
@@ -13,6 +8,10 @@ use Pagerfanta\View\Template\TwitterBootstrap5Template;
 
 final class PaginationTemplate extends TwitterBootstrap5Template
 {
+    public function current(int $page): string
+    {
+        return $this->linkLi($this->option('css_active_class'), $this->generateRoute($page), $page);
+    }
     /**
      * @return array<string, string>
      */
@@ -30,11 +29,7 @@ final class PaginationTemplate extends TwitterBootstrap5Template
     }
 
     /**
-     * @param string $class
-     * @param string $href
      * @param int|string $text
-     * @param string|null $rel
-     * @return string
      */
     protected function linkLi(string $class, string $href, $text, ?string $rel = null): string
     {
@@ -45,19 +40,12 @@ final class PaginationTemplate extends TwitterBootstrap5Template
     }
 
     /**
-     * @param string $class
      * @param string $text
-     * @return string
      */
     protected function spanLi(string $class, $text): string
     {
         $liClass = implode(' ', array_filter(['page-item', $class]));
 
         return sprintf('<li class="%s"><span class="page-link pagination-link">%s</span></li>', $liClass, $text);
-    }
-
-    public function current(int $page): string
-    {
-        return $this->linkLi($this->option('css_active_class'), $this->generateRoute($page), $page);
     }
 }

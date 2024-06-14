@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Doctrine;
 
@@ -14,11 +9,12 @@ use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeImmutableType;
 use Doctrine\DBAL\Types\Types;
 
+/**
+ * @package App\Doctrine
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class UTCDateTimeImmutableType extends DateTimeImmutableType
 {
-    /**
-     * @var \DateTimeZone|null
-     */
     private static ?\DateTimeZone $utc = null;
 
     /**
@@ -52,7 +48,7 @@ final class UTCDateTimeImmutableType extends DateTimeImmutableType
      */
     public function convertToPHPValue($value, AbstractPlatform $platform): ?\DateTimeImmutable
     {
-        if (null === $value || $value instanceof \DateTimeImmutable) {
+        if ($value === null || $value instanceof \DateTimeImmutable) {
             return $value;
         }
 

@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Security;
 
@@ -20,11 +15,12 @@ final class RoleService
     private bool $isInitialized = false;
 
     /**
-     * @param RoleRepository $repository
      * @param array<string> $roles as defined in security.yaml
      */
-    public function __construct(private RoleRepository $repository, private array $roles)
-    {
+    public function __construct(
+        private RoleRepository $repository,
+        private array $roles
+    ) {
     }
 
     /**

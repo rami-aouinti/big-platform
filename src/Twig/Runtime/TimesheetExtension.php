@@ -1,19 +1,14 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Twig\Runtime;
 
+use App\Crm\Application\Model\FavoriteTimesheet;
+use App\Crm\Application\Service\Timesheet\FavoriteRecordService;
+use App\Crm\Domain\Repository\TimesheetRepository;
 use App\Entity\Timesheet;
 use App\User\Domain\Entity\User;
-use App\Model\FavoriteTimesheet;
-use App\Repository\TimesheetRepository;
-use App\Timesheet\FavoriteRecordService;
 use Twig\Extension\RuntimeExtensionInterface;
 
 final class TimesheetExtension implements RuntimeExtensionInterface
@@ -21,8 +16,7 @@ final class TimesheetExtension implements RuntimeExtensionInterface
     public function __construct(
         private readonly TimesheetRepository $repository,
         private readonly FavoriteRecordService $favoriteRecordService
-    )
-    {
+    ) {
     }
 
     /**

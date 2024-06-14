@@ -1,22 +1,18 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Widget\Type;
 
-use App\Repository\TimesheetRepository;
+use App\Crm\Domain\Repository\TimesheetRepository;
 use App\Widget\WidgetException;
 use App\Widget\WidgetInterface;
 
 final class DurationWeek extends AbstractCounterDuration
 {
-    public function __construct(private TimesheetRepository $repository)
-    {
+    public function __construct(
+        private TimesheetRepository $repository
+    ) {
     }
 
     /**
@@ -25,7 +21,9 @@ final class DurationWeek extends AbstractCounterDuration
      */
     public function getOptions(array $options = []): array
     {
-        return array_merge(['color' => WidgetInterface::COLOR_WEEK], parent::getOptions($options));
+        return array_merge([
+            'color' => WidgetInterface::COLOR_WEEK,
+        ], parent::getOptions($options));
     }
 
     public function getPermissions(): array

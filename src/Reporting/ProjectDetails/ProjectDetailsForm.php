@@ -1,15 +1,10 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Reporting\ProjectDetails;
 
-use App\User\Transport\Form\Type\Console\ProjectType;
+use App\Crm\Transport\Form\Type\ProjectType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -44,7 +39,7 @@ final class ProjectDetailsForm extends AbstractType
                     }
 
                     $event->getForm()->add('project', ProjectType::class, array_merge($projectOptions, [
-                        'projects' => $projects
+                        'projects' => $projects,
                     ]));
                 }
             }

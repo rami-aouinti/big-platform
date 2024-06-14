@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Twig;
 
@@ -16,8 +11,22 @@ use Twig\TwigFunction;
 
 final class Configuration extends AbstractExtension
 {
-    public function __construct(private SystemConfiguration $configuration)
+    public function __construct(
+        private SystemConfiguration $configuration
+    ) {
+    }
+
+    public function __call($name, $arguments)
     {
+        $checks = ['is' . $name, 'get' . $name, 'has' . $name, $name];
+
+        foreach ($checks as $methodName) {
+            if (method_exists($this->configuration, $methodName)) {
+                return \call_user_func([$this->configuration, $methodName], $arguments);
+            }
+        }
+
+        return $this->configuration->find($name);
     }
 
     public function getFunctions(): array
@@ -42,19 +51,6 @@ final class Configuration extends AbstractExtension
                 return '300';
             case 'theme.calendar.background_color':
                 return Constants::DEFAULT_COLOR;
-        }
-
-        return $this->configuration->find($name);
-    }
-
-    public function __call($name, $arguments)
-    {
-        $checks = ['is' . $name, 'get' . $name, 'has' . $name, $name];
-
-        foreach ($checks as $methodName) {
-            if (method_exists($this->configuration, $methodName)) {
-                return \call_user_func([$this->configuration, $methodName], $arguments);
-            }
         }
 
         return $this->configuration->find($name);

@@ -1,22 +1,18 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Widget\Type;
 
-use App\Repository\ActivityRepository;
-use App\Repository\Query\ActivityQuery;
+use App\Crm\Domain\Repository\ActivityRepository;
+use App\Crm\Domain\Repository\Query\ActivityQuery;
 use App\Widget\WidgetInterface;
 
 final class TotalsActivity extends AbstractWidget
 {
-    public function __construct(private ActivityRepository $activity)
-    {
+    public function __construct(
+        private ActivityRepository $activity
+    ) {
     }
 
     public function getTitle(): string

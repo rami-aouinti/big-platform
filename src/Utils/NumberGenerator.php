@@ -1,22 +1,18 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Utils;
 
 final class NumberGenerator
 {
     /**
-     * @param string $format
      * @param callable $patternReplacer (receives the parameters: string $originalFormat, string $format, int $increaseBy)
      */
-    public function __construct(private string $format, private $patternReplacer)
-    {
+    public function __construct(
+        private string $format,
+        private $patternReplacer
+    ) {
     }
 
     public function getNumber(int $startWith = 0): string
@@ -57,7 +53,6 @@ final class NumberGenerator
                     }
                     $increaseBy = $increaseBy + \intval($local);
                     break;
-
                 case '-':
                     $local = array_shift($parts);
                     if (!is_numeric($local)) {
@@ -65,18 +60,16 @@ final class NumberGenerator
                     }
                     $increaseBy = $increaseBy - \intval($local);
                     break;
-
                 case ',':
                     $local = array_shift($parts);
                     if (!is_numeric($local)) {
                         throw new \InvalidArgumentException('Unknown format length found');
                     }
                     $formatterLength = \intval($local);
-                    if ((string) $formatterLength !== $local) {
+                    if ((string)$formatterLength !== $local) {
                         throw new \InvalidArgumentException('Unknown format length found');
                     }
                     break;
-
                 default:
                     throw new \InvalidArgumentException('Unknown pattern found');
             }
@@ -92,9 +85,9 @@ final class NumberGenerator
             throw new \Exception('Number generator callback must return string or integer');
         }
 
-        $partialResult = (string) $partialResult;
+        $partialResult = (string)$partialResult;
 
-        if (null !== $formatterLength) {
+        if ($formatterLength !== null) {
             $partialResult = str_pad($partialResult, $formatterLength, '0', STR_PAD_LEFT);
         }
 

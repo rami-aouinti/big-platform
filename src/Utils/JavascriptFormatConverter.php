@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Utils;
 
@@ -16,17 +11,21 @@ final class JavascriptFormatConverter
      *
      * @see https://moment.github.io/luxon/#/formatting?id=table-of-tokens
      * @see https://www.php.net/manual/en/datetime.format.php
-     * @var array
      */
     private static array $formatConvertRules = [
         // year: Litepicker interprets 2-digit year as 1900, so we have to convert 20 to 2022.
-        'yyyy' => 'YYYY', 'yy' => 'YYYY', 'y' => 'YYYY',
+        'yyyy' => 'YYYY',
+        'yy' => 'YYYY',
+        'y' => 'YYYY',
         // day
-        'dd' => 'DD', 'd' => 'D',
+        'dd' => 'DD',
+        'd' => 'D',
         // day of week
-        'EE' => 'ddd', 'EEEEEE' => 'dd',
+        'EE' => 'ddd',
+        'EEEEEE' => 'dd',
         // timezone
-        'ZZZZZ' => 'Z', 'ZZZ' => 'ZZ',
+        'ZZZZZ' => 'Z',
+        'ZZZ' => 'ZZ',
         // letter 'T'
         '\'T\'' => 'T',
         // am/pm (a) to AM/PM (A) - Luxon always produces uppercase AM/PM

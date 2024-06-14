@@ -1,17 +1,12 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\User;
 
-use App\User\Domain\Entity\User;
-use App\Event\UserInteractiveLoginEvent;
+use App\Crm\Transport\Event\UserInteractiveLoginEvent;
 use App\Security\UserChecker;
+use App\User\Domain\Entity\User;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,7 +32,7 @@ final class LoginManager
         $token = $this->createToken('secured_area', $user);
         $request = $this->requestStack->getCurrentRequest();
 
-        if (null !== $request) {
+        if ($request !== null) {
             $this->sessionStrategy->onAuthentication($request, $token);
         }
 

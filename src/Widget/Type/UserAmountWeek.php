@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Widget\Type;
 
@@ -19,7 +14,9 @@ final class UserAmountWeek extends AbstractUserRevenuePeriod
      */
     public function getOptions(array $options = []): array
     {
-        return array_merge(['color' => WidgetInterface::COLOR_WEEK], parent::getOptions($options));
+        return array_merge([
+            'color' => WidgetInterface::COLOR_WEEK,
+        ], parent::getOptions($options));
     }
 
     public function getId(): string

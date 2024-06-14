@@ -1,23 +1,19 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Widget\Type;
 
-use App\Repository\Query\TimesheetQuery;
-use App\Repository\TimesheetRepository;
+use App\Crm\Domain\Repository\Query\TimesheetQuery;
+use App\Crm\Domain\Repository\TimesheetRepository;
 use App\Widget\WidgetException;
 use App\Widget\WidgetInterface;
 
 final class ActiveTimesheets extends AbstractWidgetType
 {
-    public function __construct(private TimesheetRepository $repository)
-    {
+    public function __construct(
+        private TimesheetRepository $repository
+    ) {
     }
 
     /**
@@ -33,7 +29,9 @@ final class ActiveTimesheets extends AbstractWidgetType
             'color' => WidgetInterface::COLOR_TOTAL,
             'icon' => 'duration',
             'route' => $route,
-            'routeOptions' => ['state' => TimesheetQuery::STATE_RUNNING],
+            'routeOptions' => [
+                'state' => TimesheetQuery::STATE_RUNNING,
+            ],
         ], parent::getOptions($options));
     }
 

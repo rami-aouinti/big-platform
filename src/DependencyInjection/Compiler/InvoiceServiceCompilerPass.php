@@ -1,19 +1,14 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\DependencyInjection\Compiler;
 
-use App\Invoice\CalculatorInterface;
-use App\Invoice\InvoiceItemRepositoryInterface;
-use App\Invoice\NumberGeneratorInterface;
-use App\Invoice\RendererInterface;
-use App\Invoice\ServiceInvoice;
+use App\Crm\Application\Service\Invoice\CalculatorInterface;
+use App\Crm\Application\Service\Invoice\InvoiceItemRepositoryInterface;
+use App\Crm\Application\Service\Invoice\NumberGeneratorInterface;
+use App\Crm\Application\Service\Invoice\RendererInterface;
+use App\Crm\Application\Service\Invoice\ServiceInvoice;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;

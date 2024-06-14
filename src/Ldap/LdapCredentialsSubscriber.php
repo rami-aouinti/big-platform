@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Ldap;
 
@@ -18,13 +13,16 @@ use Symfony\Component\Security\Http\Event\CheckPassportEvent;
 
 final class LdapCredentialsSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private LdapManager $ldapManager)
-    {
+    public function __construct(
+        private LdapManager $ldapManager
+    ) {
     }
 
     public static function getSubscribedEvents(): array
     {
-        return [CheckPassportEvent::class => ['onCheckPassport']];
+        return [
+            CheckPassportEvent::class => ['onCheckPassport'],
+        ];
     }
 
     public function onCheckPassport(CheckPassportEvent $event)
@@ -51,7 +49,7 @@ final class LdapCredentialsSubscriber implements EventSubscriberInterface
         }
 
         $presentedPassword = $passwordCredentials->getPassword();
-        if ('' === $presentedPassword) {
+        if ($presentedPassword === '') {
             throw new BadCredentialsException('The presented password cannot be empty.');
         }
 
@@ -68,6 +66,7 @@ final class LdapCredentialsSubscriber implements EventSubscriberInterface
             if (!$user->isLdapUser()) {
                 return;
             }
+
             throw new BadCredentialsException('The presented password is invalid.');
         }
 

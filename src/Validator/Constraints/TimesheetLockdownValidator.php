@@ -1,16 +1,11 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
+use App\Crm\Application\Service\Timesheet\LockdownService;
 use App\Entity\Timesheet as TimesheetEntity;
-use App\Timesheet\LockdownService;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -21,8 +16,7 @@ final class TimesheetLockdownValidator extends ConstraintValidator
     public function __construct(
         private readonly Security $security,
         private readonly LockdownService $lockdownService
-    )
-    {
+    ) {
     }
 
     public function validate(mixed $value, Constraint $constraint): void
@@ -44,7 +38,7 @@ final class TimesheetLockdownValidator extends ConstraintValidator
         }
 
         // lockdown never takes effect for users with special permission
-        if (null !== $this->security->getUser() && $this->security->isGranted('lockdown_override_timesheet')) {
+        if ($this->security->getUser() !== null && $this->security->isGranted('lockdown_override_timesheet')) {
             return;
         }
 
@@ -62,7 +56,7 @@ final class TimesheetLockdownValidator extends ConstraintValidator
         }
 
         $allowEditInGracePeriod = false;
-        if (null !== $this->security->getUser() && $this->security->isGranted('lockdown_grace_timesheet')) {
+        if ($this->security->getUser() !== null && $this->security->isGranted('lockdown_grace_timesheet')) {
             $allowEditInGracePeriod = true;
         }
 

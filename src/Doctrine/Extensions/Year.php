@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Doctrine\Extensions;
 
@@ -15,6 +10,10 @@ use Doctrine\ORM\Query\Parser;
 use Doctrine\ORM\Query\SqlWalker;
 use Doctrine\ORM\Query\TokenType;
 
+/**
+ * @package App\Doctrine\Extensions
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class Year extends FunctionNode
 {
     private Node|string|null $value;

@@ -1,11 +1,6 @@
 <?php
 
-/*
- * This file is part of the Kimai time-tracking app.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace App\Utils;
 
@@ -21,14 +16,10 @@ final class Duration
 
     /**
      * Transforms seconds into a duration string.
-     *
-     * @param int|null $seconds
-     * @param string $format
-     * @return string|null
      */
     public function format(?int $seconds, string $format = self::FORMAT_DEFAULT): ?string
     {
-        if (null === $seconds) {
+        if ($seconds === null) {
             return null;
         }
 
@@ -39,24 +30,21 @@ final class Duration
             $seconds = abs($seconds);
         }
 
-        $hour = (int) floor($seconds / 3600);
-        $minute = (int) floor((int) ($seconds / 60) % 60);
+        $hour = (int)floor($seconds / 3600);
+        $minute = (int)floor((int)($seconds / 60) % 60);
         $minute = $minute > 9 ? $minute : '0' . $minute;
 
-        $formatted = str_replace('%h', (string) $hour, $format);
+        $formatted = str_replace('%h', (string)$hour, $format);
 
-        return str_replace('%m', (string) $minute, $formatted);
+        return str_replace('%m', (string)$minute, $formatted);
     }
 
     /**
      * Returns the seconds, which were given as $duration string.
-     *
-     * @param string $duration
-     * @return int
      */
     public function parseDurationString(string $duration): int
     {
-        if (false !== stripos($duration, ':')) {
+        if (stripos($duration, ':') !== false) {
             return $this->parseDuration($duration, self::FORMAT_COLON);
         }
 
@@ -70,9 +58,6 @@ final class Duration
     /**
      * Returns the seconds, which were given as $mode formatted $duration string.
      *
-     * @param string $duration
-     * @param string $mode
-     * @return int
      * @throws \InvalidArgumentException
      */
     public function parseDuration(string $duration, string $mode): int
@@ -105,10 +90,10 @@ final class Duration
     private function parseDecimalFormat(string $duration): int
     {
         $duration = str_replace(',', '.', $duration);
-        $duration = (float) $duration;
+        $duration = (float)$duration;
         $duration = $duration * 3600;
 
-        return (int) $duration;
+        return (int)$duration;
     }
 
     private function parseColonFormat(string $duration): int
@@ -128,7 +113,7 @@ final class Duration
                 );
             }
             // the entire time could be negative
-            if ($i++ > 0 && ((int) $part) < 0) {
+            if ($i++ > 0 && ((int)$part) < 0) {
                 throw new \InvalidArgumentException(
                     sprintf('Negative input is not allowed in "%s"', $duration)
                 );
@@ -137,12 +122,12 @@ final class Duration
 
         $seconds = 0;
 
-        if (3 === \count($parts)) {
-            $seconds += (int) array_pop($parts);
+        if (\count($parts) === 3) {
+            $seconds += (int)array_pop($parts);
         }
 
-        $seconds += (int) $parts[1] * 60;
-        $seconds += abs((int) $parts[0] * 3600);
+        $seconds += (int)$parts[1] * 60;
+        $seconds += abs((int)$parts[0] * 3600);
 
         if ($duration[0] === '-') {
             $seconds = $seconds * -1;
