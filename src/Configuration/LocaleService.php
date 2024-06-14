@@ -88,6 +88,7 @@ final class LocaleService
      */
     public function getDurationFormat(string $locale): string
     {
+        echo $locale;
         return '%h:%m';
     }
 

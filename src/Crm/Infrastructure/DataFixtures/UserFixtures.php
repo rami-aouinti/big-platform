@@ -24,22 +24,22 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  */
 final class UserFixtures extends Fixture implements FixtureGroupInterface
 {
-    public const DEFAULT_PASSWORD = 'kitten';
-    public const DEFAULT_API_TOKEN = 'api_kitten';
-    public const DEFAULT_AVATAR = 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=retro&f=y';
+    public const string DEFAULT_PASSWORD = 'kitten';
+    public const string DEFAULT_API_TOKEN = 'api_kitten';
+    public const string DEFAULT_AVATAR = 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=retro&f=y';
 
-    public const USERNAME_USER = 'john_user';
-    public const USERNAME_TEAMLEAD = 'tony_teamlead';
-    public const USERNAME_ADMIN = 'anna_admin';
-    public const USERNAME_SUPER_ADMIN = 'susan_super';
+    public const string USERNAME_USER = 'john_user';
+    public const string USERNAME_TEAMLEAD = 'tony_teamlead';
+    public const string USERNAME_ADMIN = 'anna_admin';
+    public const string USERNAME_SUPER_ADMIN = 'susan_super';
 
-    public const AMOUNT_EXTRA_USER = 25;
+    public const int AMOUNT_EXTRA_USER = 25;
 
-    public const MIN_RATE = 30;
-    public const MAX_RATE = 120;
+    public const int MIN_RATE = 30;
+    public const int MAX_RATE = 120;
 
     public function __construct(
-        private UserPasswordHasherInterface $passwordHasher
+        private readonly UserPasswordHasherInterface $passwordHasher
     ) {
     }
 

@@ -20,6 +20,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+use function count;
+use function intval;
+
 /**
  * @package App\Admin\Crm\Controller
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
@@ -97,7 +100,7 @@ final class WizardController extends AbstractController
             }
 
             return $this->render('wizard/profile.html.twig', [
-                'percent' => \intval(100 / \count(User::WIZARDS) * 1),
+                'percent' => intval(100 / count(User::WIZARDS) * 1),
                 'previous' => 'intro',
                 'next' => $next,
                 'form' => $form->createView(),
@@ -124,7 +127,7 @@ final class WizardController extends AbstractController
             }
 
             $previous = 'profile';
-            $percent = \intval(100 / \count(User::WIZARDS) * 1);
+            $percent = intval(100 / count(User::WIZARDS) * 1);
 
             if ($user->requiresPasswordReset()) {
                 $previous = null;
