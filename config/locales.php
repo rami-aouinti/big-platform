@@ -1,1937 +1,1941 @@
-<?php return [
-  'ar' => 
+<?php
+
+declare(strict_types=1);
+
+return [
+  'ar' =>
   [
     'date' => 'd‏/M‏/y',
     'time' => 'h:mm a',
     'rtl' => true,
     'translation' => true,
   ],
-  'cs' => 
+  'cs' =>
   [
     'date' => 'dd.MM.yy',
     'time' => 'H:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'cs_CZ' => 
+  'cs_CZ' =>
   [
     'date' => 'dd.MM.yy',
     'time' => 'H:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'da' => 
+  'da' =>
   [
     'date' => 'dd.MM.y',
     'time' => 'HH.mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'da_DK' => 
+  'da_DK' =>
   [
     'date' => 'dd.MM.y',
     'time' => 'HH.mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'da_GL' => 
+  'da_GL' =>
   [
     'date' => 'dd.MM.y',
     'time' => 'HH.mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'de' => 
+  'de' =>
   [
     'date' => 'dd.MM.yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'de_AT' => 
+  'de_AT' =>
   [
     'date' => 'dd.MM.yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'de_BE' => 
+  'de_BE' =>
   [
     'date' => 'dd.MM.yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'de_CH' => 
+  'de_CH' =>
   [
     'date' => 'dd.MM.yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'de_DE' => 
+  'de_DE' =>
   [
     'date' => 'dd.MM.yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'de_IT' => 
+  'de_IT' =>
   [
     'date' => 'dd.MM.yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'de_LI' => 
+  'de_LI' =>
   [
     'date' => 'dd.MM.yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'de_LU' => 
+  'de_LU' =>
   [
     'date' => 'dd.MM.yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'el' => 
+  'el' =>
   [
     'date' => 'd/M/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => true,
   ],
-  'el_CY' => 
+  'el_CY' =>
   [
     'date' => 'd/M/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'el_GR' => 
+  'el_GR' =>
   [
     'date' => 'd/M/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en' => 
+  'en' =>
   [
     'date' => 'M/d/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => true,
   ],
-  'en_AE' => 
+  'en_AE' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_AG' => 
+  'en_AG' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_AI' => 
+  'en_AI' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_AS' => 
+  'en_AS' =>
   [
     'date' => 'M/d/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_AT' => 
+  'en_AT' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_AU' => 
+  'en_AU' =>
   [
     'date' => 'd/M/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_BB' => 
+  'en_BB' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_BE' => 
+  'en_BE' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_BI' => 
+  'en_BI' =>
   [
     'date' => 'M/d/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_BM' => 
+  'en_BM' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_BS' => 
+  'en_BS' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_BW' => 
+  'en_BW' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_BZ' => 
+  'en_BZ' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_CA' => 
+  'en_CA' =>
   [
     'date' => 'y-MM-dd',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_CC' => 
+  'en_CC' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_CH' => 
+  'en_CH' =>
   [
     'date' => 'dd.MM.y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_CK' => 
+  'en_CK' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_CM' => 
+  'en_CM' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_CX' => 
+  'en_CX' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_CY' => 
+  'en_CY' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_DE' => 
+  'en_DE' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_DK' => 
+  'en_DK' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH.mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_DM' => 
+  'en_DM' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_ER' => 
+  'en_ER' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_FI' => 
+  'en_FI' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'H.mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_FJ' => 
+  'en_FJ' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_FK' => 
+  'en_FK' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_FM' => 
+  'en_FM' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_GB' => 
+  'en_GB' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_GD' => 
+  'en_GD' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_GG' => 
+  'en_GG' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_GH' => 
+  'en_GH' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_GI' => 
+  'en_GI' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_GM' => 
+  'en_GM' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_GU' => 
+  'en_GU' =>
   [
     'date' => 'M/d/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_GY' => 
+  'en_GY' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_HK' => 
+  'en_HK' =>
   [
     'date' => 'd/M/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_ID' => 
+  'en_ID' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH.mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_IE' => 
+  'en_IE' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_IL' => 
+  'en_IL' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'H:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_IM' => 
+  'en_IM' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_IN' => 
+  'en_IN' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_IO' => 
+  'en_IO' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_JE' => 
+  'en_JE' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_JM' => 
+  'en_JM' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_KE' => 
+  'en_KE' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_KI' => 
+  'en_KI' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_KN' => 
+  'en_KN' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_KY' => 
+  'en_KY' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_LC' => 
+  'en_LC' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_LR' => 
+  'en_LR' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_LS' => 
+  'en_LS' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_MG' => 
+  'en_MG' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_MH' => 
+  'en_MH' =>
   [
     'date' => 'M/d/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_MO' => 
+  'en_MO' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_MP' => 
+  'en_MP' =>
   [
     'date' => 'M/d/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_MS' => 
+  'en_MS' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_MT' => 
+  'en_MT' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_MU' => 
+  'en_MU' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_MV' => 
+  'en_MV' =>
   [
     'date' => 'd-M-yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_MW' => 
+  'en_MW' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_MY' => 
+  'en_MY' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_NA' => 
+  'en_NA' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_NF' => 
+  'en_NF' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_NG' => 
+  'en_NG' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_NL' => 
+  'en_NL' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_NR' => 
+  'en_NR' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_NU' => 
+  'en_NU' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_NZ' => 
+  'en_NZ' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_PG' => 
+  'en_PG' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_PH' => 
+  'en_PH' =>
   [
     'date' => 'M/d/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_PK' => 
+  'en_PK' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_PN' => 
+  'en_PN' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_PR' => 
+  'en_PR' =>
   [
     'date' => 'M/d/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_PW' => 
+  'en_PW' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_RW' => 
+  'en_RW' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_SB' => 
+  'en_SB' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_SC' => 
+  'en_SC' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_SD' => 
+  'en_SD' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_SE' => 
+  'en_SE' =>
   [
     'date' => 'y-MM-dd',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_SG' => 
+  'en_SG' =>
   [
     'date' => 'd/M/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_SH' => 
+  'en_SH' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_SI' => 
+  'en_SI' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_SL' => 
+  'en_SL' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_SS' => 
+  'en_SS' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_SX' => 
+  'en_SX' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_SZ' => 
+  'en_SZ' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_TC' => 
+  'en_TC' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_TK' => 
+  'en_TK' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_TO' => 
+  'en_TO' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_TT' => 
+  'en_TT' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_TV' => 
+  'en_TV' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_TZ' => 
+  'en_TZ' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_UG' => 
+  'en_UG' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_UM' => 
+  'en_UM' =>
   [
     'date' => 'M/d/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_US' => 
+  'en_US' =>
   [
     'date' => 'M/d/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_VC' => 
+  'en_VC' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_VG' => 
+  'en_VG' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_VI' => 
+  'en_VI' =>
   [
     'date' => 'M/d/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_VU' => 
+  'en_VU' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_WS' => 
+  'en_WS' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_ZA' => 
+  'en_ZA' =>
   [
     'date' => 'y/MM/dd',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_ZM' => 
+  'en_ZM' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'en_ZW' => 
+  'en_ZW' =>
   [
     'date' => 'd/M/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'eo' => 
+  'eo' =>
   [
     'date' => 'yy-MM-dd',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'es' => 
+  'es' =>
   [
     'date' => 'd/M/yy',
     'time' => 'H:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'es_AR' => 
+  'es_AR' =>
   [
     'date' => 'd/M/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_BO' => 
+  'es_BO' =>
   [
     'date' => 'd/M/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_BR' => 
+  'es_BR' =>
   [
     'date' => 'd/M/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_BZ' => 
+  'es_BZ' =>
   [
     'date' => 'd/M/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_CL' => 
+  'es_CL' =>
   [
     'date' => 'dd-MM-yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_CO' => 
+  'es_CO' =>
   [
     'date' => 'd/MM/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_CR' => 
+  'es_CR' =>
   [
     'date' => 'd/M/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_CU' => 
+  'es_CU' =>
   [
     'date' => 'd/M/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_DO' => 
+  'es_DO' =>
   [
     'date' => 'd/M/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_EC' => 
+  'es_EC' =>
   [
     'date' => 'd/M/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_ES' => 
+  'es_ES' =>
   [
     'date' => 'd/M/yy',
     'time' => 'H:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_GQ' => 
+  'es_GQ' =>
   [
     'date' => 'd/M/yy',
     'time' => 'H:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_GT' => 
+  'es_GT' =>
   [
     'date' => 'd/MM/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_HN' => 
+  'es_HN' =>
   [
     'date' => 'd/M/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_MX' => 
+  'es_MX' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_NI' => 
+  'es_NI' =>
   [
     'date' => 'd/M/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_PA' => 
+  'es_PA' =>
   [
     'date' => 'MM/dd/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_PE' => 
+  'es_PE' =>
   [
     'date' => 'd/MM/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_PH' => 
+  'es_PH' =>
   [
     'date' => 'd/M/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_PR' => 
+  'es_PR' =>
   [
     'date' => 'MM/dd/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_PY' => 
+  'es_PY' =>
   [
     'date' => 'd/M/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_SV' => 
+  'es_SV' =>
   [
     'date' => 'd/M/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_US' => 
+  'es_US' =>
   [
     'date' => 'd/M/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_UY' => 
+  'es_UY' =>
   [
     'date' => 'd/M/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'es_VE' => 
+  'es_VE' =>
   [
     'date' => 'd/M/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'eu' => 
+  'eu' =>
   [
     'date' => 'yy/M/d',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'eu_ES' => 
+  'eu_ES' =>
   [
     'date' => 'yy/M/d',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fa' => 
+  'fa' =>
   [
     'date' => 'y/M/d',
     'time' => 'H:mm',
     'rtl' => true,
     'translation' => true,
   ],
-  'fa_AF' => 
+  'fa_AF' =>
   [
     'date' => 'y/M/d',
     'time' => 'H:mm',
     'rtl' => true,
     'translation' => false,
   ],
-  'fa_IR' => 
+  'fa_IR' =>
   [
     'date' => 'y/M/d',
     'time' => 'H:mm',
     'rtl' => true,
     'translation' => false,
   ],
-  'fi' => 
+  'fi' =>
   [
     'date' => 'd.M.y',
     'time' => 'H.mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'fi_FI' => 
+  'fi_FI' =>
   [
     'date' => 'd.M.y',
     'time' => 'H.mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fo' => 
+  'fo' =>
   [
     'date' => 'dd.MM.yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'fo_DK' => 
+  'fo_DK' =>
   [
     'date' => 'dd.MM.yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fo_FO' => 
+  'fo_FO' =>
   [
     'date' => 'dd.MM.yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr' => 
+  'fr' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'fr_BE' => 
+  'fr_BE' =>
   [
     'date' => 'd/MM/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_BF' => 
+  'fr_BF' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_BI' => 
+  'fr_BI' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_BJ' => 
+  'fr_BJ' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_BL' => 
+  'fr_BL' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_CA' => 
+  'fr_CA' =>
   [
     'date' => 'y-MM-dd',
     'time' => 'HH \'h\' mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_CD' => 
+  'fr_CD' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_CF' => 
+  'fr_CF' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_CG' => 
+  'fr_CG' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_CH' => 
+  'fr_CH' =>
   [
     'date' => 'dd.MM.yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_CI' => 
+  'fr_CI' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_CM' => 
+  'fr_CM' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_DJ' => 
+  'fr_DJ' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_DZ' => 
+  'fr_DZ' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_FR' => 
+  'fr_FR' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_GA' => 
+  'fr_GA' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_GF' => 
+  'fr_GF' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_GN' => 
+  'fr_GN' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_GP' => 
+  'fr_GP' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_GQ' => 
+  'fr_GQ' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_HT' => 
+  'fr_HT' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_KM' => 
+  'fr_KM' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_LU' => 
+  'fr_LU' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_MA' => 
+  'fr_MA' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_MC' => 
+  'fr_MC' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_MF' => 
+  'fr_MF' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_MG' => 
+  'fr_MG' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_ML' => 
+  'fr_ML' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_MQ' => 
+  'fr_MQ' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_MR' => 
+  'fr_MR' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_MU' => 
+  'fr_MU' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_NC' => 
+  'fr_NC' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_NE' => 
+  'fr_NE' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_PF' => 
+  'fr_PF' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_PM' => 
+  'fr_PM' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_RE' => 
+  'fr_RE' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_RW' => 
+  'fr_RW' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_SC' => 
+  'fr_SC' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_SN' => 
+  'fr_SN' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_SY' => 
+  'fr_SY' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_TD' => 
+  'fr_TD' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_TG' => 
+  'fr_TG' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_TN' => 
+  'fr_TN' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_VU' => 
+  'fr_VU' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_WF' => 
+  'fr_WF' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'fr_YT' => 
+  'fr_YT' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'he' => 
+  'he' =>
   [
     'date' => 'd.M.y',
     'time' => 'H:mm',
     'rtl' => true,
     'translation' => true,
   ],
-  'he_IL' => 
+  'he_IL' =>
   [
     'date' => 'd.M.y',
     'time' => 'H:mm',
     'rtl' => true,
     'translation' => false,
   ],
-  'hr' => 
+  'hr' =>
   [
     'date' => 'dd. MM. y.',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'hr_BA' => 
+  'hr_BA' =>
   [
     'date' => 'd. M. yy.',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'hr_HR' => 
+  'hr_HR' =>
   [
     'date' => 'dd. MM. y.',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'hu' => 
+  'hu' =>
   [
     'date' => 'y. MM. dd.',
     'time' => 'H:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'hu_HU' => 
+  'hu_HU' =>
   [
     'date' => 'y. MM. dd.',
     'time' => 'H:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'id' => 
+  'id' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'HH.mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'it' => 
+  'it' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'it_CH' => 
+  'it_CH' =>
   [
     'date' => 'dd.MM.yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'it_IT' => 
+  'it_IT' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'it_SM' => 
+  'it_SM' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'it_VA' => 
+  'it_VA' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'ja' => 
+  'ja' =>
   [
     'date' => 'y/MM/dd',
     'time' => 'H:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'ja_JP' => 
+  'ja_JP' =>
   [
     'date' => 'y/MM/dd',
     'time' => 'H:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'ko' => 
+  'ko' =>
   [
     'date' => 'yy. M. d.',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => true,
   ],
-  'ko_CN' => 
+  'ko_CN' =>
   [
     'date' => 'yy. M. d.',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'ko_KP' => 
+  'ko_KP' =>
   [
     'date' => 'yy. M. d.',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'ko_KR' => 
+  'ko_KR' =>
   [
     'date' => 'yy. M. d.',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'nb_NO' => 
+  'nb_NO' =>
   [
     'date' => 'dd.MM.y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'nl' => 
+  'nl' =>
   [
     'date' => 'dd-MM-y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'nl_AW' => 
+  'nl_AW' =>
   [
     'date' => 'dd-MM-y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'nl_BE' => 
+  'nl_BE' =>
   [
     'date' => 'd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'nl_BQ' => 
+  'nl_BQ' =>
   [
     'date' => 'dd-MM-y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'nl_CW' => 
+  'nl_CW' =>
   [
     'date' => 'dd-MM-y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'nl_NL' => 
+  'nl_NL' =>
   [
     'date' => 'dd-MM-y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'nl_SR' => 
+  'nl_SR' =>
   [
     'date' => 'dd-MM-y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'nl_SX' => 
+  'nl_SX' =>
   [
     'date' => 'dd-MM-y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'pa' => 
+  'pa' =>
   [
     'date' => 'd/M/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => true,
   ],
-  'pl' => 
+  'pl' =>
   [
     'date' => 'd.MM.y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'pl_PL' => 
+  'pl_PL' =>
   [
     'date' => 'd.MM.y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'pt' => 
+  'pt' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'pt_AO' => 
+  'pt_AO' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'pt_BR' => 
+  'pt_BR' =>
   [
     'date' => 'dd/MM/y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'pt_CH' => 
+  'pt_CH' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'pt_CV' => 
+  'pt_CV' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'pt_GQ' => 
+  'pt_GQ' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'pt_GW' => 
+  'pt_GW' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'pt_LU' => 
+  'pt_LU' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'pt_MO' => 
+  'pt_MO' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'pt_MZ' => 
+  'pt_MZ' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'pt_PT' => 
+  'pt_PT' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'pt_ST' => 
+  'pt_ST' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'pt_TL' => 
+  'pt_TL' =>
   [
     'date' => 'dd/MM/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'ro' => 
+  'ro' =>
   [
     'date' => 'dd.MM.y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'ro_MD' => 
+  'ro_MD' =>
   [
     'date' => 'dd.MM.y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'ro_RO' => 
+  'ro_RO' =>
   [
     'date' => 'dd.MM.y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'ru' => 
+  'ru' =>
   [
     'date' => 'dd.MM.y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'ru_BY' => 
+  'ru_BY' =>
   [
     'date' => 'dd.MM.y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'ru_KG' => 
+  'ru_KG' =>
   [
     'date' => 'dd.MM.y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'ru_KZ' => 
+  'ru_KZ' =>
   [
     'date' => 'dd.MM.y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'ru_MD' => 
+  'ru_MD' =>
   [
     'date' => 'dd.MM.y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'ru_RU' => 
+  'ru_RU' =>
   [
     'date' => 'dd.MM.y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'ru_UA' => 
+  'ru_UA' =>
   [
     'date' => 'dd.MM.y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'sk' => 
+  'sk' =>
   [
     'date' => 'd. M. y',
     'time' => 'H:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'sk_SK' => 
+  'sk_SK' =>
   [
     'date' => 'd. M. y',
     'time' => 'H:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'sl' => 
+  'sl' =>
   [
     'date' => 'd. M. yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'sv' => 
+  'sv' =>
   [
     'date' => 'y-MM-dd',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'sv_AX' => 
+  'sv_AX' =>
   [
     'date' => 'y-MM-dd',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'sv_FI' => 
+  'sv_FI' =>
   [
     'date' => 'y-MM-dd',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'sv_SE' => 
+  'sv_SE' =>
   [
     'date' => 'y-MM-dd',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'tr' => 
+  'tr' =>
   [
     'date' => 'd.MM.y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'tr_CY' => 
+  'tr_CY' =>
   [
     'date' => 'd.MM.y',
     'time' => 'h:mm a',
     'rtl' => false,
     'translation' => false,
   ],
-  'tr_TR' => 
+  'tr_TR' =>
   [
     'date' => 'd.MM.y',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'uk' => 
+  'uk' =>
   [
     'date' => 'dd.MM.yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'uk_UA' => 
+  'uk_UA' =>
   [
     'date' => 'dd.MM.yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'vi' => 
+  'vi' =>
   [
     'date' => 'd/M/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'vi_VN' => 
+  'vi_VN' =>
   [
     'date' => 'd/M/yy',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => false,
   ],
-  'zh_CN' => 
+  'zh_CN' =>
   [
     'date' => 'y/M/d',
     'time' => 'HH:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'zh_Hant' => 
+  'zh_Hant' =>
   [
     'date' => 'y/M/d',
     'time' => 'Bh:mm',
     'rtl' => false,
     'translation' => true,
   ],
-  'zh_Hant_TW' => 
+  'zh_Hant_TW' =>
   [
     'date' => 'y/M/d',
     'time' => 'Bh:mm',

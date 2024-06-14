@@ -5,7 +5,7 @@
 
 {% block head %}
     {% include 'partials/head.html.twig' %}
-    {% set event = trigger(constant('App\\Event\\ThemeEvent::HTML_HEAD')) %}
+    {% set event = trigger(constant('App\\Crm\\Transport\\Event\\ThemeEvent::HTML_HEAD')) %}
     {{ event.content|raw }}
 {% endblock %}
 
@@ -15,13 +15,13 @@
     {% else %}
         {{ encore_entry_link_tags('app') }}
     {% endif %}
-    {% set event = trigger(constant('App\\Event\\ThemeEvent::STYLESHEET')) %}
+    {% set event = trigger(constant('App\\Crm\\Transport\\Event\\ThemeEvent::STYLESHEET')) %}
     {{ event.content|raw }}
 {% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
-    {% set event = trigger(constant('App\\Event\\ThemeEvent::JAVASCRIPT')) %}
+    {% set event = trigger(constant('App\\Crm\\Transport\\Event\\ThemeEvent::JAVASCRIPT')) %}
     <script>
         let profile = localStorage.getItem('kimai_profile');
         if (profile === null) {

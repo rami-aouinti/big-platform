@@ -1,0 +1,53 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Crm\Transport\Form;
+
+use App\Crm\Transport\Form\Type\DescriptionType;
+use App\Crm\Transport\Form\Type\MetaFieldsCollectionType;
+use App\Crm\Transport\Form\Type\TagsInputType;
+use App\User\Transport\Form\Type\Console\UserType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+/**
+ * Values that are allowed to be pre-set via URL.
+ */
+final class TimesheetPreCreateForm extends AbstractType
+{
+    use FormTrait;
+
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $this->addProject($builder, true, null, null, [
+            'required' => false,
+        ]);
+        $this->addActivity($builder, null, null, [
+            'required' => false,
+        ]);
+        $builder->add('description', DescriptionType::class, [
+            'required' => false,
+        ]);
+        $builder->add('tags', TagsInputType::class, [
+            'required' => false,
+        ]);
+        $builder->add('metaFields', MetaFieldsCollectionType::class);
+        if ($options['include_user']) {
+            $builder->add('user', UserType::class, [
+                'required' => false,
+            ]);
+        }
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'csrf_protection' => false,
+            'include_user' => false,
+            'method' => 'GET',
+            'validation_groups' => ['none'], // otherwise the default timesheet validations would trigger
+        ]);
+    }
+}

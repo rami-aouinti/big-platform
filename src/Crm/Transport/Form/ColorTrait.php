@@ -1,0 +1,46 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Crm\Transport\Form;
+
+use App\Crm\Transport\Form\Type\ColorChoiceType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+
+trait ColorTrait
+{
+    protected function addColor(FormBuilderInterface $builder, bool $required = false): void
+    {
+        $builder
+            ->add('color', ColorChoiceType::class, [
+                'required' => $required,
+            ])
+        ;
+
+        // this code exists only for backward compatibility
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($required) {
+                if (!$event->getForm()->getConfig()->hasOption('choices')) {
+                    return;
+                }
+
+                $data = $event->getData();
+                $choices = $event->getForm()->getConfig()->getOption('choices');
+                if (\is_object($data) && method_exists($data, 'getColor')) {
+                    $color = $data->getColor();
+                    if (!empty($color) && array_search($color, $choices) === false) {
+                        $choices[$color] = $color;
+                    }
+                }
+
+                $event->getForm()->add('color', ColorChoiceType::class, [
+                    'required' => $required,
+                    'choices' => $choices,
+                ]);
+            }
+        );
+    }
+}

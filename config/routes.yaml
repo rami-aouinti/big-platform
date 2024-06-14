@@ -54,8 +54,6 @@ api.swagger:
 2fa_login_check:
     path: /{_locale}/auth/2fa_check
 
-
-
 homeLocale:
     path: /{_locale}
     requirements:
@@ -66,8 +64,8 @@ homeLocale:
         route: homepage
         permanent: true
 
-controllers:
-    resource: ../src/Controller/
+crm-controller:
+    resource: ../src/Crm/Transport/API/
     type: attribute
     prefix: /{_locale}
     requirements:
@@ -75,20 +73,19 @@ controllers:
     defaults:
         _locale: '%locale%'
 
-
 api:
-    resource: ../src/API/
+    resource: ../src/Crm/Transport/API/
     type: attribute
     prefix: /api/crm/
 
 
 auth:
-    resource: ../src/Controller/Auth/
+    resource: ../src/Admin/Crm/Controller/Auth/
     type: attribute
     prefix: /auth
 
 security:
-    resource: ../src/Controller/Security/
+    resource: ../src/Admin/Crm/Controller/Security/
     type: attribute
     prefix: /{_locale}
     requirements:
@@ -106,3 +103,13 @@ home:
         _controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction
         route: homepage
         permanent: true
+
+
+admin:
+    resource: ../src/Admin/Crm/Controller/
+    type: attribute
+    prefix: /{_locale}/admin
+    requirements:
+        _locale: '%app_locales%'
+    defaults:
+        _locale: '%locale%'

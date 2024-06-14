@@ -67,8 +67,8 @@ services:
             - '../src/Constants.php'
 
     # controllers are imported separately to make sure services can be injected
-    App\Controller\:
-        resource: '../src/Controller'
+    App\Admin\Crm\Controller\:
+        resource: '../src/Admin/Crm/Controller'
         tags: [ 'controller.service_arguments' ]
     # as action arguments even if you don't extend any base controller class
     App\General\Transport\ValueResolver\EntityValueResolver:
@@ -139,99 +139,99 @@ services:
     # REPOSITORIES
     # ================================================================================
 
-    App\Repository\TimesheetRepository:
-        class: App\Repository\TimesheetRepository
+    App\Crm\Domain\Repository\TimesheetRepository:
+        class: App\Crm\Domain\Repository\TimesheetRepository
         factory: [ '@doctrine.orm.entity_manager', getRepository ]
-        arguments: [ 'App\Entity\Timesheet' ]
+        arguments: [ 'App\Crm\Domain\Entity\Timesheet' ]
 
-    App\Repository\UserRepository:
-        class: App\Repository\UserRepository
+    App\Crm\Domain\Repository\UserRepository:
+        class: App\Crm\Domain\Repository\UserRepository
         factory: [ '@doctrine.orm.entity_manager', getRepository ]
         arguments: [ 'App\User\Domain\Entity\User' ]
 
-    App\Repository\TeamRepository:
-        class: App\Repository\TeamRepository
+    App\Crm\Domain\Repository\TeamRepository:
+        class: App\Crm\Domain\Repository\TeamRepository
         factory: [ '@doctrine.orm.entity_manager', getRepository ]
-        arguments: [ 'App\Entity\Team' ]
+        arguments: [ 'App\Crm\Domain\Entity\Team' ]
 
-    App\Repository\ActivityRepository:
-        class: App\Repository\ActivityRepository
+    App\Crm\Domain\Repository\ActivityRepository:
+        class: App\Crm\Domain\Repository\ActivityRepository
         factory: [ '@doctrine.orm.entity_manager', getRepository ]
-        arguments: [ 'App\Entity\Activity' ]
+        arguments: [ 'App\Crm\Domain\Entity\Activity' ]
 
-    App\Repository\ProjectRepository:
-        class: App\Repository\ProjectRepository
+    App\Crm\Domain\Repository\ProjectRepository:
+        class: App\Crm\Domain\Repository\ProjectRepository
         factory: [ '@doctrine.orm.entity_manager', getRepository ]
-        arguments: [ 'App\Entity\Project' ]
+        arguments: [ 'App\Crm\Domain\Entity\Project' ]
 
-    App\Repository\TagRepository:
-        class: App\Repository\TagRepository
+    App\Crm\Domain\Repository\TagRepository:
+        class: App\Crm\Domain\Repository\TagRepository
         factory: [ '@doctrine.orm.entity_manager', getRepository ]
-        arguments: [ 'App\Entity\Tag' ]
+        arguments: [ 'App\Crm\Domain\Entity\Tag' ]
 
-    App\Repository\CustomerRepository:
-        class: App\Repository\CustomerRepository
+    App\Crm\Domain\Repository\CustomerRepository:
+        class: App\Crm\Domain\Repository\CustomerRepository
         factory: [ '@doctrine.orm.entity_manager', getRepository ]
-        arguments: [ 'App\Entity\Customer' ]
+        arguments: [ 'App\Crm\Domain\Entity\Customer' ]
 
-    App\Repository\InvoiceTemplateRepository:
-        class: App\Repository\InvoiceTemplateRepository
+    App\Crm\Domain\Repository\InvoiceTemplateRepository:
+        class: App\Crm\Domain\Repository\InvoiceTemplateRepository
         factory: [ '@doctrine.orm.entity_manager', getRepository ]
-        arguments: [ 'App\Entity\InvoiceTemplate' ]
+        arguments: [ 'App\Crm\Domain\Entity\InvoiceTemplate' ]
 
-    App\Repository\ConfigurationRepository:
-        class: App\Repository\ConfigurationRepository
+    App\Crm\Domain\Repository\ConfigurationRepository:
+        class: App\Crm\Domain\Repository\ConfigurationRepository
         factory: [ '@doctrine.orm.entity_manager', getRepository ]
-        arguments: [ 'App\Entity\Configuration' ]
+        arguments: [ 'App\Crm\Domain\Entity\Configuration' ]
 
-    App\Repository\RoleRepository:
-        class: App\Repository\RoleRepository
+    App\Crm\Domain\Repository\RoleRepository:
+        class: App\Crm\Domain\Repository\RoleRepository
         factory: [ '@doctrine.orm.entity_manager', getRepository ]
         arguments: [ 'App\Role\Domain\Entity\Role' ]
 
-    App\Repository\RolePermissionRepository:
-        class: App\Repository\RolePermissionRepository
+    App\Crm\Domain\Repository\RolePermissionRepository:
+        class: App\Crm\Domain\Repository\RolePermissionRepository
         factory: [ '@doctrine.orm.entity_manager', getRepository ]
-        arguments: [ 'App\Entity\RolePermission' ]
+        arguments: [ 'App\Crm\Domain\Entity\RolePermission' ]
 
-    App\Repository\InvoiceDocumentRepository:
-        class: App\Repository\InvoiceDocumentRepository
+    App\Crm\Domain\Repository\InvoiceDocumentRepository:
+        class: App\Crm\Domain\Repository\InvoiceDocumentRepository
         arguments: [ '%kimai.invoice.documents%' ]
 
-    App\Repository\CustomerRateRepository:
-        class: App\Repository\CustomerRateRepository
+    App\Crm\Domain\Repository\CustomerRateRepository:
+        class: App\Crm\Domain\Repository\CustomerRateRepository
         factory: [ '@doctrine.orm.entity_manager', getRepository ]
-        arguments: [ 'App\Entity\CustomerRate' ]
+        arguments: [ 'App\Crm\Domain\Entity\CustomerRate' ]
 
-    App\Repository\ActivityRateRepository:
-        class: App\Repository\ActivityRateRepository
+    App\Crm\Domain\Repository\ActivityRateRepository:
+        class: App\Crm\Domain\Repository\ActivityRateRepository
         factory: [ '@doctrine.orm.entity_manager', getRepository ]
-        arguments: [ 'App\Entity\ActivityRate' ]
+        arguments: [ 'App\Crm\Domain\Entity\ActivityRate' ]
 
-    App\Repository\ProjectRateRepository:
-        class: App\Repository\ProjectRateRepository
+    App\Crm\Domain\Repository\ProjectRateRepository:
+        class: App\Crm\Domain\Repository\ProjectRateRepository
         factory: [ '@doctrine.orm.entity_manager', getRepository ]
-        arguments: [ 'App\Entity\ProjectRate' ]
+        arguments: [ 'App\Crm\Domain\Entity\ProjectRate' ]
 
-    App\Repository\InvoiceRepository:
-        class: App\Repository\InvoiceRepository
+    App\Crm\Domain\Repository\InvoiceRepository:
+        class: App\Crm\Domain\Repository\InvoiceRepository
         factory: [ '@doctrine.orm.entity_manager', getRepository ]
-        arguments: [ 'App\Entity\Invoice' ]
+        arguments: [ 'App\Crm\Domain\Entity\Invoice' ]
 
-    App\Repository\BookmarkRepository:
-        class: App\Repository\BookmarkRepository
+    App\Crm\Domain\Repository\BookmarkRepository:
+        class: App\Crm\Domain\Repository\BookmarkRepository
         factory: [ '@doctrine.orm.entity_manager', getRepository ]
-        arguments: [ 'App\Entity\Bookmark' ]
+        arguments: [ 'App\Crm\Domain\Entity\Bookmark' ]
 
-    App\Repository\WorkingTimeRepository:
-        class: App\Repository\WorkingTimeRepository
+    App\Crm\Domain\Repository\WorkingTimeRepository:
+        class: App\Crm\Domain\Repository\WorkingTimeRepository
         factory: [ '@doctrine.orm.entity_manager', getRepository ]
-        arguments: [ 'App\Entity\WorkingTime' ]
+        arguments: [ 'App\Crm\Domain\Entity\WorkingTime' ]
 
-    App\Repository\AccessTokenRepository:
-        class: App\Repository\AccessTokenRepository
+    App\Crm\Domain\Repository\AccessTokenRepository:
+        class: App\Crm\Domain\Repository\AccessTokenRepository
         factory: [ '@doctrine.orm.entity_manager', getRepository ]
-        arguments: [ 'App\Entity\AccessToken' ]
+        arguments: [ 'App\Crm\Domain\Entity\AccessToken' ]
 
     monolog.formatter.kimai:
         class: Monolog\Formatter\LineFormatter
@@ -302,10 +302,10 @@ when@dev:
             arguments:
                 $dataDir: '%kimai.data_dir%'
 
-        App\API\Serializer\ValidationFailedExceptionErrorHandler:
+        App\Crm\Transport\API\Serializer\ValidationFailedExceptionErrorHandler:
             arguments: [ '@translator.default', '@fos_rest.serializer.flatten_exception_handler' ]
 
-        App\Command\ExportCreateCommand:
+        App\Crm\Transport\Command\ExportCreateCommand:
             arguments:
                 $mailer: '@App\Mail\KimaiMailer'
 
@@ -313,13 +313,13 @@ when@dev:
         # TIMESHEET RECORD CALCULATOR
         # ================================================================================
 
-        App\Timesheet\RoundingService:
+        App\Crm\Application\Service\Timesheet\RoundingService:
             arguments:
                 # this is currently required, as local.yaml allows to configure several rules,
                 # while the database system only allows one rounding rule
                 $rules: '%kimai.timesheet.rounding%'
 
-        App\Timesheet\RateService:
+        App\Crm\Application\Service\Timesheet\RateService:
             arguments: [ '%kimai.timesheet.rates%' ]
 
 
