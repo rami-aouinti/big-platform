@@ -25,6 +25,7 @@ services:
             $elasticNumberOfShards: '%env(int:ELASTICSEARCH_NUMBER_OF_SHARDS)%'
             $elasticNumberOfReplicas: '%env(int:ELASTICSEARCH_NUMBER_OF_REPLICAS)%'
             $lockUserOnLoginFailureAttempts: '%env(int:LOCK_USER_ON_LOGIN_FAILURE_ATTEMPTS)%'
+
     _instanceof:
         App\General\Application\Rest\Interfaces\RestResourceInterface:
             tags: [ 'app.rest.resource', 'app.stopwatch' ]
@@ -55,15 +56,15 @@ services:
             - '../src/*/Domain/Entity/'
             - '../src/*/Transport/EventListener/'
             - '../src/Kernel.php'
-            - '../src/API/Model/'
+            - '../src/Crm/Transport/API/Model/'
             - '../src/DependencyInjection/'
-            - '../src/Entity/'
-            - '../src/Repository/Loader/'
-            - '../src/Repository/Paginator/'
-            - '../src/Repository/Query/'
-            - '../src/Repository/Result/'
-            - '../src/Event/'
-            - '../src/Model/'
+            - '../src/Crm/Domain/Entity/'
+            - '../src/Crm/Domain/Repository/Loader/'
+            - '../src/Crm/Domain/Repository/Paginator/'
+            - '../src/Crm/Domain/Repository/Query/'
+            - '../src/Crm/Domain/Repository/Result/'
+            - '../src/Crm/Transport/Event/'
+            - '../src/Crm/Application/Model/'
             - '../src/Constants.php'
 
     # controllers are imported separately to make sure services can be injected

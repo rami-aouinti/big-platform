@@ -5,10 +5,21 @@ declare(strict_types=1);
 namespace App\Configuration;
 
 use App\User\Domain\Entity\User;
+use InvalidArgumentException;
 
+use function count;
+use function in_array;
+use function strlen;
+
+/**
+ * Class LocaleService
+ *
+ * @package App\Configuration
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class LocaleService
 {
-    public const DEFAULT_SETTINGS = [
+    public const array DEFAULT_SETTINGS = [
         'date' => 'dd.MM.y',
         'time' => 'HH:mm',
         'rtl' => false,
@@ -47,7 +58,7 @@ final class LocaleService
 
     public function isKnownLocale(string $language): bool
     {
-        return \in_array($language, $this->getAllLocales(), true);
+        return in_array($language, $this->getAllLocales(), true);
     }
 
     /**
@@ -96,7 +107,7 @@ final class LocaleService
     {
         if (!$this->isKnownLocale($locale)) {
             $parts = explode('_', $locale);
-            if (\count($parts) !== 2 || \strlen($parts[0]) !== 2 || !$this->isKnownLocale($parts[0])) {
+            if (count($parts) !== 2 || strlen($parts[0]) !== 2 || !$this->isKnownLocale($parts[0])) {
                 return User::DEFAULT_LANGUAGE;
             }
             $locale = $parts[0];
@@ -124,11 +135,11 @@ final class LocaleService
     private function getConfig(string $key, string $locale): string|bool
     {
         if (!isset($this->languageSettings[$locale])) {
-            throw new \InvalidArgumentException(sprintf('Unknown locale given: %s', $locale));
+            throw new InvalidArgumentException(sprintf('Unknown locale given: %s', $locale));
         }
 
         if (!isset($this->languageSettings[$locale][$key])) {
-            throw new \InvalidArgumentException(sprintf('Unknown setting for locale %s: %s', $locale, $key));
+            throw new InvalidArgumentException(sprintf('Unknown setting for locale %s: %s', $locale, $key));
         }
 
         return $this->languageSettings[$locale][$key];
