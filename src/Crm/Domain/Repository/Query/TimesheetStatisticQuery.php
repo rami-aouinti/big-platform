@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Domain\Repository\Query;
 
-use App\Crm\Application\Service\Invoice\Project;
+use App\Crm\Domain\Entity\Project;
 use App\User\Domain\Entity\User;
 
 final class TimesheetStatisticQuery

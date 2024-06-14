@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Domain\Repository;
 
-use App\Crm\Application\Service\Invoice\RolePermission;
+use App\Crm\Domain\Entity\RolePermission;
 use App\Role\Domain\Entity\Role;
 use Doctrine\ORM\EntityRepository;
 

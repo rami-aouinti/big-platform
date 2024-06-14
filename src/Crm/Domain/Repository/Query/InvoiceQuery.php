@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Crm\Domain\Repository\Query;
 
-use App\Crm\Application\Service\Invoice\Activity;
-use App\Crm\Application\Service\Invoice\Customer;
-use App\Crm\Application\Service\Invoice\InvoiceTemplate;
-use App\Crm\Application\Service\Invoice\Project;
+use App\Crm\Domain\Entity\Activity;
+use App\Crm\Domain\Entity\Customer;
+use App\Crm\Domain\Entity\InvoiceTemplate;
+use App\Crm\Domain\Entity\Project;
 
 /**
  * Find items (e.g. timesheets) for creating a new invoice.

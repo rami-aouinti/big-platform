@@ -41,6 +41,7 @@
 		"ext-xml": "*",
 		"ext-xsl": "*",
 		"ext-zip": "*",
+		"ext-pdo_sqlite": "*",
 		"composer-runtime-api": "^2.0",
 		"azuyalabs/yasumi": "^2.6",
 		"beberlei/doctrineextensions": "^1.5",
@@ -113,7 +114,17 @@
 		"twig/extra-bundle": "^2.12|^3.0",
 		"twig/inky-extra": "^3.0",
 		"twig/intl-extra": "^3.0",
-		"twig/string-extra": "^3.0"
+		"twig/string-extra": "^3.0",
+		"doctrine/dbal": "^3.0",
+		"league/commonmark": "^2.1",
+		"symfony/apache-pack": "^1.0",
+		"symfony/asset-mapper": "^7.0",
+		"symfony/html-sanitizer": "^7.0",
+		"symfony/polyfill-intl-messageformatter": "^1.12",
+		"symfony/stimulus-bundle": "^2.12",
+		"symfony/ux-live-component": "^2.6",
+		"symfonycasts/sass-bundle": "^0.3",
+		"twig/markdown-extra": "^3.3"
 	},
 	"repositories": [
 		{
@@ -245,7 +256,8 @@
 			"cache:warmup": "symfony-cmd",
 			"cache:pool:clear cache.app || true": "symfony-cmd",
 			"assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd",
-			"assets:install %PUBLIC_DIR%": "symfony-cmd"
+			"assets:install %PUBLIC_DIR%": "symfony-cmd",
+			"importmap:install": "symfony-cmd"
 		}
 	},
 	"support": {

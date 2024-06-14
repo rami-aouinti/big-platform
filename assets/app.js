@@ -1,3 +1,4 @@
+import './bootstrap.js';
 
 require('./sass/_app.scss');
 

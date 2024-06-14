@@ -6,13 +6,13 @@ namespace App\Crm\Domain\Repository;
 
 use App\Crm\Application\Model\Revenue;
 use App\Crm\Application\Model\TimesheetStatistic;
-use App\Crm\Application\Service\Invoice\ActivityRate;
-use App\Crm\Application\Service\Invoice\CustomerRate;
-use App\Crm\Application\Service\Invoice\Project;
-use App\Crm\Application\Service\Invoice\ProjectRate;
-use App\Crm\Application\Service\Invoice\RateInterface;
-use App\Crm\Application\Service\Invoice\Team;
 use App\Crm\Application\Utils\Pagination;
+use App\Crm\Domain\Entity\ActivityRate;
+use App\Crm\Domain\Entity\CustomerRate;
+use App\Crm\Domain\Entity\Project;
+use App\Crm\Domain\Entity\ProjectRate;
+use App\Crm\Domain\Entity\RateInterface;
+use App\Crm\Domain\Entity\Team;
 use App\Crm\Domain\Entity\Timesheet;
 use App\Crm\Domain\Entity\TimesheetMeta;
 use App\Crm\Domain\Repository\Loader\TimesheetLoader;
@@ -46,26 +46,28 @@ class TimesheetRepository extends EntityRepository
     /**
      * @deprecated since 2.0.35
      */
-    public const STATS_QUERY_DURATION = 'duration';
+    public const string STATS_QUERY_DURATION = 'duration';
     /**
      * @deprecated since 2.0.35
      */
-    public const STATS_QUERY_RATE = 'rate';
+    public const string STATS_QUERY_RATE = 'rate';
     /**
      * @deprecated since 2.0.35
      */
-    public const STATS_QUERY_USER = 'users';
+    public const string STATS_QUERY_USER = 'users';
     /**
      * @deprecated since 2.0.35
      */
-    public const STATS_QUERY_AMOUNT = 'amount';
+    public const string STATS_QUERY_AMOUNT = 'amount';
     /**
      * @deprecated since 2.0.35
      */
-    public const STATS_QUERY_ACTIVE = 'active';
+    public const string STATS_QUERY_ACTIVE = 'active';
 
     /**
      * Fetches the raw data of a timesheet, to allow comparison e.g. of submitted and previously stored data.
+     *
+     * @throws NonUniqueResultException
      */
     public function getRawData(int $id): array
     {
@@ -166,13 +168,23 @@ class TimesheetRepository extends EntityRepository
     }
 
     /**
-     * @param self::STATS_QUERY_* $type
+     * @param self::STATS_QUERY_*    $type
+     *
+     * @throws NonUniqueResultException
      * @return int|mixed
      * @deprecated since 2.0.35
      */
-    public function getStatistic(string $type, ?DateTimeInterface $begin, ?DateTimeInterface $end, ?User $user, ?bool $billable = null): mixed
-    {
-        @trigger_error('Repository method getStatistic() is deprecated, use explicit methods instead', E_USER_DEPRECATED);
+    public function getStatistic(
+        string $type,
+        ?DateTimeInterface $begin,
+        ?DateTimeInterface $end,
+        ?User $user,
+        ?bool $billable = null
+    ): mixed {
+        @trigger_error(
+            'Repository method getStatistic() is deprecated, use explicit methods instead',
+            E_USER_DEPRECATED
+        );
 
         switch ($type) {
             case 'active':

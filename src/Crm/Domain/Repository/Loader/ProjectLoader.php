@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Crm\Domain\Repository\Loader;
 
-use App\Crm\Application\Service\Invoice\Customer;
-use App\Crm\Application\Service\Invoice\Project;
-use App\Crm\Application\Service\Invoice\Team;
+use App\Crm\Domain\Entity\Customer;
+use App\Crm\Domain\Entity\Project;
+use App\Crm\Domain\Entity\Team;
 use Doctrine\ORM\EntityManagerInterface;
 
 final class ProjectLoader implements LoaderInterface

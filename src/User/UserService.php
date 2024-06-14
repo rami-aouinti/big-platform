@@ -15,11 +15,18 @@ use App\Crm\Transport\Event\UserDeletePreEvent;
 use App\Crm\Transport\Event\UserUpdatePostEvent;
 use App\Crm\Transport\Event\UserUpdatePreEvent;
 use App\Crm\Transport\Validator\ValidationFailedException;
+use App\General\Domain\Enum\Language;
 use App\User\Domain\Entity\User;
+use Doctrine\ORM\Exception\ORMException;
+use Doctrine\ORM\NonUniqueResultException;
 use InvalidArgumentException;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Random\RandomException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+
+use function array_key_exists;
+use function strlen;
 
 /**
  * @final
@@ -44,7 +51,7 @@ class UserService
     {
         $key = 'count' . ($enabled === null ? '_all' : ($enabled ? '_visible' : '_invisible'));
 
-        if (!\array_key_exists($key, $this->cache)) {
+        if (!array_key_exists($key, $this->cache)) {
             $this->cache[$key] = $this->repository->countUser($enabled);
         }
 
@@ -56,7 +63,7 @@ class UserService
         $user = new User();
         $user->setEnabled(true);
         $user->setTimezone($this->configuration->getUserDefaultTimezone());
-        $user->setLanguage($this->configuration->getUserDefaultLanguage());
+        $user->setLanguage(Language::EN);
         $user->setPreferenceValue(UserPreference::SKIN, $this->configuration->getUserDefaultTheme());
 
         // Attention: PrepareUserEvent cannot be dispatched on console, as it calls isGranted()
@@ -114,12 +121,15 @@ class UserService
         $user = $this->findUserByName($username);
 
         if ($user === null) {
-            throw new \InvalidArgumentException(sprintf('User identified by "%s" username does not exist.', $username));
+            throw new InvalidArgumentException(sprintf('User identified by "%s" username does not exist.', $username));
         }
 
         return $user;
     }
 
+    /**
+     * @throws NonUniqueResultException
+     */
     public function findUserByUsernameOrEmail(string $usernameOrEmail): User
     {
         return $this->repository->loadUserByIdentifier($usernameOrEmail);
@@ -151,11 +161,17 @@ class UserService
         ]);
     }
 
+    /**
+     * @throws RandomException
+     */
     public function generateSecurityToken(): string
     {
         return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
     }
 
+    /**
+     * @throws ORMException
+     */
     public function deleteUser(User $delete, ?User $replace = null): void
     {
         $this->dispatcher->dispatch(new UserDeletePreEvent($delete, $replace));
@@ -180,12 +196,12 @@ class UserService
     {
         $plain = $user->getPlainPassword();
 
-        if ($plain === null || \strlen($plain) === 0) {
+        if ($plain === null || strlen($plain) === 0) {
             return;
         }
 
         $password = $this->passwordHasher->hashPassword($user, $plain);
-        $user->setPassword($password);
+        $user->setPlainPassword($password);
         $user->eraseCredentials();
     }
 
@@ -193,7 +209,7 @@ class UserService
     {
         $plain = $user->getPlainApiToken();
 
-        if ($plain === null || \strlen($plain) === 0) {
+        if ($plain === null || strlen($plain) === 0) {
             return;
         }
 

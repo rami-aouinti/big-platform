@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Domain\Repository;
 
-use App\Crm\Application\Service\Invoice\AccessToken;
+use App\Crm\Domain\Entity\AccessToken;
 use App\User\Domain\Entity\User;
 use Doctrine\ORM\EntityRepository;
 

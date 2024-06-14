@@ -129,6 +129,10 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     #[Exporter\Expose(label: 'alias')]
     private ?string $alias = null;
 
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Assert\NotBlank]
+    private ?string $fullName = null;
+
     #[ORM\Column(name: 'title', type: 'string', length: 50, nullable: true)]
     #[Assert\Length(max: 50)]
     #[Serializer\Expose]
@@ -457,6 +461,16 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     public function getAlias(): ?string
     {
         return $this->alias;
+    }
+
+    public function setFullName(?string $fullName): void
+    {
+        $this->fullName = $fullName;
+    }
+
+    public function getFullName(): ?string
+    {
+        return $this->fullName;
     }
 
     public function getTitle(): ?string

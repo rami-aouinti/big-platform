@@ -8,8 +8,6 @@ use App\Configuration\LocaleService;
 use App\Crm\Domain\Repository\UserRepository;
 use App\Crm\Transport\Event\ConfigureMainMenuEvent;
 use App\User\Domain\Entity\User;
-use Doctrine\ORM\Exception\ORMException;
-use Doctrine\ORM\OptimisticLockException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
@@ -28,8 +26,6 @@ final class HomepageController extends AbstractController
     public const string DEFAULT_ROUTE = 'timesheet';
 
     /**
-     * @throws ORMException
-     * @throws OptimisticLockException
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */

@@ -11,6 +11,9 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
+use function count;
+use function is_array;
+
 /**
  * Defines the sample data to load in the database when running the unit and
  * functional tests or while development.
@@ -22,9 +25,9 @@ use Faker\Factory;
  */
 final class TeamFixtures extends Fixture
 {
-    public const AMOUNT_TEAMS = 10;
-    public const MAX_USERS_PER_TEAM = 15;
-    public const MAX_PROJECTS_PER_TEAM = 5;
+    public const int AMOUNT_TEAMS = 10;
+    public const int MAX_USERS_PER_TEAM = 15;
+    public const int MAX_PROJECTS_PER_TEAM = 5;
 
     public static function getGroups(): array
     {
@@ -38,13 +41,13 @@ final class TeamFixtures extends Fixture
         $faker = Factory::create();
 
         for ($i = 1; $i <= self::AMOUNT_TEAMS; $i++) {
-            $maxUsers = \count($allUsers) - 1;
+            $maxUsers = count($allUsers) - 1;
             if ($maxUsers > self::MAX_USERS_PER_TEAM) {
                 $maxUsers = self::MAX_USERS_PER_TEAM;
             }
             $userCount = mt_rand(1, $maxUsers);
 
-            $maxProjects = \count($allProjects) - 1;
+            $maxProjects = count($allProjects) - 1;
             if ($maxProjects > self::MAX_PROJECTS_PER_TEAM) {
                 $maxProjects = self::MAX_PROJECTS_PER_TEAM;
             }
@@ -55,7 +58,7 @@ final class TeamFixtures extends Fixture
 
             if ($userCount > 0) {
                 $userKeys = array_rand($allUsers, $userCount);
-                if (!\is_array($userKeys)) {
+                if (!is_array($userKeys)) {
                     $userKeys = [$userKeys];
                 }
                 foreach ($userKeys as $userKey) {
@@ -65,7 +68,7 @@ final class TeamFixtures extends Fixture
 
             if ($projectCount > 0) {
                 $projectKeys = array_rand($allProjects, $projectCount);
-                if (!\is_array($projectKeys)) {
+                if (!is_array($projectKeys)) {
                     $projectKeys = [$projectKeys];
                 }
                 foreach ($projectKeys as $projectKey) {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Crm\Domain\Repository\Query;
 
-use App\Crm\Application\Service\Invoice\Activity;
-use App\Crm\Application\Service\Invoice\Project;
+use App\Crm\Domain\Entity\Activity;
+use App\Crm\Domain\Entity\Project;
 
 final class ActivityFormTypeQuery extends BaseFormTypeQuery
 {

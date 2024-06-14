@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Domain\Repository\Query;
 
-use App\Crm\Application\Service\Invoice\Team;
+use App\Crm\Domain\Entity\Team;
 
 /**
  * Can be used for advanced queries with the: UserRepository

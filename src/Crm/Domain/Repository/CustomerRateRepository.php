@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Crm\Domain\Repository;
 
-use App\Crm\Application\Service\Invoice\Customer;
-use App\Crm\Application\Service\Invoice\CustomerRate;
+use App\Crm\Domain\Entity\Customer;
+use App\Crm\Domain\Entity\CustomerRate;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * @extends \Doctrine\ORM\EntityRepository<CustomerRate>
+ * @extends EntityRepository<CustomerRate>
  */
 class CustomerRateRepository extends EntityRepository
 {

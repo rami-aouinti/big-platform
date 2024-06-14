@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Crm\Application\Service\Timesheet;
 
-use App\Crm\Application\Service\Invoice\RateInterface;
-use App\Crm\Application\Service\Invoice\UserPreference;
+use App\Crm\Domain\Entity\RateInterface;
 use App\Crm\Domain\Entity\Timesheet;
+use App\Crm\Domain\Entity\UserPreference;
 use App\Crm\Domain\Repository\TimesheetRepository;
 
 /**
  * Implementation to calculate the rate for a timesheet record.
  */
-final class RateService implements RateServiceInterface
+final readonly class RateService implements RateServiceInterface
 {
     public function __construct(
         private array $rates,
