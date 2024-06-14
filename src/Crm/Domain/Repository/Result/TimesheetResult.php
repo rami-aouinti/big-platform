@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Crm\Domain\Repository\Result;
 
+use App\Crm\Application\Utils\Pagination;
 use App\Crm\Domain\Entity\Timesheet;
 use App\Crm\Domain\Repository\Loader\TimesheetLoader;
 use App\Crm\Domain\Repository\Paginator\LoaderPaginator;
 use App\Crm\Domain\Repository\Query\TimesheetQuery;
-use App\Utils\Pagination;
 use Doctrine\ORM\QueryBuilder;
 
 final class TimesheetResult

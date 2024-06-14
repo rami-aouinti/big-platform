@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\User\Domain\Entity;
 
+use App\Crm\Application\Utils\StringHelper;
 use App\Crm\Domain\Entity\ColorTrait;
 use App\Crm\Domain\Entity\Team;
 use App\Crm\Domain\Entity\TeamMember;
@@ -19,8 +20,6 @@ use App\Tool\Domain\Service\Interfaces\LocalizationServiceInterface;
 use App\User\Domain\Entity\Interfaces\UserGroupAwareInterface;
 use App\User\Domain\Entity\Traits\Blameable;
 use App\User\Domain\Entity\Traits\UserRelations;
-use App\Utils\StringHelper;
-use App\Validator\Constraints as Constraints;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -69,7 +68,7 @@ use Throwable;
 #[Exporter\Expose(name: 'last_login', label: 'lastLogin', type: 'datetime', exp: 'object.getLastLogin()')]
 #[Exporter\Expose(name: 'roles', label: 'roles', type: 'array', exp: 'object.getRoles()')]
 #[Exporter\Expose(name: 'active', label: 'active', type: 'boolean', exp: 'object.isEnabled()')]
-#[Constraints\User(groups: ['UserCreate', 'Registration', 'Default', 'Profile'])]
+#[\App\Crm\Transport\Validator\Constraints\User(groups: ['UserCreate', 'Registration', 'Default', 'Profile'])]
 #[AssertCollection\UniqueEntity('email')]
 #[AssertCollection\UniqueEntity('username')]
 class User implements EntityInterface, UserInterface, UserGroupAwareInterface, EquatableInterface, ThemeUserInterface, PasswordAuthenticatedUserInterface, TwoFactorInterface
@@ -371,7 +370,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     #[Serializer\Expose]
     #[Serializer\Groups(['User_Entity'])]
     #[Serializer\Type('array<string>')]
-    #[Constraints\Role(groups: ['RolesUpdate'])]
+    #[\App\Crm\Transport\Validator\Constraints\Role(groups: ['RolesUpdate'])]
     private array $roles = [];
 
     /**

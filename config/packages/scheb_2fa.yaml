@@ -3,7 +3,7 @@ scheb_two_factor:
     security_tokens:
         - Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken
         - Symfony\Component\Security\Http\Authenticator\Token\PostAuthenticationToken
-        - App\Saml\SamlToken
+        - App\Admin\Auth\Saml\SamlToken
 
     totp:
         enabled: true
@@ -11,7 +11,7 @@ scheb_two_factor:
         leeway: 29                          # How many seconds the code is valid
         issuer: Kimai                       # Issuer name used in QR code
 
-    two_factor_condition: App\Security\TwoFactorCondition
+    two_factor_condition: App\Admin\Auth\Security\TwoFactorCondition
 
     # TODO add:  backup codes - https://symfony.com/bundles/SchebTwoFactorBundle/current/backup_codes.html
     # TODO add: Trusted device feature - https://github.com/scheb/2fa/blob/6.x/doc/configuration.rst

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Crm\Domain\Entity;
 
 use App\Crm\Transport\API\Export\Annotation as Exporter;
-use App\Validator\Constraints as Constraints;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -19,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]
 #[Serializer\ExclusionPolicy('all')]
 #[Exporter\Order(['id', 'name', 'company', 'number', 'vatId', 'address', 'contact', 'email', 'phone', 'mobile', 'fax', 'homepage', 'country', 'currency', 'timezone', 'budget', 'timeBudget', 'budgetType', 'color', 'visible', 'teams', 'comment', 'billable'])]
-#[Constraints\Customer]
+#[\App\Crm\Transport\Validator\Constraints\Customer]
 class Customer implements EntityWithMetaFields, EntityWithBudget
 {
     use BudgetTrait;

@@ -18,14 +18,14 @@ framework:
         enable_annotations: true
 
     exceptions:
-        App\Validator\ValidationFailedException:
+        App\Crm\Transport\Validator\ValidationFailedException:
             log_level: debug
 
     php_errors:
         log: true
 
     session:
-        handler_id: App\Security\SessionHandler
+        handler_id: App\Admin\Auth\Security\SessionHandler
         save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
         cookie_secure: auto
         cookie_samesite: lax

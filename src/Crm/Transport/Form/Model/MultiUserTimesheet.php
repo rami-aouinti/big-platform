@@ -7,7 +7,6 @@ namespace App\Crm\Transport\Form\Model;
 use App\Crm\Domain\Entity\Team;
 use App\Crm\Domain\Entity\Timesheet;
 use App\User\Domain\Entity\User;
-use App\Validator\Constraints as Constraints;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
@@ -15,7 +14,7 @@ use Doctrine\Common\Collections\Collection;
  * @package App\Form\Model
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */
-#[Constraints\TimesheetMultiUser]
+#[\App\Crm\Transport\Validator\Constraints\TimesheetMultiUser]
 final class MultiUserTimesheet extends Timesheet
 {
     /**

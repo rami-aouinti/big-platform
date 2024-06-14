@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Crm\Transport\API;
 
 use App\Configuration\SystemConfiguration;
+use App\Crm\Application\Utils\SearchTerm;
 use App\Crm\Domain\Entity\AccessToken;
 use App\Crm\Domain\Repository\AccessTokenRepository;
 use App\Crm\Domain\Repository\Query\UserQuery;
@@ -13,7 +14,6 @@ use App\Crm\Transport\Event\PrepareUserEvent;
 use App\Crm\Transport\Form\API\UserApiCreateForm;
 use App\Crm\Transport\Form\API\UserApiEditForm;
 use App\User\Domain\Entity\User;
-use App\Utils\SearchTerm;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View;

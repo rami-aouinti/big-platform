@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Crm\Transport\Form\Type;
 
 use App\Crm\Application\Model\QuickEntryModel;
+use App\Crm\Transport\Validator\Constraints\QuickEntryTimesheet;
 use App\User\Domain\Entity\User;
-use App\Validator\Constraints\QuickEntryTimesheet;
 use DateTime;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
@@ -16,7 +16,6 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\All;
-use Symfony\Component\Validator\Constraints\Valid;
 
 final class QuickEntryWeekType extends AbstractType
 {

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Admin\Auth\Ldap\FormLoginLdapFactory;
 use App\DependencyInjection\AppExtension;
 use App\DependencyInjection\Compiler\ExportServiceCompilerPass;
 use App\DependencyInjection\Compiler\InvoiceServiceCompilerPass;
 use App\DependencyInjection\Compiler\TwigContextCompilerPass;
 use App\DependencyInjection\Compiler\WidgetCompilerPass;
-use App\Ldap\FormLoginLdapFactory;
 use App\Plugin\PluginInterface;
 use App\Plugin\PluginMetadata;
 use Exception;

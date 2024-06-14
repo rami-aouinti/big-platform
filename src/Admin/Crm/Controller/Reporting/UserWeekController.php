@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Admin\Crm\Controller\Reporting;
 
 use App\Crm\Application\Model\DailyStatistic;
+use App\Crm\Application\Reporting\WeekByUser\WeekByUser;
+use App\Crm\Application\Reporting\WeekByUser\WeekByUserForm;
 use App\Crm\Transport\API\Export\Spreadsheet\Writer\BinaryFileResponseWriter;
 use App\Crm\Transport\API\Export\Spreadsheet\Writer\XlsxWriter;
-use App\Reporting\WeekByUser\WeekByUser;
-use App\Reporting\WeekByUser\WeekByUserForm;
 use Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Html;
 use Psr\Container\ContainerExceptionInterface;

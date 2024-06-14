@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Crm\Transport\API;
 
 use App\Crm\Application\Service\Customer\CustomerService;
+use App\Crm\Application\Utils\SearchTerm;
 use App\Crm\Domain\Entity\Customer;
 use App\Crm\Domain\Entity\CustomerRate;
 use App\Crm\Domain\Repository\CustomerRateRepository;
@@ -14,7 +15,6 @@ use App\Crm\Transport\Event\CustomerMetaDefinitionEvent;
 use App\Crm\Transport\Form\API\CustomerApiEditForm;
 use App\Crm\Transport\Form\API\CustomerRateApiForm;
 use App\User\Domain\Entity\User;
-use App\Utils\SearchTerm;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View;

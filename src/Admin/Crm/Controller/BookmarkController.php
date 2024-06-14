@@ -6,7 +6,7 @@ namespace App\Admin\Crm\Controller;
 
 use App\Crm\Domain\Repository\BookmarkRepository;
 use App\Crm\Domain\Entity\Bookmark;
-use App\Utils\ProfileManager;
+use App\Crm\Application\Utils\ProfileManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;

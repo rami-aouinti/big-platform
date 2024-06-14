@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Crm\Application\Service\Customer;
 
 use App\Configuration\SystemConfiguration;
+use App\Crm\Application\Utils\NumberGenerator;
 use App\Crm\Domain\Entity\Customer;
 use App\Crm\Domain\Repository\CustomerRepository;
 use App\Crm\Domain\Repository\Query\CustomerQuery;
@@ -14,8 +15,7 @@ use App\Crm\Transport\Event\CustomerCreatePreEvent;
 use App\Crm\Transport\Event\CustomerMetaDefinitionEvent;
 use App\Crm\Transport\Event\CustomerUpdatePostEvent;
 use App\Crm\Transport\Event\CustomerUpdatePreEvent;
-use App\Utils\NumberGenerator;
-use App\Validator\ValidationFailedException;
+use App\Crm\Transport\Validator\ValidationFailedException;
 use InvalidArgumentException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;

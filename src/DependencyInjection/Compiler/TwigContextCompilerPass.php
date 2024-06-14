@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\DependencyInjection\Compiler;
 
-use App\Twig\Configuration;
-use App\Twig\Context;
+use App\Crm\Application\Twig\Configuration;
+use App\Crm\Application\Twig\Context;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

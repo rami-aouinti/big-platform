@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Admin\Crm\Controller;
 
+use App\Crm\Application\Utils\PageSetup;
+use App\Crm\Application\Widget\WidgetInterface;
+use App\Crm\Application\Widget\WidgetService;
 use App\Crm\Domain\Entity\Bookmark;
 use App\Crm\Domain\Repository\BookmarkRepository;
 use App\Crm\Transport\Event\DashboardEvent;
 use App\User\Domain\Entity\User;
-use App\Utils\PageSetup;
-use App\Widget\WidgetInterface;
-use App\Widget\WidgetService;
 use Exception;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Form\Type;
 
+use App\Crm\Application\Utils\MenuItemModel;
 use App\Crm\Transport\Event\ConfigureMainMenuEvent;
-use App\Utils\MenuItemModel;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

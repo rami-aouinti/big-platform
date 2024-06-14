@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Domain\Repository;
 
+use App\Crm\Application\Utils\Pagination;
 use App\Crm\Domain\Entity\Activity;
 use App\Crm\Domain\Entity\Project;
 use App\Crm\Domain\Entity\ProjectComment;
@@ -16,7 +17,6 @@ use App\Crm\Domain\Repository\Paginator\PaginatorInterface;
 use App\Crm\Domain\Repository\Query\ProjectFormTypeQuery;
 use App\Crm\Domain\Repository\Query\ProjectQuery;
 use App\User\Domain\Entity\User;
-use App\Utils\Pagination;
 use DateTime;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Types\Types;

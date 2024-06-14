@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Crm\Domain\Repository;
 
+use App\Crm\Application\Utils\Pagination;
 use App\Crm\Domain\Entity\Tag;
 use App\Crm\Domain\Repository\Paginator\QueryBuilderPaginator;
 use App\Crm\Domain\Repository\Query\TagFormTypeQuery;
 use App\Crm\Domain\Repository\Query\TagQuery;
-use App\Utils\Pagination;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;

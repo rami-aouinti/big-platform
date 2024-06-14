@@ -6,7 +6,7 @@ namespace App\Crm\Transport\Form\Type;
 
 use App\Configuration\SystemConfiguration;
 use App\Constants;
-use App\Utils\Color;
+use App\Crm\Application\Utils\Color;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\EventSubscriber;
 
-use App\Security\SessionHandler;
+use App\Admin\Auth\Security\SessionHandler;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Event\LogoutEvent;

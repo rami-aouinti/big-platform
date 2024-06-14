@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\API;
 
+use App\Crm\Application\Utils\SearchTerm;
 use App\Crm\Domain\Entity\Activity;
 use App\Crm\Domain\Entity\ActivityRate;
 use App\Crm\Domain\Repository\ActivityRateRepository;
@@ -14,7 +15,6 @@ use App\Crm\Transport\Event\ActivityMetaDefinitionEvent;
 use App\Crm\Transport\Form\API\ActivityApiEditForm;
 use App\Crm\Transport\Form\API\ActivityRateApiForm;
 use App\User\Domain\Entity\User;
-use App\Utils\SearchTerm;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View;

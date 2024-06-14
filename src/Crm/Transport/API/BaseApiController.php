@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Crm\Transport\API;
 
 use App\Crm\Application\Service\Timesheet\DateTimeFactory;
+use App\Crm\Application\Utils\Pagination;
 use App\Crm\Domain\Repository\Query\BaseQuery;
 use App\User\Domain\Entity\User;
-use App\Utils\Pagination;
 use FOS\RestBundle\View\View;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;

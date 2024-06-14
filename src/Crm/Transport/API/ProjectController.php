@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Crm\Transport\API;
 
 use App\Crm\Application\Service\Project\ProjectService;
+use App\Crm\Application\Utils\SearchTerm;
 use App\Crm\Domain\Entity\Project;
 use App\Crm\Domain\Entity\ProjectRate;
 use App\Crm\Domain\Repository\CustomerRepository;
@@ -15,7 +16,6 @@ use App\Crm\Transport\Event\ProjectMetaDefinitionEvent;
 use App\Crm\Transport\Form\API\ProjectApiEditForm;
 use App\Crm\Transport\Form\API\ProjectRateApiForm;
 use App\User\Domain\Entity\User;
-use App\Utils\SearchTerm;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View;

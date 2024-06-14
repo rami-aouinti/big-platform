@@ -6,6 +6,7 @@ namespace App\Crm\Transport\API\Export\Base;
 
 use App\Crm\Application\Service\Activity\ActivityStatisticService;
 use App\Crm\Application\Service\Project\ProjectStatisticService;
+use App\Crm\Application\Twig\SecurityPolicy\ExportPolicy;
 use App\Crm\Domain\Entity\ExportableItem;
 use App\Crm\Domain\Entity\MetaTableTypeInterface;
 use App\Crm\Domain\Repository\Query\CustomerQuery;
@@ -16,7 +17,6 @@ use App\Crm\Transport\Event\MetaDisplayEventInterface;
 use App\Crm\Transport\Event\ProjectMetaDisplayEvent;
 use App\Crm\Transport\Event\TimesheetMetaDisplayEvent;
 use App\Crm\Transport\Event\UserPreferenceDisplayEvent;
-use App\Twig\SecurityPolicy\ExportPolicy;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;

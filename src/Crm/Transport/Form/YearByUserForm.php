@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Form;
 
-use App\Reporting\YearByUser\YearByUser;
+use App\Crm\Application\Reporting\YearByUser\YearByUser;
 use App\User\Transport\Form\Type\Console\UserType;
 use App\User\Transport\Form\Type\Console\YearPickerType;
 use Symfony\Component\Form\AbstractType;

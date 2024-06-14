@@ -20,7 +20,7 @@ fos_rest:
         serializer_error_renderer: true
         codes:
             'Symfony\Component\HttpKernel\Exception\BadRequestHttpException': 400
-            'App\Validator\ValidationFailedException': 400
+            'App\Crm\Transport\Validator\ValidationFailedException': 400
             'Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException': 401
             'Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException': 403
             'Symfony\Component\Routing\Exception\ResourceNotFoundException': 404

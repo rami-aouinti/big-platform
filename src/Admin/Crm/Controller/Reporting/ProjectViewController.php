@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Admin\Crm\Controller\Reporting;
 
 use App\Admin\Crm\Controller\AbstractController;
+use App\Crm\Application\Reporting\ProjectView\ProjectViewForm;
+use App\Crm\Application\Reporting\ProjectView\ProjectViewQuery;
 use App\Crm\Application\Service\Project\ProjectStatisticService;
-use App\Reporting\ProjectView\ProjectViewForm;
-use App\Reporting\ProjectView\ProjectViewQuery;
 use Exception;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Admin\Crm\Controller\Reporting;
 
 use App\Crm\Application\Model\DailyStatistic;
+use App\Crm\Application\Reporting\MonthByUser\MonthByUser;
+use App\Crm\Application\Reporting\MonthByUser\MonthByUserForm;
 use App\Crm\Transport\API\Export\Spreadsheet\Writer\BinaryFileResponseWriter;
 use App\Crm\Transport\API\Export\Spreadsheet\Writer\XlsxWriter;
-use App\Reporting\MonthByUser\MonthByUser;
-use App\Reporting\MonthByUser\MonthByUserForm;
 use App\User\Domain\Entity\User;
 use DateTime;
 use Exception;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\API\Serializer;
 
+use App\Crm\Transport\Validator\ValidationFailedException;
 use App\User\Domain\Entity\User;
-use App\Validator\ValidationFailedException;
 use ArrayObject;
 use FOS\RestBundle\Serializer\Normalizer\FlattenExceptionHandler;
 use JMS\Serializer\Context;

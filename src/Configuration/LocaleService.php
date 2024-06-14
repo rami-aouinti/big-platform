@@ -12,8 +12,6 @@ use function in_array;
 use function strlen;
 
 /**
- * Class LocaleService
- *
  * @package App\Configuration
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */

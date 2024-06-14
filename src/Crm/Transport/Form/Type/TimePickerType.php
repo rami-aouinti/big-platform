@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Crm\Transport\Form\Type;
 
 use App\Configuration\LocaleService;
-use App\Utils\FormFormatConverter;
+use App\Crm\Application\Utils\FormFormatConverter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -15,10 +15,14 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @package App\Crm\Transport\Form\Type
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class TimePickerType extends AbstractType
 {
     public function __construct(
-        private LocaleService $localeService
+        private readonly LocaleService $localeService
     ) {
     }
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\EventSubscriber;
 
-use App\Twig\LocaleFormatExtensions;
+use App\Crm\Application\Twig\LocaleFormatExtensions;
 use App\User\Domain\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;

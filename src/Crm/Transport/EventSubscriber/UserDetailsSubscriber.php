@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\EventSubscriber;
 
+use App\Crm\Application\Utils\MenuItemModel;
 use App\User\Domain\Entity\User;
-use App\Utils\MenuItemModel;
 use KevinPapst\TablerBundle\Event\UserDetailsEvent;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

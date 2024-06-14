@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\API\Model;
 
-use App\Utils\Color;
+use App\Crm\Application\Utils\Color;
 use JMS\Serializer\Annotation as Serializer;
 
 /**

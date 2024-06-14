@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Domain\Repository;
 
+use App\Crm\Application\Utils\Pagination;
 use App\Crm\Domain\Entity\Customer;
 use App\Crm\Domain\Entity\Invoice;
 use App\Crm\Domain\Entity\InvoiceMeta;
@@ -13,7 +14,6 @@ use App\Crm\Domain\Repository\Paginator\LoaderPaginator;
 use App\Crm\Domain\Repository\Paginator\PaginatorInterface;
 use App\Crm\Domain\Repository\Query\InvoiceArchiveQuery;
 use App\User\Domain\Entity\User;
-use App\Utils\Pagination;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\EntityRepository;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Form\DataTransformer;
 
-use App\Utils\Duration;
-use App\Validator\Constraints\Duration as DurationConstraint;
+use App\Crm\Application\Utils\Duration;
+use App\Crm\Transport\Validator\Constraints\Duration as DurationConstraint;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 

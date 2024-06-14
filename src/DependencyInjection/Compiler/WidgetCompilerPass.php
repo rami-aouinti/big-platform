@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\DependencyInjection\Compiler;
 
-use App\Widget\WidgetInterface;
-use App\Widget\WidgetService;
+use App\Crm\Application\Widget\WidgetInterface;
+use App\Crm\Application\Widget\WidgetService;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Admin\Crm\Controller\Auth;
 
+use App\Admin\Auth\Saml\SamlAuthFactory;
 use App\Configuration\SamlConfigurationInterface;
-use App\Saml\SamlAuthFactory;
 use OneLogin\Saml2\Error;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

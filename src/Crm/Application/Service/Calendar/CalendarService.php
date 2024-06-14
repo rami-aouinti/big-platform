@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Crm\Application\Service\Calendar;
 
 use App\Configuration\SystemConfiguration;
+use App\Crm\Application\Utils\Color;
 use App\Crm\Domain\Repository\TimesheetRepository;
 use App\Crm\Transport\Event\CalendarConfigurationEvent;
 use App\Crm\Transport\Event\CalendarDragAndDropSourceEvent;
@@ -12,7 +13,6 @@ use App\Crm\Transport\Event\CalendarGoogleSourceEvent;
 use App\Crm\Transport\Event\CalendarSourceEvent;
 use App\Crm\Transport\Event\RecentActivityEvent;
 use App\User\Domain\Entity\User;
-use App\Utils\Color;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 final class CalendarService

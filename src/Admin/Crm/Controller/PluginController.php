@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Admin\Crm\Controller;
 
+use App\Crm\Application\Utils\PageSetup;
 use App\Plugin\PluginManager;
-use App\Utils\PageSetup;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;

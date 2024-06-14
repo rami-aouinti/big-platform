@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Crm\Application\Service\Invoice;
 
 use App\Configuration\LocaleService;
-use App\Utils\LocaleFormatter;
+use App\Crm\Application\Utils\LocaleFormatter;
 
 /**
  * @package App\Crm\Application\Service\Invoice

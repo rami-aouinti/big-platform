@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Form\DataTransformer;
 
-use App\Utils\SearchTerm;
+use App\Crm\Application\Utils\SearchTerm;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 

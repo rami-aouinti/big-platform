@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Form;
 
+use App\Crm\Transport\Validator\Constraints\RoleName;
 use App\Role\Domain\Entity\Role;
-use App\Validator\Constraints\RoleName;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

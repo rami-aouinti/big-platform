@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Application\Service\Invoice;
 
-use App\Utils\FileHelper;
+use App\Crm\Application\Utils\FileHelper;
 use Exception;
 
 use function count;

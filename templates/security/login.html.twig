@@ -34,14 +34,14 @@
 
                 See https://getbootstrap.com/docs/5.0/layout/breakpoints/ for the min width, as of v5 this is 576px
             #}
-            profile = '{{ constant('\\App\\Utils\\ProfileManager::PROFILE_DESKTOP') }}'
+            profile = '{{ constant('\\App\\Crm\\Application\\Utils\\ProfileManager::PROFILE_DESKTOP') }}'
             const size = window.visualViewport !== undefined ? window.visualViewport.width : window.innerWidth;
             if (size < 576) {
-                profile = '{{ constant('\\App\\Utils\\ProfileManager::PROFILE_MOBILE') }}';
+                profile = '{{ constant('\\App\\Crm\\Application\\Utils\\ProfileManager::PROFILE_MOBILE') }}';
             }
             localStorage.setItem('kimai_profile', profile);
         }
-        document.cookie = "{{ constant('\\App\\Utils\\ProfileManager::COOKIE_PROFILE') }}="+profile+"; path=/; expires=; SameSite=Strict; Secure";
+        document.cookie = "{{ constant('\\App\\Crm\\Application\\Utils\\ProfileManager::COOKIE_PROFILE') }}="+profile+"; path=/; expires=; SameSite=Strict; Secure";
     </script>
     {{ event.content|raw }}
 {% endblock %}

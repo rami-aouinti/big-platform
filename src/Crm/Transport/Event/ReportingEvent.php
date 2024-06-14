@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Event;
 
-use App\Reporting\ReportInterface;
+use App\Crm\Application\Reporting\ReportInterface;
 use App\User\Domain\Entity\User;
 use Symfony\Contracts\EventDispatcher\Event;
 

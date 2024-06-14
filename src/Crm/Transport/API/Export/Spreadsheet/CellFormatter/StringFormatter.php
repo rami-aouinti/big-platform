@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\API\Export\Spreadsheet\CellFormatter;
 
-use App\Utils\StringHelper;
+use App\Crm\Application\Utils\StringHelper;
 use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 

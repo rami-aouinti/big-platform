@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Admin\Crm\Controller\Reporting;
 
 use App\Admin\Crm\Controller\AbstractController;
+use App\Crm\Application\Reporting\ProjectDetails\ProjectDetailsForm;
+use App\Crm\Application\Reporting\ProjectDetails\ProjectDetailsQuery;
 use App\Crm\Application\Service\Project\ProjectStatisticService;
-use App\Reporting\ProjectDetails\ProjectDetailsForm;
-use App\Reporting\ProjectDetails\ProjectDetailsQuery;
-use App\Utils\PageSetup;
+use App\Crm\Application\Utils\PageSetup;
 use Exception;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;

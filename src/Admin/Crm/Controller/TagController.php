@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Admin\Crm\Controller;
 
+use App\Crm\Application\Utils\DataTable;
+use App\Crm\Application\Utils\PageSetup;
 use App\Crm\Domain\Entity\Tag;
 use App\Crm\Domain\Repository\Query\TagQuery;
 use App\Crm\Domain\Repository\TagRepository;
@@ -11,8 +13,6 @@ use App\Crm\Transport\Form\MultiUpdate\MultiUpdateTable;
 use App\Crm\Transport\Form\MultiUpdate\MultiUpdateTableDTO;
 use App\Crm\Transport\Form\TagEditForm;
 use App\Crm\Transport\Form\Toolbar\TagToolbarForm;
-use App\Utils\DataTable;
-use App\Utils\PageSetup;
 use Exception;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;

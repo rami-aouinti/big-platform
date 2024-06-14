@@ -6,7 +6,6 @@ namespace App\Crm\Domain\Entity;
 
 use App\Constants;
 use App\Crm\Transport\API\Export\Annotation as Exporter;
-use App\Validator\Constraints as Constraints;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 
@@ -22,7 +21,7 @@ trait ColorTrait
     #[Serializer\Expose]
     #[Serializer\Groups(['Default'])]
     #[Exporter\Expose(label: 'color')]
-    #[Constraints\HexColor]
+    #[\App\Crm\Transport\Validator\Constraints\HexColor]
     private ?string $color = null;
 
     public function getColor(): ?string

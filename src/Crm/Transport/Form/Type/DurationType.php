@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Crm\Transport\Form\Type;
 
 use App\Crm\Transport\Form\DataTransformer\DurationStringToSecondsTransformer;
-use App\Validator\Constraints\Duration as DurationConstraint;
+use App\Crm\Transport\Validator\Constraints\Duration as DurationConstraint;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;

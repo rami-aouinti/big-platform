@@ -7,8 +7,8 @@ namespace App\Crm\Application\Service\Invoice\NumberGenerator;
 use App\Configuration\SystemConfiguration;
 use App\Crm\Application\Service\Invoice\InvoiceModel;
 use App\Crm\Application\Service\Invoice\NumberGeneratorInterface;
+use App\Crm\Application\Utils\NumberGenerator;
 use App\Crm\Domain\Repository\InvoiceRepository;
-use App\Utils\NumberGenerator;
 
 final class ConfigurableNumberGenerator implements NumberGeneratorInterface
 {

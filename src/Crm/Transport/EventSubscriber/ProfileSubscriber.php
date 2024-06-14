@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\EventSubscriber;
 
-use App\Utils\ProfileManager;
+use App\Crm\Application\Utils\ProfileManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 
+/**
+ * @package App\Crm\Transport\EventSubscriber
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class ProfileSubscriber implements EventSubscriberInterface
 {
     public function __construct(

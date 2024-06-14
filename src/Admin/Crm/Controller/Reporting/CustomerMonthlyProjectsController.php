@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace App\Admin\Crm\Controller\Reporting;
 
 use App\Admin\Crm\Controller\AbstractController;
+use App\Crm\Application\Reporting\CustomerMonthlyProjects\CustomerMonthlyProjects;
+use App\Crm\Application\Reporting\CustomerMonthlyProjects\CustomerMonthlyProjectsForm;
+use App\Crm\Application\Reporting\CustomerMonthlyProjects\CustomerMonthlyProjectsRepository;
 use App\Crm\Domain\Repository\Query\UserQuery;
 use App\Crm\Domain\Repository\Query\VisibilityInterface;
 use App\Crm\Domain\Repository\UserRepository;
 use App\Crm\Transport\API\Export\Spreadsheet\Writer\BinaryFileResponseWriter;
 use App\Crm\Transport\API\Export\Spreadsheet\Writer\XlsxWriter;
-use App\Reporting\CustomerMonthlyProjects\CustomerMonthlyProjects;
-use App\Reporting\CustomerMonthlyProjects\CustomerMonthlyProjectsForm;
-use App\Reporting\CustomerMonthlyProjects\CustomerMonthlyProjectsRepository;
 use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Html;
 use Psr\Container\ContainerExceptionInterface;

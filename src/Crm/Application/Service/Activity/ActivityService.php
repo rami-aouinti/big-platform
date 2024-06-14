@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Crm\Application\Service\Activity;
 
 use App\Configuration\SystemConfiguration;
+use App\Crm\Application\Utils\NumberGenerator;
 use App\Crm\Domain\Entity\Activity;
 use App\Crm\Domain\Entity\Project;
 use App\Crm\Domain\Repository\ActivityRepository;
@@ -14,8 +15,7 @@ use App\Crm\Transport\Event\ActivityCreatePreEvent;
 use App\Crm\Transport\Event\ActivityMetaDefinitionEvent;
 use App\Crm\Transport\Event\ActivityUpdatePostEvent;
 use App\Crm\Transport\Event\ActivityUpdatePreEvent;
-use App\Utils\NumberGenerator;
-use App\Validator\ValidationFailedException;
+use App\Crm\Transport\Validator\ValidationFailedException;
 use InvalidArgumentException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;

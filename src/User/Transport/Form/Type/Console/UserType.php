@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\User\Transport\Form\Type\Console;
 
+use App\Crm\Application\Utils\Color;
 use App\Crm\Domain\Repository\Query\UserFormTypeQuery;
 use App\Crm\Domain\Repository\Query\VisibilityInterface;
 use App\Crm\Domain\Repository\UserRepository;
 use App\User\Domain\Entity\User;
-use App\Utils\Color;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;

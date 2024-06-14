@@ -6,6 +6,7 @@ namespace App\Crm\Application\Service\Invoice;
 
 use App\Configuration\LocaleService;
 use App\Crm\Application\Model\InvoiceDocument;
+use App\Crm\Application\Utils\FileHelper;
 use App\Crm\Domain\Entity\ExportableItem;
 use App\Crm\Domain\Entity\Invoice;
 use App\Crm\Domain\Repository\InvoiceDocumentRepository;
@@ -16,7 +17,6 @@ use App\Crm\Transport\Event\InvoiceCreatedEvent;
 use App\Crm\Transport\Event\InvoiceDeleteEvent;
 use App\Crm\Transport\Event\InvoicePostRenderEvent;
 use App\Crm\Transport\Event\InvoicePreRenderEvent;
-use App\Utils\FileHelper;
 use Exception;
 use InvalidArgumentException;
 use Psr\EventDispatcher\EventDispatcherInterface;

@@ -19,7 +19,7 @@ security:
             entity:
                 class: App\User\Domain\Entity\User
         kimai_ldap:
-            id: App\Ldap\LdapUserProvider
+            id: App\Admin\Auth\Ldap\LdapUserProvider
 
     # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
     firewalls:
@@ -51,13 +51,13 @@ security:
         secured_area:
             kimai_ldap: ~
             pattern: ^/
-            user_checker: App\Security\UserChecker
+            user_checker: App\Admin\Auth\Security\UserChecker
             stateless: false
 
             entry_point: form_login
 
             custom_authenticators:
-                - App\Saml\SamlAuthenticator
+                - App\Admin\Auth\Saml\SamlAuthenticator
 
             remember_me:
                 secret: '%kernel.secret%'
@@ -113,10 +113,10 @@ security:
         - { path: '^/auth/2fa', role: IS_AUTHENTICATED_2FA_IN_PROGRESS }
         - { path: '^/auth', roles: PUBLIC_ACCESS }
         - { path: '^/(%app_locales%)$', role: PUBLIC_ACCESS }
-        - { path: '^/(%app_locales%)/auth', role: PUBLIC_ACCESS }
-        - { path: '^/(%app_locales%)/login', role: PUBLIC_ACCESS }
-        - { path: '^/(%app_locales%)/register', role: PUBLIC_ACCESS }
-        - { path: '^/(%app_locales%)/resetting', role: PUBLIC_ACCESS }
+        - { path: '^/(%app_locales%)/admin/auth', role: PUBLIC_ACCESS }
+        - { path: '^/(%app_locales%)/admin/login', role: PUBLIC_ACCESS }
+        - { path: '^/(%app_locales%)/admin/register', role: PUBLIC_ACCESS }
+        - { path: '^/(%app_locales%)/admin/resetting', role: PUBLIC_ACCESS }
         - { path: '^/(%app_locales%)/', roles: ROLE_USER }
 
 when@test:

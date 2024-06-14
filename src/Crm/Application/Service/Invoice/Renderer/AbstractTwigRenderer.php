@@ -7,7 +7,7 @@ namespace App\Crm\Application\Service\Invoice\Renderer;
 use App\Crm\Application\Model\InvoiceDocument;
 use App\Crm\Application\Service\Invoice\InvoiceModel;
 use App\Crm\Application\Service\Invoice\RendererInterface;
-use App\Twig\TwigRendererTrait;
+use App\Crm\Application\Twig\TwigRendererTrait;
 use Twig\Environment;
 
 /**

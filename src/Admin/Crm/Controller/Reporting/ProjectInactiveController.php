@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Admin\Crm\Controller\Reporting;
 
 use App\Admin\Crm\Controller\AbstractController;
+use App\Crm\Application\Reporting\ProjectInactive\ProjectInactiveForm;
+use App\Crm\Application\Reporting\ProjectInactive\ProjectInactiveQuery;
 use App\Crm\Application\Service\Project\ProjectStatisticService;
-use App\Reporting\ProjectInactive\ProjectInactiveForm;
-use App\Reporting\ProjectInactive\ProjectInactiveQuery;
 use Exception;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;

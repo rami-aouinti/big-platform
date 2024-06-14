@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Admin\Crm\Controller;
 
+use App\Admin\Auth\Security\RolePermissionManager;
+use App\Admin\Auth\Security\RoleService;
 use App\Crm\Application\Model\PermissionSection;
+use App\Crm\Application\Utils\PageSetup;
 use App\Crm\Domain\Entity\RolePermission;
 use App\Crm\Domain\Repository\Query\UserQuery;
 use App\Crm\Domain\Repository\RoleRepository;
@@ -13,11 +16,8 @@ use App\Crm\Transport\Event\PermissionSectionsEvent;
 use App\Crm\Transport\Event\PermissionsEvent;
 use App\Crm\Transport\Form\RoleType;
 use App\Role\Domain\Entity\Role;
-use App\Security\RolePermissionManager;
-use App\Security\RoleService;
 use App\User\Domain\Entity\User;
 use App\User\PermissionService;
-use App\Utils\PageSetup;
 use Exception;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Crm\Domain\Entity;
 
 use App\Crm\Transport\API\Export\Annotation as Exporter;
-use App\Validator\Constraints as Constraints;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -24,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[Serializer\VirtualProperty('ProjectAsId', exp: 'object.getProject() === null ? null : object.getProject().getId()', options: [new Serializer\SerializedName('project'), new Serializer\Type(name: 'integer'), new Serializer\Groups(['Activity', 'Team', 'Not_Expanded'])])]
 #[Exporter\Order(['id', 'name', 'project', 'budget', 'timeBudget', 'budgetType', 'color', 'visible', 'comment', 'billable', 'number'])]
 #[Exporter\Expose(name: 'project', label: 'project', exp: 'object.getProject() === null ? null : object.getProject().getName()')]
-#[Constraints\Activity]
+#[\App\Crm\Transport\Validator\Constraints\Activity]
 class Activity implements EntityWithMetaFields, EntityWithBudget
 {
     use BudgetTrait;

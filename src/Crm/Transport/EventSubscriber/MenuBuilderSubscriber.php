@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\EventSubscriber;
 
-use App\Utils\MenuItemModel;
-use App\Utils\MenuService;
+use App\Crm\Application\Utils\MenuItemModel;
+use App\Crm\Application\Utils\MenuService;
 use KevinPapst\TablerBundle\Event\MenuEvent;
 use KevinPapst\TablerBundle\Model\MenuItemInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

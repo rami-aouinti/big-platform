@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Admin\Crm\Controller;
 
 use App\Configuration\SystemConfiguration;
+use App\Crm\Application\Utils\DataTable;
+use App\Crm\Application\Utils\PageSetup;
 use App\Crm\Domain\Repository\Query\UserQuery;
 use App\Crm\Domain\Repository\TimesheetRepository;
 use App\Crm\Domain\Repository\UserRepository;
@@ -20,8 +22,6 @@ use App\General\Domain\Enum\Language;
 use App\User\Domain\Entity\User;
 use App\User\Transport\Form\Type\Console\UserType;
 use App\User\UserService;
-use App\Utils\DataTable;
-use App\Utils\PageSetup;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Exception;

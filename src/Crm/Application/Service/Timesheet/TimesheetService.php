@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Application\Service\Timesheet;
 
+use App\Admin\Auth\Security\AccessDeniedException;
 use App\Configuration\SystemConfiguration;
 use App\Crm\Application\Service\Timesheet\TrackingMode\TrackingModeInterface;
 use App\Crm\Domain\Entity\Timesheet;
@@ -21,10 +22,9 @@ use App\Crm\Transport\Event\TimesheetUpdateMultiplePostEvent;
 use App\Crm\Transport\Event\TimesheetUpdateMultiplePreEvent;
 use App\Crm\Transport\Event\TimesheetUpdatePostEvent;
 use App\Crm\Transport\Event\TimesheetUpdatePreEvent;
-use App\Security\AccessDeniedException;
+use App\Crm\Transport\Validator\ValidationException;
+use App\Crm\Transport\Validator\ValidationFailedException;
 use App\User\Domain\Entity\User;
-use App\Validator\ValidationException;
-use App\Validator\ValidationFailedException;
 use DateTime;
 use Exception;
 use InvalidArgumentException;

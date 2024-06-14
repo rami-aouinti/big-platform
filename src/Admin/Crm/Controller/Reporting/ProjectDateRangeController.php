@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Admin\Crm\Controller\Reporting;
 
 use App\Admin\Crm\Controller\AbstractController;
+use App\Crm\Application\Reporting\ProjectDateRange\ProjectDateRangeForm;
+use App\Crm\Application\Reporting\ProjectDateRange\ProjectDateRangeQuery;
 use App\Crm\Application\Service\Invoice\Customer;
 use App\Crm\Application\Service\Project\ProjectStatisticService;
 use App\Crm\Transport\Form\Model\DateRange;
-use App\Reporting\ProjectDateRange\ProjectDateRangeForm;
-use App\Reporting\ProjectDateRange\ProjectDateRangeQuery;
 use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

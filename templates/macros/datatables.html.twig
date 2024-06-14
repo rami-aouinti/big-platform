@@ -135,13 +135,13 @@
                             <label class="form-label">{{ 'modal.columns.profile'|trans }}</label>
                             <div class="form-selectgroup">
                                 <label class="form-selectgroup-item">
-                                    <input type="radio" name="datatable_profile" value="{{ constant('\\App\\Utils\\ProfileManager::PROFILE_DESKTOP') }}" class="form-selectgroup-input" data-href="{{ path('bookmark_profile') }}"{% if app.session.get(constant('\\App\\Utils\\ProfileManager::SESSION_PROFILE'), '') == '' %} checked="checked"{% endif %}>
+                                    <input type="radio" name="datatable_profile" value="{{ constant('\\App\\Crm\\Application\\Utils\\ProfileManager::PROFILE_DESKTOP') }}" class="form-selectgroup-input" data-href="{{ path('bookmark_profile') }}"{% if app.session.get(constant('\\App\\Crm\\Application\\Utils\\ProfileManager::SESSION_PROFILE'), '') == '' %} checked="checked"{% endif %}>
                                     <span class="form-selectgroup-label">
                                         {{ 'desktop'|trans }}
                                     </span>
                                 </label>
                                 <label class="form-selectgroup-item">
-                                    <input type="radio" name="datatable_profile" value="{{ constant('\\App\\Utils\\ProfileManager::PROFILE_MOBILE') }}" class="form-selectgroup-input" data-href="{{ path('bookmark_profile') }}"{% if app.session.get(constant('\\App\\Utils\\ProfileManager::SESSION_PROFILE'), '') == 'mobile' %} checked="checked"{% endif %}>
+                                    <input type="radio" name="datatable_profile" value="{{ constant('\\App\\Crm\\Application\\Utils\\ProfileManager::PROFILE_MOBILE') }}" class="form-selectgroup-input" data-href="{{ path('bookmark_profile') }}"{% if app.session.get(constant('\\App\\Crm\\Application\\Utils\\ProfileManager::SESSION_PROFILE'), '') == 'mobile' %} checked="checked"{% endif %}>
                                     <span class="form-selectgroup-label">
                                         {{ 'mobile'|trans }}
                                     </span>

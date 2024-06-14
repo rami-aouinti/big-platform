@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Admin\Crm\Controller;
 
+use App\Crm\Application\Utils\DataTable;
+use App\Crm\Application\Utils\PageSetup;
 use App\Crm\Domain\Entity\Team;
 use App\Crm\Domain\Repository\Query\TeamQuery;
 use App\Crm\Domain\Repository\TeamRepository;
@@ -11,8 +13,6 @@ use App\Crm\Transport\Form\TeamEditForm;
 use App\Crm\Transport\Form\Toolbar\TeamToolbarForm;
 use App\Crm\Transport\Form\Type\CustomerType;
 use App\Crm\Transport\Form\Type\ProjectType;
-use App\Utils\DataTable;
-use App\Utils\PageSetup;
 use Exception;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;

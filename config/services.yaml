@@ -108,11 +108,11 @@ services:
     # SECURITY & VOTER
     # ================================================================================
 
-    App\Security\RoleService:
+    App\Admin\Auth\Security\RoleService:
         arguments:
             $roles: '%kimai.permission_roles%'
 
-    App\Security\RolePermissionManager:
+    App\Admin\Auth\Security\RolePermissionManager:
         arguments:
             $permissions: '%kimai.permissions%'
             $permissionNames: '%kimai.permission_names%'
@@ -120,7 +120,7 @@ services:
     # ================================================================================
     # SAML Services
     # ================================================================================
-    App\Saml\SamlProvider:
+    App\Admin\Auth\Saml\SamlProvider:
         arguments:
             $userProvider: '@security.user.provider.concrete.kimai_internal'
             $configuration: '@App\Configuration\SamlConfigurationInterface'
@@ -283,7 +283,7 @@ when@dev:
             arguments: [ '@symfony.component.serializer.stopwatch.inner' ]
 
         security.user.provider.chain:
-            class: App\Security\KimaiUserProvider
+            class: App\Admin\Auth\Security\KimaiUserProvider
 
         App\Configuration\MailConfiguration:
             arguments: [ '%env(MAILER_FROM)%' ]
@@ -295,11 +295,11 @@ when@dev:
             arguments:
                 $settings: '%kimai.config%'
 
-        App\Pdf\MPdfConverter:
+        App\Crm\Application\Pdf\MPdfConverter:
             arguments:
                 $cacheDirectory: '%kernel.cache_dir%'
 
-        App\Utils\FileHelper:
+        App\Crm\Application\Utils\FileHelper:
             arguments:
                 $dataDir: '%kimai.data_dir%'
 
@@ -308,7 +308,7 @@ when@dev:
 
         App\Crm\Transport\Command\ExportCreateCommand:
             arguments:
-                $mailer: '@App\Mail\KimaiMailer'
+                $mailer: '@App\Crm\Application\Mail\KimaiMailer'
 
         # ================================================================================
         # TIMESHEET RECORD CALCULATOR

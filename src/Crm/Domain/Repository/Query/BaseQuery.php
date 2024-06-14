@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Crm\Domain\Repository\Query;
 
+use App\Crm\Application\Utils\EquatableInterface;
+use App\Crm\Application\Utils\SearchTerm;
 use App\Crm\Domain\Entity\Bookmark;
 use App\Crm\Domain\Entity\Team;
 use App\Crm\Transport\Form\Model\DateRange;
 use App\User\Domain\Entity\User;
-use App\Utils\EquatableInterface;
-use App\Utils\SearchTerm;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormErrorIterator;
 

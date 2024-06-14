@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Domain\Repository;
 
+use App\Crm\Application\Utils\Pagination;
 use App\Crm\Domain\Entity\Team;
 use App\Crm\Domain\Entity\TeamMember;
 use App\Crm\Domain\Entity\Timesheet;
@@ -12,7 +13,6 @@ use App\Crm\Domain\Repository\Paginator\LoaderPaginator;
 use App\Crm\Domain\Repository\Paginator\PaginatorInterface;
 use App\Crm\Domain\Repository\Query\TeamQuery;
 use App\User\Domain\Entity\User;
-use App\Utils\Pagination;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;

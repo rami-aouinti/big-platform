@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Form\Type;
 
+use App\Crm\Application\Utils\Color;
 use App\Crm\Domain\Entity\Tag;
 use App\Crm\Domain\Repository\Query\TagFormTypeQuery;
 use App\Crm\Domain\Repository\TagRepository;
-use App\Utils\Color;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

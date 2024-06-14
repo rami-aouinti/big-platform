@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Event;
 
-use App\Utils\MenuItemModel;
+use App\Crm\Application\Utils\MenuItemModel;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**

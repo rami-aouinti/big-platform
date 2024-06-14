@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Admin\Crm\Controller;
 
 use App\Crm\Application\Service\Timesheet\TimesheetStatisticService;
+use App\Crm\Application\Utils\PageSetup;
 use App\Crm\Domain\Entity\AccessToken;
 use App\Crm\Domain\Entity\UserPreference;
 use App\Crm\Domain\Repository\AccessTokenRepository;
@@ -25,7 +26,6 @@ use App\Crm\Transport\Form\UserTeamsType;
 use App\Crm\Transport\Form\UserTwoFactorType;
 use App\User\Domain\Entity\User;
 use App\User\UserService;
-use App\Utils\PageSetup;
 use ArrayIterator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Exception\ORMException;

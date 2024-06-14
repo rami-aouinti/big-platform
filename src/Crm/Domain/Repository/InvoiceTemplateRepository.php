@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Crm\Domain\Repository;
 
 use App\Crm\Application\Service\Invoice\InvoiceTemplate;
+use App\Crm\Application\Utils\Pagination;
 use App\Crm\Domain\Repository\Paginator\PaginatorInterface;
 use App\Crm\Domain\Repository\Paginator\QueryBuilderPaginator;
 use App\Crm\Domain\Repository\Query\BaseQuery;
-use App\Utils\Pagination;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 

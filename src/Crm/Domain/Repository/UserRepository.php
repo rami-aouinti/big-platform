@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Domain\Repository;
 
+use App\Crm\Application\Utils\Pagination;
 use App\Crm\Domain\Entity\Invoice;
 use App\Crm\Domain\Entity\Team;
 use App\Crm\Domain\Entity\Timesheet;
@@ -14,7 +15,6 @@ use App\Crm\Domain\Repository\Paginator\PaginatorInterface;
 use App\Crm\Domain\Repository\Query\UserFormTypeQuery;
 use App\Crm\Domain\Repository\Query\UserQuery;
 use App\User\Domain\Entity\User;
-use App\Utils\Pagination;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityRepository;

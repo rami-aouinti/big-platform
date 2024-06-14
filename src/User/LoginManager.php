@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\User;
 
+use App\Admin\Auth\Security\UserChecker;
 use App\Crm\Transport\Event\UserInteractiveLoginEvent;
-use App\Security\UserChecker;
 use App\User\Domain\Entity\User;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;

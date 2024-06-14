@@ -6,6 +6,8 @@ namespace App\Admin\Crm\Controller;
 
 use App\Crm\Application\Service\Customer\CustomerService;
 use App\Crm\Application\Service\Customer\CustomerStatisticService;
+use App\Crm\Application\Utils\DataTable;
+use App\Crm\Application\Utils\PageSetup;
 use App\Crm\Domain\Entity\Customer;
 use App\Crm\Domain\Entity\CustomerComment;
 use App\Crm\Domain\Entity\CustomerRate;
@@ -31,8 +33,6 @@ use App\Crm\Transport\Form\CustomerRateForm;
 use App\Crm\Transport\Form\CustomerTeamPermissionForm;
 use App\Crm\Transport\Form\Toolbar\CustomerToolbarForm;
 use App\Crm\Transport\Form\Type\CustomerType;
-use App\Utils\DataTable;
-use App\Utils\PageSetup;
 use DateTime;
 use DateTimeZone;
 use Exception;

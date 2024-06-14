@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Crm\Domain\Entity;
 
 use App\User\Domain\Entity\User;
-use App\Validator\Constraints as Constraints;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]
 #[UniqueEntity('name')]
 #[Serializer\ExclusionPolicy('all')]
-#[Constraints\Team]
+#[\App\Crm\Transport\Validator\Constraints\Team]
 class Team
 {
     use ColorTrait;

@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Form\Model;
 
-use App\Utils\EquatableInterface;
+use App\Crm\Application\Utils\EquatableInterface;
 use DateTime;
+use DateTimeInterface;
 
+/**
+ * @package App\Crm\Transport\Form\Model
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class DateRange implements EquatableInterface
 {
     private ?DateTime $begin = null;
     private ?DateTime $end = null;
 
     public function __construct(
-        private bool $resetTimes = true
+        private readonly bool $resetTimes = true
     ) {
     }
 
@@ -22,7 +27,7 @@ final class DateRange implements EquatableInterface
         return $this->begin;
     }
 
-    public function setBegin(\DateTimeInterface $begin): self
+    public function setBegin(DateTimeInterface $begin): self
     {
         $this->begin = DateTime::createFromInterface($begin);
         if ($this->resetTimes) {
@@ -37,7 +42,7 @@ final class DateRange implements EquatableInterface
         return $this->end;
     }
 
-    public function setEnd(\DateTimeInterface $end): self
+    public function setEnd(DateTimeInterface $end): self
     {
         $this->end = DateTime::createFromInterface($end);
         if ($this->resetTimes) {

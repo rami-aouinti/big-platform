@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Admin\Crm\Controller;
 
+use App\Crm\Application\Reporting\YearByUser\YearByUser;
 use App\Crm\Application\Service\WorkingTime\Model\BoxConfiguration;
 use App\Crm\Application\Service\WorkingTime\WorkingTimeService;
+use App\Crm\Application\Utils\PageSetup;
 use App\Crm\Transport\Event\WorkContractDetailControllerEvent;
 use App\Crm\Transport\Form\ContractByUserForm;
-use App\Reporting\YearByUser\YearByUser;
 use App\User\Domain\Entity\User;
-use App\Utils\PageSetup;
 use DateTime;
 use Exception;
 use Psr\Container\ContainerExceptionInterface;

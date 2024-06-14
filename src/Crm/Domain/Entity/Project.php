@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Crm\Domain\Entity;
 
 use App\Crm\Transport\API\Export\Annotation as Exporter;
-use App\Validator\Constraints as Constraints;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -23,7 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[Serializer\VirtualProperty('CustomerAsId', exp: 'object.getCustomer() === null ? null : object.getCustomer().getId()', options: [new Serializer\SerializedName('customer'), new Serializer\Type(name: 'integer'), new Serializer\Groups(['Project', 'Team', 'Not_Expanded'])])]
 #[Exporter\Order(['id', 'name', 'customer', 'orderNumber', 'orderDate', 'start', 'end', 'budget', 'timeBudget', 'budgetType', 'color', 'visible', 'teams', 'comment', 'billable', 'number'])]
 #[Exporter\Expose(name: 'customer', label: 'customer', exp: 'object.getCustomer() === null ? null : object.getCustomer().getName()')]
-#[Constraints\Project]
+#[\App\Crm\Transport\Validator\Constraints\Project]
 class Project implements EntityWithMetaFields, EntityWithBudget
 {
     use BudgetTrait;

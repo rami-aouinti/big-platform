@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Admin\Crm\Controller;
 
 use App\Configuration\LocaleService;
+use App\Crm\Application\Utils\DataTable;
+use App\Crm\Application\Utils\LocaleFormatter;
+use App\Crm\Application\Utils\PageSetup;
+use App\Crm\Application\Utils\Pagination;
 use App\Crm\Domain\Repository\Query\BaseQuery;
-use App\Utils\DataTable;
-use App\Utils\LocaleFormatter;
-use App\Utils\PageSetup;
-use App\Utils\Pagination;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

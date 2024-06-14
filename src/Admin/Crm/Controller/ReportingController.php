@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Admin\Crm\Controller;
 
-use App\Reporting\ReportingService;
-use App\Utils\PageSetup;
+use App\Crm\Application\Reporting\ReportingService;
+use App\Crm\Application\Utils\PageSetup;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;

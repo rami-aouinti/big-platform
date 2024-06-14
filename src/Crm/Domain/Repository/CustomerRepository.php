@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Domain\Repository;
 
+use App\Crm\Application\Utils\Pagination;
 use App\Crm\Domain\Entity\Customer;
 use App\Crm\Domain\Entity\CustomerComment;
 use App\Crm\Domain\Entity\CustomerMeta;
@@ -15,7 +16,6 @@ use App\Crm\Domain\Repository\Paginator\PaginatorInterface;
 use App\Crm\Domain\Repository\Query\CustomerFormTypeQuery;
 use App\Crm\Domain\Repository\Query\CustomerQuery;
 use App\User\Domain\Entity\User;
-use App\Utils\Pagination;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Exception\ORMException;

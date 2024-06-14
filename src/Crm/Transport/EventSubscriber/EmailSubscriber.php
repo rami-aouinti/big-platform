@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\EventSubscriber;
 
+use App\Crm\Application\Mail\KimaiMailer;
 use App\Crm\Transport\Event\EmailEvent;
-use App\Mail\KimaiMailer;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

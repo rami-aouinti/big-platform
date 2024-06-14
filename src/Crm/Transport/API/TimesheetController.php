@@ -6,6 +6,7 @@ namespace App\Crm\Transport\API;
 
 use App\Crm\Application\Service\Timesheet\TimesheetService;
 use App\Crm\Application\Service\Timesheet\TrackingMode\TrackingModeInterface;
+use App\Crm\Application\Utils\SearchTerm;
 use App\Crm\Domain\Entity\Timesheet;
 use App\Crm\Domain\Repository\ActivityRepository;
 use App\Crm\Domain\Repository\CustomerRepository;
@@ -19,9 +20,8 @@ use App\Crm\Transport\Event\TimesheetDuplicatePostEvent;
 use App\Crm\Transport\Event\TimesheetDuplicatePreEvent;
 use App\Crm\Transport\Event\TimesheetMetaDefinitionEvent;
 use App\Crm\Transport\Form\API\TimesheetApiEditForm;
+use App\Crm\Transport\Validator\ValidationFailedException;
 use App\User\Domain\Entity\User;
-use App\Utils\SearchTerm;
-use App\Validator\ValidationFailedException;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View;

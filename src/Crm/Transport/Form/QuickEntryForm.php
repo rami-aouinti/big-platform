@@ -6,9 +6,9 @@ namespace App\Crm\Transport\Form;
 
 use App\Configuration\SystemConfiguration;
 use App\Crm\Application\Model\QuickEntryWeek;
+use App\Crm\Transport\Validator\Constraints\QuickEntryModel;
 use App\User\Transport\Form\Type\Console\QuickEntryWeekType;
 use App\User\Transport\Form\Type\Console\WeekPickerType;
-use App\Validator\Constraints\QuickEntryModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
