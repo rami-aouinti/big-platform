@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Crm\Transport\Form;
 
 use App\Crm\Transport\Form\Type\TeamMemberType;
-use App\Entity\Team;
+use App\Crm\Domain\Entity\Team;
 use App\User\Transport\Form\Type\Console\UserType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -13,6 +13,12 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class TeamEditForm
+ *
+ * @package App\Crm\Transport\Form
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 class TeamEditForm extends AbstractType
 {
     use ColorTrait;

@@ -18,6 +18,7 @@ use App\Crm\Transport\Form\RoleType;
 use App\Role\Domain\Entity\Role;
 use App\User\Domain\Entity\User;
 use App\User\PermissionService;
+use Doctrine\ORM\Exception\NotSupported;
 use Exception;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,6 +48,9 @@ final class PermissionController extends AbstractController
     ) {
     }
 
+    /**
+     * @throws NotSupported
+     */
     #[Route(path: '', name: 'admin_user_permissions', methods: ['GET', 'POST'])]
     #[IsGranted('role_permissions')]
     public function permissions(EventDispatcherInterface $dispatcher, CsrfTokenManagerInterface $csrfTokenManager, RoleService $roleService, UserRepository $userRepository): Response

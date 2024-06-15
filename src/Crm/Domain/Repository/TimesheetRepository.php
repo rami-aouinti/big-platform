@@ -202,6 +202,9 @@ class TimesheetRepository extends EntityRepository
         throw new InvalidArgumentException('Invalid query type: ' . $type); // @phpstan-ignore-line
     }
 
+    /**
+     * @throws NonUniqueResultException
+     */
     public function getDurationForTimeRange(?DateTimeInterface $begin, ?DateTimeInterface $end, ?User $user, ?bool $billable = null): int
     {
         $tmp = $this->queryTimeRange('COALESCE(SUM(t.duration), 0)', $begin, $end, $user, $billable);
@@ -249,6 +252,10 @@ class TimesheetRepository extends EntityRepository
         return $all;
     }
 
+    /**
+     * @throws NonUniqueResultException
+     * @throws Exception
+     */
     public function getUserStatistics(User $user): TimesheetStatistic
     {
         $stats = new TimesheetStatistic();
@@ -283,7 +290,7 @@ class TimesheetRepository extends EntityRepository
         );
 
         $stats->setAmountThisMonth($monthData['rate']);
-        $stats->setDurationThisMonth($monthData['duration']);
+        $stats->setDurationThisMonth((int)$monthData['duration']);
 
         $data = $this->getRevenue($begin, $end, $user);
         foreach ($data as $row) {

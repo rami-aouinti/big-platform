@@ -152,10 +152,14 @@ final class UserController extends AbstractController
     }
 
     /**
-     * @throws OptimisticLockException
-     * @throws NotFoundExceptionInterface
-     * @throws ORMException
+     * @param Request                  $request
+     * @param SystemConfiguration      $config
+     * @param UserRepository           $userRepository
+     * @param EventDispatcherInterface $dispatcher
+     *
      * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @return Response
      */
     #[Route(path: '/create', name: 'admin_user_create', methods: ['GET', 'POST'])]
     #[IsGranted('create_user')]
@@ -249,10 +253,13 @@ final class UserController extends AbstractController
     }
 
     /**
-     * @throws NotFoundExceptionInterface
-     * @throws ExtractorException
+     * @param Request      $request
+     * @param UserExporter $exporter
+     *
      * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @return Response
      */
     #[Route(path: '/export', name: 'user_export', methods: ['GET'])]
     #[IsGranted('view_user')]

@@ -8,6 +8,7 @@ use App\Configuration\LocaleService;
 use App\Crm\Domain\Repository\UserRepository;
 use App\Crm\Transport\Event\ConfigureMainMenuEvent;
 use App\User\Domain\Entity\User;
+use Exception;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
@@ -15,6 +16,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+
+use function count;
+use function is_string;
 
 /**
  * Homepage controller is a redirect controller with user specific logic.
@@ -58,11 +62,11 @@ final class HomepageController extends AbstractController
         $routes = [];
 
         $userRoute = $user->getPreferenceValue('login_initial_view');
-        if (\is_string($userRoute)) {
+        if (is_string($userRoute)) {
             $event = new ConfigureMainMenuEvent();
             $eventDispatcher->dispatch($event);
             $menu = $event->findById($userRoute);
-            if ($menu !== null && \count($menu->getRouteArgs()) === 0 && $menu->getRoute() !== null) {
+            if ($menu !== null && count($menu->getRouteArgs()) === 0 && $menu->getRoute() !== null) {
                 $userRoute = $menu->getRoute();
             }
             $routes[] = [$userRoute, $userLanguage];
@@ -81,7 +85,7 @@ final class HomepageController extends AbstractController
                 return $this->redirectToRoute($route, [
                     '_locale' => $language->value,
                 ]);
-            } catch (\Exception $ex) {
+            } catch (Exception $ex) {
                 if ($route === $userRoute) {
                     // fix invalid routes from old plugins / versions
                     $user->setPreferenceValue('login_initial_view', 'dashboard');

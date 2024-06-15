@@ -10,6 +10,7 @@ use App\Crm\Domain\Entity\Team;
 use App\Crm\Domain\Entity\TeamMember;
 use App\Crm\Domain\Entity\UserPreference;
 use App\Crm\Transport\API\Export\Annotation as Exporter;
+use App\Crm\Transport\Validator\Constraints\Role;
 use App\General\Domain\Doctrine\DBAL\Types\Types as AppTypes;
 use App\General\Domain\Entity\Interfaces\EntityInterface;
 use App\General\Domain\Entity\Traits\Timestampable;
@@ -21,11 +22,15 @@ use App\User\Domain\Entity\Interfaces\UserGroupAwareInterface;
 use App\User\Domain\Entity\Traits\Blameable;
 use App\User\Domain\Entity\Traits\UserRelations;
 use DateTime;
+use DateTimeImmutable;
+use DateTimeInterface;
+use DateTimeZone;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
+use InvalidArgumentException;
 use JMS\Serializer\Annotation as Serializer;
 use KevinPapst\TablerBundle\Model\UserInterface as ThemeUserInterface;
 use OpenApi\Attributes as OA;
@@ -42,6 +47,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Throwable;
+
+use function array_key_exists;
+use function count;
+use function in_array;
+use function is_string;
 
 /**
  * @package App\User
@@ -79,12 +89,12 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     use Uuid;
     use ColorTrait;
 
-    public const ROLE_USER = 'ROLE_USER';
-    public const ROLE_TEAMLEAD = 'ROLE_TEAMLEAD';
-    public const ROLE_ADMIN = 'ROLE_ADMIN';
-    public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
+    public const string ROLE_USER = 'ROLE_USER';
+    public const string ROLE_TEAMLEAD = 'ROLE_TEAMLEAD';
+    public const string ROLE_ADMIN = 'ROLE_ADMIN';
+    public const string ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
-    public const DEFAULT_ROLE = self::ROLE_USER;
+    public const string DEFAULT_ROLE = self::ROLE_USER;
 
     final public const string SET_USER_PROFILE = 'set.UserProfile';
     final public const string SET_USER_BASIC = 'set.UserBasic';
@@ -348,7 +358,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     private ?string $confirmationToken = null;
 
     #[ORM\Column(name: 'password_requested_at', type: 'datetime_immutable', nullable: true)]
-    private ?\DateTimeImmutable $passwordRequestedAt = null;
+    private ?DateTimeImmutable $passwordRequestedAt = null;
 
     #[ORM\Column(name: 'totp_secret', type: 'string', length: 255, nullable: true)]
     private ?string $totpSecret = null;
@@ -374,7 +384,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     #[Serializer\Expose]
     #[Serializer\Groups(['User_Entity'])]
     #[Serializer\Type('array<string>')]
-    #[\App\Crm\Transport\Validator\Constraints\Role(groups: ['RolesUpdate'])]
+    #[Role(groups: ['RolesUpdate'])]
     private array $roles = [];
 
     /**
@@ -408,7 +418,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
 
     public function __unserialize(array $data): void
     {
-        if (!\array_key_exists('id', $data)) {
+        if (!array_key_exists('id', $data)) {
             return;
         }
         $this->id = $data['id'];
@@ -446,7 +456,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
             return;
         }
 
-        if (!\in_array($role, $this->roles, true)) {
+        if (!in_array($role, $this->roles, true)) {
             $this->roles[] = $role;
         }
     }
@@ -557,7 +567,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
 
         $all = [];
         foreach ($this->preferences as $preference) {
-            if ($preference->isEnabled() && !\in_array($preference->getName(), $skip)) {
+            if ($preference->isEnabled() && !in_array($preference->getName(), $skip)) {
                 $all[] = $preference;
             }
         }
@@ -799,7 +809,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         }
 
         if ($member->getUser() !== $this) {
-            throw new \InvalidArgumentException('Cannot set foreign user membership');
+            throw new InvalidArgumentException('Cannot set foreign user membership');
         }
 
         // when using the API an invalid Team ID triggers the validation too late
@@ -1061,7 +1071,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     {
         if ($this->lastLogin !== null) {
             // make sure to use the users own timezone
-            $this->lastLogin->setTimezone(new \DateTimeZone($this->getTimezone()));
+            $this->lastLogin->setTimezone(new DateTimeZone($this->getTimezone()));
         }
 
         return $this->lastLogin;
@@ -1089,7 +1099,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         return $this;
     }
 
-    public function setLastLogin(\DateTime $time = null): self
+    public function setLastLogin(DateTime $time = null): self
     {
         $this->lastLogin = $time;
 
@@ -1103,7 +1113,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
 
     public function markPasswordRequested(): void
     {
-        $this->setPasswordRequestedAt(new \DateTimeImmutable('now', new \DateTimeZone($this->getTimezone())));
+        $this->setPasswordRequestedAt(new DateTimeImmutable('now', new DateTimeZone($this->getTimezone())));
     }
 
     public function markPasswordResetted(): void
@@ -1112,7 +1122,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         $this->setPasswordRequestedAt(null);
     }
 
-    public function setPasswordRequestedAt(?\DateTimeImmutable $date): void
+    public function setPasswordRequestedAt(?DateTimeImmutable $date): void
     {
         $this->passwordRequestedAt = $date;
     }
@@ -1120,7 +1130,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     /**
      * Gets the timestamp that the user requested a password reset.
      */
-    public function getPasswordRequestedAt(): ?\DateTimeImmutable
+    public function getPasswordRequestedAt(): ?DateTimeImmutable
     {
         return $this->passwordRequestedAt;
     }
@@ -1129,14 +1139,14 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     {
         $date = $this->getPasswordRequestedAt();
 
-        if (!($date instanceof \DateTimeInterface)) {
+        if (!($date instanceof DateTimeInterface)) {
             return false;
         }
 
         return $date->getTimestamp() + $seconds > time();
     }
 
-    public function isEqualTo(\Symfony\Component\Security\Core\User\UserInterface $user): bool
+    public function isEqualTo(UserInterface $user): bool
     {
         if (!$user instanceof self) {
             return false;
@@ -1169,7 +1179,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
 
     public function hasRole($role): bool
     {
-        return \in_array(strtoupper($role), $this->getRoles(), true);
+        return in_array(strtoupper($role), $this->getRoles(), true);
     }
 
     #[Serializer\VirtualProperty]
@@ -1193,7 +1203,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         $words = explode(' ', $name);
 
         // if name contains single word, use first N character
-        if (\count($words) === 1) {
+        if (count($words) === 1) {
             $initial = $words[0];
 
             if (mb_strlen($name) >= $length) {
@@ -1256,10 +1266,10 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     {
         $wizards = $this->getPreferenceValue('__wizards__');
 
-        if (\is_string($wizards)) {
+        if (is_string($wizards)) {
             $wizards = explode(',', $wizards);
 
-            return \in_array($wizard, $wizards);
+            return in_array($wizard, $wizards);
         }
 
         return false;
@@ -1270,11 +1280,11 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         $wizards = $this->getPreferenceValue('__wizards__');
         $values = [];
 
-        if (\is_string($wizards)) {
+        if (is_string($wizards)) {
             $values = explode(',', $wizards);
         }
 
-        if (\in_array($wizard, $values)) {
+        if (in_array($wizard, $values)) {
             return;
         }
 
@@ -1359,7 +1369,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         return (int)$this->getPreferenceValue(UserPreference::WORK_HOURS_SUNDAY, 0);
     }
 
-    public function getWorkStartingDay(): ?\DateTimeInterface
+    public function getWorkStartingDay(): ?DateTimeInterface
     {
         $date = $this->getPreferenceValue(UserPreference::WORK_STARTING_DAY);
 
@@ -1368,14 +1378,14 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         }
 
         try {
-            $date = \DateTimeImmutable::createFromFormat('Y-m-d h:i:s', $date . ' 00:00:00', new \DateTimeZone($this->getTimezone()));
+            $date = DateTimeImmutable::createFromFormat('Y-m-d h:i:s', $date . ' 00:00:00', new DateTimeZone($this->getTimezone()));
         } catch (Exception $e) {
         }
 
-        return ($date instanceof \DateTimeInterface) ? $date : null;
+        return ($date instanceof DateTimeInterface) ? $date : null;
     }
 
-    public function setWorkStartingDay(?\DateTimeInterface $date): void
+    public function setWorkStartingDay(?DateTimeInterface $date): void
     {
         $this->setPreferenceValue(UserPreference::WORK_STARTING_DAY, $date?->format('Y-m-d'));
     }
@@ -1460,7 +1470,18 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
             $this->getWorkHoursSunday() !== 0;
     }
 
-    public function getWorkHoursForDay(\DateTimeInterface $dateTime): int
+    /**
+     * @return DateTimeImmutable|null
+     */
+    public function getRegisteredAt(): ?DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function getWorkHoursForDay(DateTimeInterface $dateTime): int
     {
         return match ($dateTime->format('N')) {
             '1' => $this->getWorkHoursMonday(),
@@ -1470,11 +1491,14 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
             '5' => $this->getWorkHoursFriday(),
             '6' => $this->getWorkHoursSaturday(),
             '7' => $this->getWorkHoursSunday(),
-            default => throw new \Exception('Unknown day: ' . $dateTime->format('Y-m-d'))
+            default => throw new Exception('Unknown day: ' . $dateTime->format('Y-m-d'))
         };
     }
 
-    public function isWorkDay(\DateTimeInterface $dateTime): bool
+    /**
+     * @throws Exception
+     */
+    public function isWorkDay(DateTimeInterface $dateTime): bool
     {
         return $this->getWorkHoursForDay($dateTime) > 0;
     }

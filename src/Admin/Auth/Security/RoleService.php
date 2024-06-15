@@ -5,7 +5,14 @@ declare(strict_types=1);
 namespace App\Admin\Auth\Security;
 
 use App\Role\Infrastructure\Repository\RoleRepository;
+use Doctrine\ORM\Exception\NotSupported;
 
+/**
+ * Class RoleService
+ *
+ * @package App\Admin\Auth\Security
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class RoleService
 {
     /**
@@ -18,14 +25,15 @@ final class RoleService
      * @param array<string> $roles as defined in security.yaml
      */
     public function __construct(
-        private RoleRepository $repository,
-        private array $roles
+        private readonly RoleRepository $repository,
+        private readonly array $roles
     ) {
     }
 
     /**
      * Returns a list of UPPERCASE role names.
      *
+     * @throws NotSupported
      * @return string[]
      */
     public function getAvailableNames(): array

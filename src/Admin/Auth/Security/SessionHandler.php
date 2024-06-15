@@ -5,13 +5,23 @@ declare(strict_types=1);
 namespace App\Admin\Auth\Security;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
 
+/**
+ * Class SessionHandler
+ *
+ * @package App\Admin\Auth\Security
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class SessionHandler extends PdoSessionHandler
 {
+    /**
+     * @throws Exception
+     */
     public function __construct(
         Connection $connection,
         private readonly RateLimiterFactory $sessionPredictionLimiter,
@@ -45,7 +55,9 @@ final class SessionHandler extends PdoSessionHandler
             $limit = $limiter->consume();
 
             if ($limit->isAccepted() === false) {
-                throw new BadRequestHttpException('Too many requests with invalid Session ID. Prediction attack?');
+                throw new BadRequestHttpException(
+                    'Too many requests with invalid Session ID. Prediction attack?'
+                );
             }
         }
 

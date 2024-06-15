@@ -4,7 +4,13 @@ declare(strict_types=1);
 
 namespace App\Configuration;
 
-final class SamlConfiguration implements SamlConfigurationInterface
+/**
+ * Class SamlConfiguration
+ *
+ * @package App\Configuration
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
+final readonly class SamlConfiguration implements SamlConfigurationInterface
 {
     public function __construct(
         private SystemConfiguration $configuration
