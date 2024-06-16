@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Crm\Application\Reporting\MonthByUser;
 
-use App\User\Transport\Form\Type\Console\MonthPickerType;
-use App\User\Transport\Form\Type\Console\ReportSumType;
+use App\Crm\Transport\Form\Type\MonthPickerType;
+use App\Crm\Transport\Form\Type\ReportSumType;
 use App\User\Transport\Form\Type\Console\UserType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

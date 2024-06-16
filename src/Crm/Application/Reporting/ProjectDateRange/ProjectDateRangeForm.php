@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Crm\Application\Reporting\ProjectDateRange;
 
-use App\User\Transport\Form\Type\Console\CustomerType;
-use App\User\Transport\Form\Type\Console\MonthPickerType;
+use App\Crm\Transport\Form\Type\CustomerType;
+use App\Crm\Transport\Form\Type\MonthPickerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

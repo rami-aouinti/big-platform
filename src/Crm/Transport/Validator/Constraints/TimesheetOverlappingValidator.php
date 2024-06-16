@@ -4,13 +4,19 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Validator\Constraints;
 
-use App\Calendar\Domain\Entity\Timesheet as TimesheetEntity;
+use App\Crm\Domain\Entity\Timesheet as TimesheetEntity;
 use App\Configuration\SystemConfiguration;
 use App\Crm\Domain\Repository\TimesheetRepository;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+/**
+ * Class TimesheetOverlappingValidator
+ *
+ * @package App\Crm\Transport\Validator\Constraints
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class TimesheetOverlappingValidator extends ConstraintValidator
 {
     public function __construct(

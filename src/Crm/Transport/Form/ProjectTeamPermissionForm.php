@@ -4,12 +4,18 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Form;
 
-use App\Calendar\Domain\Entity\Project;
-use App\User\Transport\Form\Type\Console\TeamType;
+use App\Crm\Domain\Entity\Project;
+use App\Crm\Transport\Form\Type\TeamType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class ProjectTeamPermissionForm
+ *
+ * @package App\Crm\Transport\Form
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class ProjectTeamPermissionForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

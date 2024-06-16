@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Form;
 
-use App\Calendar\Domain\Entity\InvoiceTemplate;
-use App\User\Transport\Form\Type\Console\InvoiceCalculatorType;
-use App\User\Transport\Form\Type\Console\InvoiceNumberGeneratorType;
-use App\User\Transport\Form\Type\Console\InvoiceRendererType;
-use App\User\Transport\Form\Type\Console\LanguageType;
+use App\Crm\Domain\Entity\InvoiceTemplate;
+use App\Crm\Transport\Form\Type\InvoiceCalculatorType;
+use App\Crm\Transport\Form\Type\InvoiceNumberGeneratorType;
+use App\Crm\Transport\Form\Type\InvoiceRendererType;
+use App\Crm\Transport\Form\Type\LanguageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;

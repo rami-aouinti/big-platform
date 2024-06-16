@@ -4,13 +4,19 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Validator\Constraints;
 
-use App\Calendar\Domain\Entity\Timesheet as TimesheetEntity;
+use App\Crm\Domain\Entity\Timesheet as TimesheetEntity;
 use App\Crm\Transport\Validator\Constraints\Timesheet as TimesheetEntityConstraint;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+/**
+ * Class TimesheetValidator
+ *
+ * @package App\Crm\Transport\Validator\Constraints
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class TimesheetValidator extends ConstraintValidator
 {
     /**

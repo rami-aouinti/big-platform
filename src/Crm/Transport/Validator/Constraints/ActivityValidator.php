@@ -4,13 +4,19 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Validator\Constraints;
 
-use App\Calendar\Domain\Entity\Activity as ActivityEntity;
+use App\Crm\Domain\Entity\Activity as ActivityEntity;
 use App\Configuration\SystemConfiguration;
 use App\Crm\Domain\Repository\ActivityRepository;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+/**
+ * Class ActivityValidator
+ *
+ * @package App\Crm\Transport\Validator\Constraints
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class ActivityValidator extends ConstraintValidator
 {
     public function __construct(

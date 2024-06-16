@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\User;
 
-use App\Calendar\Domain\Entity\RolePermission;
+use App\Crm\Domain\Entity\RolePermission;
 use App\Crm\Domain\Repository\RolePermissionRepository;
 use App\Role\Domain\Entity\Role;
 use Symfony\Contracts\Cache\CacheInterface;

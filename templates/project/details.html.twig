@@ -138,7 +138,7 @@
         {% endblock %}
     {% endembed %}
 
-    {{ render(controller('App\\Controller\\ProjectController::activitiesAction', {'project': project.id, 'page': 1})) }}
+    {{ render(controller('App\\Admin\\Crm\\Controller\\ProjectController::activitiesAction', {'project': project.id, 'page': 1})) }}
 
     {% if can_edit %}
         {{ include('embeds/rates-table.html.twig', {'id': 'project_rates_box', 'entity': project, 'create_url': path('admin_project_rate_add', {'id': project.id}), 'delete_route': 'delete_project_rate', 'currency': project.customer.currency, 'edit_route': 'admin_project_rate_edit'}) }}

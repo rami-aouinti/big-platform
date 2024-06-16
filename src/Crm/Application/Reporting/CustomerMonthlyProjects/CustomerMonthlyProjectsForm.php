@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Crm\Application\Reporting\CustomerMonthlyProjects;
 
-use App\User\Transport\Form\Type\Console\CustomerType;
-use App\User\Transport\Form\Type\Console\MonthPickerType;
-use App\User\Transport\Form\Type\Console\ReportSumType;
+use App\Crm\Transport\Form\Type\CustomerType;
+use App\Crm\Transport\Form\Type\MonthPickerType;
+use App\Crm\Transport\Form\Type\ReportSumType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Validator\Constraints;
 
-use App\Calendar\Domain\Entity\Timesheet as TimesheetEntity;
+use App\Crm\Domain\Entity\Timesheet as TimesheetEntity;
 use App\Configuration\SystemConfiguration;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

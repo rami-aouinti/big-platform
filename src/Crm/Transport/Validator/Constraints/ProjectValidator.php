@@ -4,16 +4,22 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Validator\Constraints;
 
-use App\Calendar\Domain\Entity\Project as ProjectEntity;
+use App\Crm\Domain\Entity\Project as ProjectEntity;
 use App\Configuration\SystemConfiguration;
 use App\Crm\Domain\Repository\ProjectRepository;
 use App\Crm\Transport\Validator\Constraints\Project as ProjectEntityConstraint;
-use App\Validator\Constraints\Project;
+use App\Crm\Transport\Validator\Constraints\Project;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+/**
+ * Class ProjectValidator
+ *
+ * @package App\Crm\Transport\Validator\Constraints
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class ProjectValidator extends ConstraintValidator
 {
     /**

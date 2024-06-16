@@ -4,13 +4,19 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Validator\Constraints;
 
-use App\Calendar\Domain\Entity\Customer as CustomerEntity;
+use App\Crm\Domain\Entity\Customer as CustomerEntity;
 use App\Configuration\SystemConfiguration;
 use App\Crm\Domain\Repository\CustomerRepository;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+/**
+ * Class CustomerValidator
+ *
+ * @package App\Crm\Transport\Validator\Constraints
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class CustomerValidator extends ConstraintValidator
 {
     public function __construct(
