@@ -26,7 +26,7 @@ use function mb_strlen;
  * @package App\Log
  */
 #[ORM\Entity(readOnly: true)]
-#[ORM\Table(name: 'log_request')]
+#[ORM\Table(name: 'platform_log_request')]
 #[ORM\Index(
     columns: ['user_id'],
     name: 'user_id',

@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\User\Domain\Entity;
 
+use App\Calendar\Domain\Entity\Calendar;
+use App\Calendar\Domain\Entity\CalendarImage;
+use App\Calendar\Domain\Entity\Event;
+use App\Calendar\Domain\Entity\Image;
 use App\Crm\Application\Utils\StringHelper;
 use App\Crm\Domain\Entity\ColorTrait;
 use App\Crm\Domain\Entity\Team;
@@ -31,11 +35,13 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use InvalidArgumentException;
+use JetBrains\PhpStorm\ArrayShape;
 use JMS\Serializer\Annotation as Serializer;
 use KevinPapst\TablerBundle\Model\UserInterface as ThemeUserInterface;
 use OpenApi\Attributes as OA;
 use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
 use Ramsey\Uuid\UuidInterface;
+use Random\RandomException;
 use Scheb\TwoFactorBundle\Model\Totp\TotpConfiguration;
 use Scheb\TwoFactorBundle\Model\Totp\TotpConfigurationInterface;
 use Scheb\TwoFactorBundle\Model\Totp\TwoFactorInterface;
@@ -45,6 +51,7 @@ use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 use Throwable;
 
@@ -57,7 +64,7 @@ use function is_string;
  * @package App\User
  */
 #[ORM\Entity(repositoryClass: 'App\Crm\Domain\Repository\UserRepository')]
-#[ORM\Table(name: 'user')]
+#[ORM\Table(name: 'platform_user')]
 #[ORM\UniqueConstraint(
     name: 'uq_username',
     columns: ['username'],
@@ -108,6 +115,10 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     public const string AUTH_LDAP = 'ldap';
     public const string AUTH_SAML = 'saml';
 
+    final public const string PASSWORD_UNCHANGED = '**********';
+
+    final public const int SHORT_HASH_LENGTH = 8;
+
     public const array WIZARDS = ['intro', 'profile'];
 
     #[ORM\Id]
@@ -142,6 +153,9 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Assert\NotBlank]
     private ?string $fullName = null;
+
+    #[ORM\Column(name: 'id_hash', type: 'string', length: 40, unique: true, nullable: true)]
+    private ?string $idHash = null;
 
     #[ORM\Column(name: 'title', type: 'string', length: 50, nullable: true)]
     #[Assert\Length(max: 50)]
@@ -388,6 +402,37 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     private array $roles = [];
 
     /**
+     * @var Collection<int, Event> $events
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Event::class, orphanRemoval: true)]
+    #[MaxDepth(1)]
+    #[Groups('user_extended')]
+    private Collection $events;
+
+    /**
+     * @var Collection<int, Image> $images
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Image::class, orphanRemoval: true)]
+    #[MaxDepth(1)]
+    #[Groups('user_extended')]
+    private Collection $images;
+
+    /**
+     * @var Collection<int, Calendar> $calendars
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Calendar::class, orphanRemoval: true)]
+    #[MaxDepth(1)]
+    #[Groups('user_extended')]
+    private Collection $calendars;
+
+    /**
+     * @var Collection<int, CalendarImage> $calendarImages
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: CalendarImage::class, orphanRemoval: true)]
+    #[MaxDepth(1)]
+    private Collection $calendarImages;
+
+    /**
      * Constructor
      *
      * @throws Throwable
@@ -403,6 +448,10 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         $this->logsLoginFailure = new ArrayCollection();
         $this->preferences = new ArrayCollection();
         $this->memberships = new ArrayCollection();
+        $this->events = new ArrayCollection();
+        $this->images = new ArrayCollection();
+        $this->calendars = new ArrayCollection();
+        $this->calendarImages = new ArrayCollection();
     }
 
     public function __serialize(): array
@@ -627,6 +676,31 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         return null;
     }
 
+    /**
+     * Returns the config of user.
+     *
+     * @return string[]
+     * @throws Exception
+     */
+    #[ArrayShape([
+        'fullName' => 'string',
+        'roleI18n' => 'string',
+    ])]
+    public function getConfig(): array
+    {
+        $roleI18n = match (true) {
+            in_array(self::ROLE_SUPER_ADMIN, $this->roles) => 'admin.user.fields.roles.entries.roleSuperAdmin',
+            in_array(self::ROLE_ADMIN, $this->roles) => 'admin.user.fields.roles.entries.roleAdmin',
+            in_array(self::ROLE_USER, $this->roles), $this->roles === [] => 'admin.user.fields.roles.entries.roleUser',
+            default => throw new Exception(sprintf('Unknown role (%s:%d).', __FILE__, __LINE__)),
+        };
+
+        return [
+            'fullName' => sprintf('%s %s', $this->firstName, $this->lastName),
+            'roleI18n' => $roleI18n,
+        ];
+    }
+
     public function getUsername(): string
     {
         return $this->username;
@@ -635,6 +709,45 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     public function setUsername(string $username): self
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Gets the hash id of this user.
+     */
+    public function getIdHash(): string
+    {
+        return $this->idHash ?? $this->getIdHashNew();
+    }
+
+    /**
+     * Gets the hash id of this user.
+     */
+    public function getIdHashShort(): string
+    {
+        return substr($this->getIdHash(), 0, self::SHORT_HASH_LENGTH);
+    }
+
+    /**
+     * Gets the hash id of this user.
+     *
+     * @throws RandomException
+     */
+    public function getIdHashNew(): string
+    {
+        return sha1(random_int(1_000_000, 9_999_999) . random_int(1_000_000, 9_999_999));
+    }
+
+    /**
+     * Sets the hash id of this user.
+     *
+     * @throws RandomException
+     * @return $this
+     */
+    public function setIdHash(?string $idHash = null): self
+    {
+        $this->idHash = $idHash ?? $this->getIdHashNew();
 
         return $this;
     }
@@ -813,7 +926,8 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         }
 
         // when using the API an invalid Team ID triggers the validation too late
-        if (($team = $member->getTeam()) === null) {
+        $team = $member->getTeam();
+        if (($team) === null) {
             return;
         }
 
@@ -1470,9 +1584,6 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
             $this->getWorkHoursSunday() !== 0;
     }
 
-    /**
-     * @return DateTimeImmutable|null
-     */
     public function getRegisteredAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
@@ -1516,6 +1627,193 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     public function setSupervisor(?self $supervisor): void
     {
         $this->supervisor = $supervisor;
+    }
+
+    /**
+     * Gets all related events.
+     *
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    /**
+     * Adds a related event.
+     *
+     * @return $this
+     */
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Removes a related event.
+     *
+     * @return $this
+     */
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getUser() === $this) {
+                $event->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Gets all related images.
+     *
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    /**
+     * Adds a related image.
+     *
+     * @return $this
+     */
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Removes a related image.
+     *
+     * @return $this
+     * @throws Exception
+     */
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getUser() === $this) {
+                $image->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Gets all related calendars.
+     *
+     * @return Collection<int, Calendar>
+     */
+    public function getCalendars(): Collection
+    {
+        return $this->calendars;
+    }
+
+    /**
+     * Adds a related calendar.
+     *
+     * @return $this
+     */
+    public function addCalendar(Calendar $calendar): self
+    {
+        if (!$this->calendars->contains($calendar)) {
+            $this->calendars[] = $calendar;
+            $calendar->setUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Removes a related calendar.
+     *
+     * @return $this
+     * @throws Exception
+     */
+    public function removeCalendar(Calendar $calendar): self
+    {
+        if ($this->calendars->removeElement($calendar)) {
+            // set the owning side to null (unless already changed)
+            if ($calendar->getUser() === $this) {
+                $calendar->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Gets all related calendar images.
+     *
+     * @return Collection<int, CalendarImage>
+     */
+    public function getCalendarImages(): Collection
+    {
+        return $this->calendarImages;
+    }
+
+    /**
+     * Adds a related calendar image.
+     *
+     * @return $this
+     */
+    public function addCalendarImage(CalendarImage $calendarImage): self
+    {
+        if (!$this->calendarImages->contains($calendarImage)) {
+            $this->calendarImages[] = $calendarImage;
+            $calendarImage->setUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Removes a related calendar image.
+     *
+     * @return $this
+     * @throws Exception
+     */
+    public function removeCalendarImage(CalendarImage $calendarImage): self
+    {
+        if ($this->calendarImages->removeElement($calendarImage)) {
+            // set the owning side to null (unless already changed)
+            if ($calendarImage->getUser() == $this) {
+                $calendarImage->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Sets automatically the hash id of this user.
+     *
+     * @throws RandomException
+     * @return $this
+     */
+    #[ORM\PrePersist]
+    public function setIdHashAutomatically(): self
+    {
+        if ($this->idHash === null) {
+            $this->setIdHash(sha1(sprintf('salt_%d_%d', random_int(0, 999_999_999), random_int(0, 999_999_999))));
+        }
+
+        return $this;
     }
 
     private function findMemberByTeam(Team $team): ?TeamMember

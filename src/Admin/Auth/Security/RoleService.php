@@ -8,8 +8,6 @@ use App\Role\Infrastructure\Repository\RoleRepository;
 use Doctrine\ORM\Exception\NotSupported;
 
 /**
- * Class RoleService
- *
  * @package App\Admin\Auth\Security
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Table(name: 'kimai2_invoice_templates')]
+#[ORM\Table(name: 'platform_crm_invoice_templates')]
 #[ORM\UniqueConstraint(columns: ['name'])]
 #[ORM\Entity(repositoryClass: 'App\Crm\Domain\Repository\InvoiceTemplateRepository')]
 #[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]

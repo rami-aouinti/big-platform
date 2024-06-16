@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package App\Crm\Domain\Entity
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */
-#[ORM\Table(name: 'kimai2_working_times')]
+#[ORM\Table(name: 'platform_crm_working_times')]
 #[ORM\UniqueConstraint(columns: ['user_id', 'date'])]
 #[ORM\Entity(repositoryClass: WorkingTimeRepository::class)]
 #[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]

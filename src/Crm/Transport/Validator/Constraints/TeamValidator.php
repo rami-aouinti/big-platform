@@ -10,8 +10,6 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
- * Class TeamValidator
- *
  * @package App\Crm\Transport\Validator\Constraints
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */

@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package App\Crm\Domain\Entity
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */
-#[ORM\Table(name: 'kimai2_invoices')]
+#[ORM\Table(name: 'platform_crm_invoices')]
 #[ORM\UniqueConstraint(columns: ['invoice_number'])]
 #[ORM\UniqueConstraint(columns: ['invoice_filename'])]
 #[ORM\Entity(repositoryClass: 'App\Crm\Domain\Repository\InvoiceRepository')]

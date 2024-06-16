@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Validator\Constraints;
 
+use App\Calendar\Domain\Entity\Timesheet as TimesheetEntity;
 use App\Configuration\SystemConfiguration;
 use App\Crm\Domain\Repository\TimesheetRepository;
-use App\Entity\Timesheet as TimesheetEntity;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;

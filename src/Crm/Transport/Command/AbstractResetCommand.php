@@ -129,10 +129,10 @@ abstract class AbstractResetCommand extends Command
         try {
             $command = $this->getApplication()->find('doctrine:query:sql');
             $command->run(new ArrayInput([
-                'sql' => 'DROP TABLE IF EXISTS kimai2_sessions',
+                'sql' => 'DROP TABLE IF EXISTS platform_crm_sessions',
             ]), $output);
         } catch (Exception $ex) {
-            $io->error('Failed to drop kimai2_sessions table: ' . $ex->getMessage());
+            $io->error('Failed to drop platform_crm_sessions table: ' . $ex->getMessage());
 
             return Command::FAILURE;
         }

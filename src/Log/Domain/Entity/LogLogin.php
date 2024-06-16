@@ -25,7 +25,7 @@ use function is_array;
  * @package App\Log
  */
 #[ORM\Entity(readOnly: true)]
-#[ORM\Table(name: 'log_login')]
+#[ORM\Table(name: 'platform_log_login')]
 #[ORM\Index(
     columns: ['user_id'],
     name: 'user_id',

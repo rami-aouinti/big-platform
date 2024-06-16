@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Validator\Constraints;
 
+use App\Calendar\Domain\Entity\Timesheet as TimesheetEntity;
 use App\Crm\Transport\Validator\Constraints\Timesheet as TimesheetEntityConstraint;
-use App\Entity\Timesheet as TimesheetEntity;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

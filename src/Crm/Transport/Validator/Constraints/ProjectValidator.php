@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Validator\Constraints;
 
+use App\Calendar\Domain\Entity\Project as ProjectEntity;
 use App\Configuration\SystemConfiguration;
 use App\Crm\Domain\Repository\ProjectRepository;
 use App\Crm\Transport\Validator\Constraints\Project as ProjectEntityConstraint;
-use App\Entity\Project as ProjectEntity;
 use App\Validator\Constraints\Project;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 use Symfony\Component\Validator\Constraint;

@@ -11,6 +11,10 @@ use App\Crm\Domain\Repository\Paginator\LoaderPaginator;
 use App\Crm\Domain\Repository\Query\TimesheetQuery;
 use Doctrine\ORM\QueryBuilder;
 
+/**
+ * @package App\Crm\Domain\Repository\Result
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class TimesheetResult
 {
     private ?TimesheetResultStatistic $statisticCache = null;
@@ -24,8 +28,8 @@ final class TimesheetResult
      * @internal
      */
     public function __construct(
-        private TimesheetQuery $query,
-        private QueryBuilder $queryBuilder
+        private readonly TimesheetQuery $query,
+        private readonly QueryBuilder $queryBuilder
     ) {
     }
 
@@ -47,7 +51,7 @@ final class TimesheetResult
             $result = $qb->getQuery()->getArrayResult()[0];
             $duration = $withDuration ? $result['duration'] : 0;
 
-            $this->statisticCache = new TimesheetResultStatistic($result['counter'], $duration);
+            $this->statisticCache = new TimesheetResultStatistic($result['counter'], (int)$duration);
         }
 
         return $this->statisticCache;

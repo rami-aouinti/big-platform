@@ -23,7 +23,7 @@ use function floor;
  * @package App\DateDimension
  */
 #[ORM\Entity(readOnly: true)]
-#[ORM\Table(name: 'date_dimension')]
+#[ORM\Table(name: 'platform_date_dimension')]
 #[ORM\Index(
     columns: ['date'],
     name: 'date',

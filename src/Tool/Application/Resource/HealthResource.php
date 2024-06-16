@@ -9,6 +9,7 @@ use App\General\Application\Rest\RestResource;
 use App\General\Domain\Entity\Interfaces\EntityInterface;
 use App\Tool\Domain\Entity\Health as Entity;
 use App\Tool\Domain\Repository\Interfaces\HealthRepositoryInterface as Repository;
+use App\Tool\Infrastructure\Repository\HealthRepository;
 
 /**
  * @package App\Tool
@@ -17,7 +18,7 @@ use App\Tool\Domain\Repository\Interfaces\HealthRepositoryInterface as Repositor
  * @codingStandardsIgnoreStart
  *
  * @method Entity getReference(string $id, ?string $entityManagerName = null)
- * @method \App\Tool\Infrastructure\Repository\HealthRepository getRepository()
+ * @method HealthRepository getRepository()
  * @method Entity[] find(?array $criteria = null, ?array $orderBy = null, ?int $limit = null, ?int $offset = null, ?array $search = null, ?string $entityManagerName = null)
  * @method Entity|null findOne(string $id, ?bool $throwExceptionIfNotFound = null, ?string $entityManagerName = null)
  * @method Entity|null findOneBy(array $criteria, ?array $orderBy = null, ?bool $throwExceptionIfNotFound = null, ?string $entityManagerName = null)
@@ -32,7 +33,7 @@ use App\Tool\Domain\Repository\Interfaces\HealthRepositoryInterface as Repositor
 class HealthResource extends RestResource
 {
     /**
-     * @param \App\Tool\Infrastructure\Repository\HealthRepository $repository
+     * @param HealthRepository $repository
      */
     public function __construct(
         Repository $repository,

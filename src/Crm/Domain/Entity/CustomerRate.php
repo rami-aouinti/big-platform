@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Table(name: 'kimai2_customers_rates')]
+#[ORM\Table(name: 'platform_crm_customers_rates')]
 #[ORM\UniqueConstraint(columns: ['user_id', 'customer_id'])]
 #[ORM\Entity(repositoryClass: 'App\Crm\Domain\Repository\CustomerRateRepository')]
 #[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]

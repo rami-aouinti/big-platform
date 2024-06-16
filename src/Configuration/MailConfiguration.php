@@ -4,7 +4,13 @@ declare(strict_types=1);
 
 namespace App\Configuration;
 
-final class MailConfiguration
+/**
+ * Class MailConfiguration
+ *
+ * @package App\Configuration
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
+final readonly class MailConfiguration
 {
     public function __construct(
         private string $mailFrom

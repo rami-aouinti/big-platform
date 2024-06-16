@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package App\Crm\Domain\Entity
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */
-#[ORM\Table(name: 'kimai2_bookmarks')]
+#[ORM\Table(name: 'platform_crm_bookmarks')]
 #[ORM\UniqueConstraint(columns: ['user_id', 'name'])]
 #[ORM\Entity(repositoryClass: 'App\Crm\Domain\Repository\BookmarkRepository')]
 #[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]

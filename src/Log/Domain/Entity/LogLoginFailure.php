@@ -20,7 +20,7 @@ use Throwable;
  * @package App\Log
  */
 #[ORM\Entity(readOnly: true)]
-#[ORM\Table(name: 'log_login_failure')]
+#[ORM\Table(name: 'platform_log_login_failure')]
 #[ORM\Index(
     columns: ['user_id'],
     name: 'user_id',

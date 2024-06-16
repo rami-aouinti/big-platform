@@ -20,7 +20,7 @@ use Throwable;
  * @package App\Tool
  */
 #[ORM\Entity]
-#[ORM\Table(name: 'health')]
+#[ORM\Table(name: 'platform_health')]
 #[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]
 class Health implements EntityInterface
 {

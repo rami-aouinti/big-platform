@@ -20,10 +20,11 @@ doctrine:
         types:
             datetime: App\General\Domain\Doctrine\DBAL\Types\UTCDateTimeType
             datetimetz: App\General\Domain\Doctrine\DBAL\Types\UTCDateTimeType
-            datetime_immutable: App\Doctrine\UTCDateTimeImmutableType
+            datetime_immutable: App\General\Domain\Doctrine\UTCDateTimeImmutableType
             EnumLanguage: App\General\Domain\Doctrine\DBAL\Types\EnumLanguageType
             EnumLocale: App\General\Domain\Doctrine\DBAL\Types\EnumLocaleType
             EnumLogLogin: App\General\Domain\Doctrine\DBAL\Types\EnumLogLoginType
+            point: CrEOF\Spatial\DBAL\Types\Geometry\PointType
 
     orm:
         auto_generate_proxy_classes: true
@@ -89,14 +90,19 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Blog/Domain/Entity'
                         prefix: 'App\Blog\Domain\Entity'
                         alias: Blog
+                    Calendar:
+                        type: attribute
+                        dir: '%kernel.project_dir%/src/Calendar/Domain/Entity'
+                        prefix: 'App\Calendar\Domain\Entity'
+                        alias: Calendar
                 dql:
                     datetime_functions:
                         datesub: DoctrineExtensions\Query\Mysql\DateSub
                         now: DoctrineExtensions\Query\Mysql\Now
-                        date: App\Doctrine\Extensions\Date
-                        day: App\Doctrine\Extensions\Day
-                        month: App\Doctrine\Extensions\Month
-                        year: App\Doctrine\Extensions\Year
+                        date: App\General\Domain\Doctrine\Extensions\Date
+                        day: App\General\Domain\Doctrine\Extensions\Day
+                        month: App\General\Domain\Doctrine\Extensions\Month
+                        year: App\General\Domain\Doctrine\Extensions\Year
                     string_functions:
                         uuid_o_t_to_bin: App\General\Infrastructure\DQL\UuidOTToBin
                         bin_to_uuid_o_t: App\General\Infrastructure\DQL\BinToUuidOT

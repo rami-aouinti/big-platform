@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Table(name: 'kimai2_access_token')]
+#[ORM\Table(name: 'platform_crm_access_token')]
 #[ORM\Entity(repositoryClass: 'App\Crm\Domain\Repository\AccessTokenRepository')]
 #[ORM\UniqueConstraint(columns: ['token'])]
 #[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]

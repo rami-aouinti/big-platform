@@ -12,8 +12,6 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
 
 /**
- * Class SessionHandler
- *
  * @package App\Admin\Auth\Security
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */
@@ -28,7 +26,7 @@ final class SessionHandler extends PdoSessionHandler
         private readonly RequestStack $requestStack
     ) {
         parent::__construct($connection->getNativeConnection(), [
-            'db_table' => 'kimai2_sessions',
+            'db_table' => 'platform_crm_sessions',
             'db_id_col' => 'id',
             'db_data_col' => 'data',
             'db_lifetime_col' => 'lifetime',

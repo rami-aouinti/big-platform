@@ -25,7 +25,7 @@ use Throwable;
  * @package App\User
  */
 #[ORM\Entity]
-#[ORM\Table(name: 'user_group')]
+#[ORM\Table(name: 'platform_user_group')]
 #[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]
 class UserGroup implements EntityInterface, Stringable
 {
@@ -106,7 +106,7 @@ class UserGroup implements EntityInterface, Stringable
         mappedBy: 'userGroups',
     )]
     #[ORM\JoinTable(
-        name: 'user_has_user_group',
+        name: 'platform_user_has_user_group',
     )]
     #[Groups([
         'UserGroup.users',

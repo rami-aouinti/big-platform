@@ -34,6 +34,15 @@ user-controllers:
     defaults:
         _format: json
 
+calendar-controllers:
+    resource:
+        path: ../src/Calendar/Transport/Controller
+        namespace: App\Calendar\Transport\Controller
+    type: attribute
+    prefix: /api
+    defaults:
+        _format: json
+
 api.swagger_ui:
     path: /api/doc
     methods: GET
@@ -43,8 +52,6 @@ api.swagger:
     path: /api/doc.json
     methods: GET
     defaults: { _controller: nelmio_api_doc.controller.swagger }
-
-
 
 2fa_login:
     path: /{_locale}/auth/2fa
@@ -77,7 +84,6 @@ api:
     resource: ../src/Crm/Transport/API/
     type: attribute
     prefix: /api/crm/
-
 
 auth:
     resource: ../src/Admin/Crm/Controller/Auth/

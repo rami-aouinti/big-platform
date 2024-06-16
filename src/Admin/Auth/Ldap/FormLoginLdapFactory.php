@@ -13,6 +13,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * @package App\Admin\Auth\Ldap
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class FormLoginLdapFactory extends AbstractFactory implements AuthenticatorFactoryInterface
 {
     public function __construct()

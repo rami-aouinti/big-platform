@@ -23,6 +23,11 @@ services:
 
     symfony: &symfony-template
       image: ${COMPOSE_PROJECT_NAME}-symfony:latest
+      healthcheck:
+        test: [ "CMD", "curl", "-f", "http://localhost" ]
+        interval: 10s
+        timeout: 5s
+        retries: 3
       build:
         context: .
         args:

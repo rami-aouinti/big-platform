@@ -31,7 +31,7 @@ use function Symfony\Component\String\u;
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
 #[ORM\Entity]
-#[ORM\Table(name: 'symfony_demo_comment')]
+#[ORM\Table(name: 'platform_blog_comment')]
 class Comment
 {
     #[ORM\Id]

@@ -7,6 +7,12 @@ namespace App\Admin\Auth\Security;
 use App\User\Domain\Entity\User;
 use App\User\PermissionService;
 
+use function array_key_exists;
+
+/**
+ * @package App\Admin\Auth\Security
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class RolePermissionManager
 {
     /**
@@ -15,7 +21,7 @@ final class RolePermissionManager
      * @var array<string, bool>
      * @internal
      */
-    public const SUPER_ADMIN_PERMISSIONS = [
+    public const array SUPER_ADMIN_PERMISSIONS = [
         'view_all_data' => true,
         'role_permissions' => true,
         'view_user' => true,
@@ -39,7 +45,7 @@ final class RolePermissionManager
      */
     public function isRegisteredPermission(string $permission): bool
     {
-        return \array_key_exists($permission, $this->permissionNames);
+        return array_key_exists($permission, $this->permissionNames);
     }
 
     public function hasPermission(string $role, string $permission): bool
@@ -48,11 +54,11 @@ final class RolePermissionManager
 
         $role = strtoupper($role);
 
-        if (!\array_key_exists($role, $this->permissions)) {
+        if (!array_key_exists($role, $this->permissions)) {
             return false;
         }
 
-        return \array_key_exists($permission, $this->permissions[$role]) && $this->permissions[$role][$permission];
+        return array_key_exists($permission, $this->permissions[$role]) && $this->permissions[$role][$permission];
     }
 
     public function hasRolePermission(User $user, string $permission): bool
@@ -88,7 +94,7 @@ final class RolePermissionManager
             $perm = (string)$item['permission'];
             $role = (string)$item['role'];
 
-            if (!\array_key_exists($role, $this->permissions)) {
+            if (!array_key_exists($role, $this->permissions)) {
                 $this->permissions[$role] = [];
             }
 

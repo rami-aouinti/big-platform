@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package App\Crm\Domain\Entity
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */
-#[ORM\Table(name: 'kimai2_configuration')]
+#[ORM\Table(name: 'platform_crm_configuration')]
 #[ORM\UniqueConstraint(columns: ['name'])]
 #[ORM\Entity(repositoryClass: 'App\Crm\Domain\Repository\ConfigurationRepository')]
 #[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]

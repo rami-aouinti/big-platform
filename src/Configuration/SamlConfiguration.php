@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Configuration;
 
 /**
- * Class SamlConfiguration
- *
  * @package App\Configuration
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */

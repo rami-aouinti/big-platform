@@ -45,7 +45,7 @@ final class UpdateCommand extends Command
 
         // make sure database is available, Kimai running and installed
         try {
-            if (!$this->connection->createSchemaManager()->tablesExist(['kimai2_users', 'kimai2_timesheet'])) {
+            if (!$this->connection->createSchemaManager()->tablesExist(['platform_crm_users', 'platform_crm_timesheet'])) {
                 $io->error('Tables missing. Did you run the installer already?');
 
                 return Command::FAILURE;

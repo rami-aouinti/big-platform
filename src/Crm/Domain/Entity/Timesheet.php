@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Domain\Entity;
 
-use App\Doctrine\ModifiedAt;
+use App\General\Domain\Doctrine\ModifiedAt;
 use App\User\Domain\Entity\User;
 use DateTime;
 use DateTimeImmutable;
@@ -24,7 +24,7 @@ use function in_array;
  * Internal docs:
  * - IDX_4F60C6B1415614018D93D649 (for ticktac in v1)
  */
-#[ORM\Table(name: 'kimai2_timesheet')]
+#[ORM\Table(name: 'platform_crm_timesheet')]
 #[ORM\Index(columns: ['user'], name: 'IDX_4F60C6B18D93D649')]
 #[ORM\Index(columns: ['activity_id'], name: 'IDX_4F60C6B181C06096')]
 #[ORM\Index(columns: ['user', 'start_time'], name: 'IDX_4F60C6B18D93D649502DF587')]
@@ -202,7 +202,7 @@ class Timesheet implements EntityWithMetaFields, ExportableItem, ModifiedAt
      *
      * @var Collection<Tag>
      */
-    #[ORM\JoinTable(name: 'kimai2_timesheet_tags')]
+    #[ORM\JoinTable(name: 'platform_crm_timesheet_tags')]
     #[ORM\JoinColumn(name: 'timesheet_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     #[ORM\InverseJoinColumn(name: 'tag_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'timesheets', cascade: ['persist'])]

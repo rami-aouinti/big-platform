@@ -8,8 +8,6 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 
 /**
- * Class AclDecisionManager
- *
  * @package App\Admin\Auth\Security
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */

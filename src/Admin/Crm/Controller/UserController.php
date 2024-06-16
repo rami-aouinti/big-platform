@@ -10,7 +10,6 @@ use App\Crm\Application\Utils\PageSetup;
 use App\Crm\Domain\Repository\Query\UserQuery;
 use App\Crm\Domain\Repository\TimesheetRepository;
 use App\Crm\Domain\Repository\UserRepository;
-use App\Crm\Transport\API\Export\Spreadsheet\Extractor\ExtractorException;
 use App\Crm\Transport\API\Export\Spreadsheet\UserExporter;
 use App\Crm\Transport\API\Export\Spreadsheet\Writer\BinaryFileResponseWriter;
 use App\Crm\Transport\API\Export\Spreadsheet\Writer\XlsxWriter;
@@ -22,8 +21,6 @@ use App\General\Domain\Enum\Language;
 use App\User\Domain\Entity\User;
 use App\User\Transport\Form\Type\Console\UserType;
 use App\User\UserService;
-use Doctrine\ORM\Exception\ORMException;
-use Doctrine\ORM\OptimisticLockException;
 use Exception;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -152,14 +149,8 @@ final class UserController extends AbstractController
     }
 
     /**
-     * @param Request                  $request
-     * @param SystemConfiguration      $config
-     * @param UserRepository           $userRepository
-     * @param EventDispatcherInterface $dispatcher
-     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
-     * @return Response
      */
     #[Route(path: '/create', name: 'admin_user_create', methods: ['GET', 'POST'])]
     #[IsGranted('create_user')]
@@ -253,13 +244,9 @@ final class UserController extends AbstractController
     }
 
     /**
-     * @param Request      $request
-     * @param UserExporter $exporter
-     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      * @throws \PhpOffice\PhpSpreadsheet\Exception
-     * @return Response
      */
     #[Route(path: '/export', name: 'user_export', methods: ['GET'])]
     #[IsGranted('view_user')]

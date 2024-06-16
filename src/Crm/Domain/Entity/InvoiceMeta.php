@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Table(name: 'kimai2_invoices_meta')]
+#[ORM\Table(name: 'platform_crm_invoices_meta')]
 #[ORM\UniqueConstraint(columns: ['invoice_id', 'name'])]
 #[ORM\Entity]
 #[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]

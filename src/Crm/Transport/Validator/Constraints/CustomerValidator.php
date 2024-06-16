@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Validator\Constraints;
 
+use App\Calendar\Domain\Entity\Customer as CustomerEntity;
 use App\Configuration\SystemConfiguration;
 use App\Crm\Domain\Repository\CustomerRepository;
-use App\Entity\Customer as CustomerEntity;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;

@@ -19,7 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @package App\Role
  */
 #[ORM\Entity]
-#[ORM\Table(name: 'role')]
+#[ORM\Table(name: 'platform_role')]
 #[ORM\UniqueConstraint(
     name: 'uq_role',
     columns: ['role'],

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Form;
 
-use App\Entity\InvoiceTemplate;
+use App\Calendar\Domain\Entity\InvoiceTemplate;
 use App\User\Transport\Form\Type\Console\InvoiceCalculatorType;
 use App\User\Transport\Form\Type\Console\InvoiceNumberGeneratorType;
 use App\User\Transport\Form\Type\Console\InvoiceRendererType;

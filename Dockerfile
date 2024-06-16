@@ -25,7 +25,8 @@ RUN if [ "$BUILD_ARGUMENT_ENV" = "default" ]; then echo "Set BUILD_ARGUMENT_ENV 
 
 # install all the dependencies and enable PHP modules
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
-      libjpeg-dev libpng-dev libfreetype6-dev libicu-dev zlib1g-dev libxml2-dev libreadline-dev libxslt1-dev libzip-dev libexif-dev \
+      libjpeg-dev libpng-dev libfreetype6-dev libicu-dev zlib1g-dev libxml2-dev libreadline-dev libxslt1-dev libzip-dev \
+      libexif-dev \
       procps \
       nano \
       git \
@@ -74,14 +75,23 @@ RUN mkdir -p $APP_HOME/public && \
 COPY ./docker/$BUILD_ARGUMENT_ENV/www.conf /usr/local/etc/php-fpm.d/www.conf
 COPY ./docker/$BUILD_ARGUMENT_ENV/php.ini /usr/local/etc/php/php.ini
 
+
+RUN apt-get update && apt-get install -y dos2unix
 # install Xdebug in case dev/test environment
 COPY ./docker/general/do_we_need_xdebug.sh /tmp/
 COPY ./docker/dev/xdebug-${XDEBUG_CONFIG}.ini /tmp/xdebug.ini
-RUN chmod u+x /tmp/do_we_need_xdebug.sh && /tmp/do_we_need_xdebug.sh
-
+RUN chmod u+x /tmp/do_we_need_xdebug.sh && ls -l /tmp/do_we_need_xdebug.sh
+RUN chmod u+x /tmp/do_we_need_xdebug.sh
+RUN dos2unix /tmp/do_we_need_xdebug.sh
+RUN /bin/bash -x /tmp/do_we_need_xdebug.sh
 # install security-checker in case dev/test environment
 COPY ./docker/general/do_we_need_security-checker.sh /tmp/
-RUN chmod u+x /tmp/do_we_need_security-checker.sh && /tmp/do_we_need_security-checker.sh
+RUN dos2unix /tmp/do_we_need_security-checker.sh
+RUN chmod u+x /tmp/do_we_need_security-checker.sh && ls -l /tmp/do_we_need_security-checker.sh
+
+
+
+RUN /bin/bash -x /tmp/do_we_need_security-checker.sh
 
 # install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

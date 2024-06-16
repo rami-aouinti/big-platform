@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation as Serializer;
 use OpenApi\Attributes as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Table(name: 'kimai2_projects')]
+#[ORM\Table(name: 'platform_crm_projects')]
 #[ORM\Index(columns: ['customer_id', 'visible', 'name'])]
 #[ORM\Index(columns: ['customer_id', 'visible', 'id'])]
 #[ORM\Entity(repositoryClass: 'App\Crm\Domain\Repository\ProjectRepository')]
@@ -145,7 +145,7 @@ class Project implements EntityWithMetaFields, EntityWithBudget
      *
      * @var Collection<Team>
      */
-    #[ORM\JoinTable(name: 'kimai2_projects_teams')]
+    #[ORM\JoinTable(name: 'platform_crm_projects_teams')]
     #[ORM\JoinColumn(name: 'project_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     #[ORM\InverseJoinColumn(name: 'team_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     #[ORM\ManyToMany(targetEntity: Team::class, inversedBy: 'projects', cascade: ['persist'])]

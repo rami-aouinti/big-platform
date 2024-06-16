@@ -33,7 +33,7 @@ use function array_values;
  * @package App\ApiKey
  */
 #[ORM\Entity]
-#[ORM\Table(name: 'api_key')]
+#[ORM\Table(name: 'platform_api_key')]
 #[ORM\UniqueConstraint(
     name: 'uq_token',
     columns: ['token'],
@@ -124,7 +124,7 @@ class ApiKey implements EntityInterface, UserGroupAwareInterface
     /**
      * @var Collection<int, UserGroup>|ArrayCollection<int, UserGroup>
      */
-    #[ORM\JoinTable(name: 'api_key_has_user_group')]
+    #[ORM\JoinTable(name: 'platform_api_key_has_user_group')]
     #[ORM\ManyToMany(
         targetEntity: UserGroup::class,
         inversedBy: 'apiKeys',

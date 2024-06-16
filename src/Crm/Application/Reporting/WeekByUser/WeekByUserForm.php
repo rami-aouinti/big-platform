@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Crm\Application\Reporting\WeekByUser;
 
-use App\User\Transport\Form\Type\Console\ReportSumType;
+use App\Crm\Transport\Form\Type\ReportSumType;
+use App\Crm\Transport\Form\Type\WeekPickerType;
 use App\User\Transport\Form\Type\Console\UserType;
-use App\User\Transport\Form\Type\Console\WeekPickerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

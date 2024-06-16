@@ -25,8 +25,8 @@ final class KimaiUserProvider implements UserProviderInterface, PasswordUpgrader
      * @param iterable<UserProviderInterface<User>> $providers
      */
     public function __construct(
-        private iterable $providers,
-        private SystemConfiguration $configuration
+        private readonly iterable $providers,
+        private readonly SystemConfiguration $configuration
     ) {
     }
 

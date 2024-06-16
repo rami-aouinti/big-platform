@@ -11,6 +11,10 @@ parameters:
         en: English
         fr: French
         de: German
+    api.base_url: '%env(resolve:API_BASE_URL)%'
+    jwt.role: '%env(resolve:JWT_ROLE)%'
+    backend.title.login: 'API Backend Login'
+    backend.title.main: 'API Backend'
 
 services:
     # default configuration for services in *this* file
@@ -74,6 +78,8 @@ services:
             - '../src/Crm/Application/Model/'
             - '../src/Constants.php'
 
+    annotation_reader:
+        class: Doctrine\Common\Annotations\AnnotationReader
     # controllers are imported separately to make sure services can be injected
     App\Admin\Crm\Controller\:
         resource: '../src/Admin/Crm/Controller'
@@ -339,6 +345,42 @@ when@dev:
         App\Crm\Application\Service\Timesheet\RateService:
             arguments: [ '%kimai.timesheet.rates%' ]
 
+        App\Calendar\Application\OpenApi\JwtDecorator:
+            decorates: 'api_platform.openapi.factory'
+            arguments: [ '@.inner' ]
+
+        App\Calendar\Application\OpenApi\VersionDecorator:
+            decorates: 'api_platform.openapi.factory'
+            arguments: [ '@.inner' ]
+
+        App\Calendar\Transport\Controller\VersionController:
+            arguments: [ '@kernel' ]
+            public: true
+
+        App\Calendar\Transport\EventListener\AddPaginationHeaders:
+            tags:
+                - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+
+        App\Calendar\Transport\Field\Configurator\CollectionCalendarImageConfigurator:
+            tags:
+                - { name: 'ea.field_configurator', priority: -1 }
+
+        App\Calendar\Transport\Field\Configurator\ImageEmptyConfigurator:
+            arguments: [ '%kernel.project_dir%' ]
+
+        App\Calendar\Transport\Form\Type\FileUploadEmptyType:
+            arguments: [ '%kernel.project_dir%' ]
+
+        App\Calendar\Transport\EventListener\Entity\UserListener:
+            tags:
+                - { name: 'doctrine.orm.entity_listener' }
+
+        App\Calendar\Transport\EventListener\Entity\HolidayListener:
+            tags:
+                - { name: 'doctrine.orm.entity_listener' }
+
+        App\Calendar\Application\Service\CalendarBuilderService:
+            arguments: [ '@kernel' ]
 
 when@test:
     services:
@@ -361,3 +403,42 @@ when@test:
 
         App\Tests\Utils\:
             resource: '../tests/Utils/*'
+
+        App\Calendar\Application\Service\Entity\CalendarLoaderService:
+            arguments:
+                - '@kernel'
+                - '@doctrine.orm.entity_manager'
+                - '@App\Calendar\Application\Service\SecurityService'
+                - '@App\Calendar\Application\Service\Entity\UserLoaderService'
+            public: true
+
+        App\Calendar\Application\Service\Entity\HolidayGroupLoaderService:
+            arguments:
+                - '@kernel'
+                - '@doctrine.orm.entity_manager'
+                - '@App\Calendar\Application\Service\SecurityService'
+            public: true
+
+        App\Calendar\Application\Service\Entity\ImageLoaderService:
+            arguments:
+                - '@kernel'
+                - '@doctrine.orm.entity_manager'
+                - '@App\Calendar\Application\Service\SecurityService'
+            public: true
+
+        App\Calendar\Application\Service\Entity\UserLoaderService:
+            arguments:
+                - '@kernel'
+                - '@doctrine.orm.entity_manager'
+                - '@App\Calendar\Application\Service\SecurityService'
+            public: true
+
+        App\Calendar\Application\Service\CalendarBuilderService:
+            arguments:
+                - '@kernel'
+            public: true
+
+        App\Calendar\Application\Utils\ImageProperty:
+            arguments:
+                - '@kernel'
+            public: true

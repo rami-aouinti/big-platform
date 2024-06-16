@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace App\Crm\Domain\Repository\Result;
 
-final class TimesheetResultStatistic
+/**
+ * @package App\Crm\Domain\Repository\Result
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
+final readonly class TimesheetResultStatistic
 {
     public function __construct(
         private int $count,

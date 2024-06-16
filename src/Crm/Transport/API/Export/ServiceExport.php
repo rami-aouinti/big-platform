@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\API\Export;
 
+use App\Crm\Application\Service\Invoice\Renderer\DocxRenderer;
+use App\Crm\Application\Service\Invoice\Renderer\OdsRenderer;
+use App\Crm\Application\Service\Invoice\Renderer\PdfRenderer;
+use App\Crm\Application\Service\Invoice\Renderer\TwigRenderer;
+use App\Crm\Application\Service\Invoice\Renderer\XlsxRenderer;
 use App\Crm\Domain\Entity\ExportableItem;
 use App\Crm\Domain\Repository\Query\ExportQuery;
 use App\Crm\Transport\API\Export\Renderer\HtmlRendererFactory;
@@ -60,8 +65,9 @@ final class ServiceExport
         }
     }
 
-    public function addRenderer(ExportRendererInterface $renderer): void
-    {
+    public function addRenderer(
+        ExportRendererInterface|OdsRenderer|DocxRenderer|PdfRenderer|TwigRenderer|XlsxRenderer $renderer
+    ): void {
         $this->renderer[] = $renderer;
     }
 

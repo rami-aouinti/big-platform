@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Form;
 
-use App\Entity\Project;
+use App\Calendar\Domain\Entity\Project;
 use App\User\Transport\Form\Type\Console\TeamType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

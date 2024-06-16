@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package App\Crm\Domain\Entity
  * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */
-#[ORM\Table(name: 'kimai2_user_preferences')]
+#[ORM\Table(name: 'platform_crm_user_preferences')]
 #[ORM\UniqueConstraint(columns: ['user_id', 'name'])]
 #[ORM\Entity]
 #[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]

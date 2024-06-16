@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace App\Admin\Auth\Ldap;
 
 use App\User\Domain\Entity\User;
+use Exception;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+
+use function get_class;
 
 /**
  * @template-implements UserProviderInterface<User>
@@ -17,11 +20,14 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 final class LdapUserProvider implements UserProviderInterface
 {
     public function __construct(
-        private LdapManager $ldapManager,
-        private ?LoggerInterface $logger = null
+        private readonly LdapManager $ldapManager,
+        private readonly ?LoggerInterface $logger = null
     ) {
     }
 
+    /**
+     * @throws Exception
+     */
     public function loadUserByIdentifier(string $identifier): UserInterface
     {
         $user = $this->ldapManager->findUserByUsername($identifier);
@@ -50,7 +56,7 @@ final class LdapUserProvider implements UserProviderInterface
     public function refreshUser(UserInterface $user): UserInterface
     {
         if (!($user instanceof User)) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
         }
 
         if (!$user->isLdapUser()) {
@@ -66,6 +72,11 @@ final class LdapUserProvider implements UserProviderInterface
         return $user;
     }
 
+    /**
+     * @param $class
+     *
+     * @return bool
+     */
     public function supportsClass($class): bool
     {
         return $class === User::class;

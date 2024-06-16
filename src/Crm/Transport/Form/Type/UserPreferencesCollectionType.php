@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Transport\Form\Type;
 
-use App\Entity\UserPreference;
+use App\Calendar\Domain\Entity\UserPreference;
 use App\User\Domain\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;

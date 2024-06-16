@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace App\Crm\Transport\Form;
 
 use App\Crm\Application\Reporting\YearByUser\YearByUser;
+use App\Crm\Transport\Form\Type\YearPickerType;
 use App\User\Transport\Form\Type\Console\UserType;
-use App\User\Transport\Form\Type\Console\YearPickerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @package App\Crm\Transport\Form
+ * @author  Rami Aouinti <rami.aouinti@tkdeutschland.de>
+ */
 final class YearByUserForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
