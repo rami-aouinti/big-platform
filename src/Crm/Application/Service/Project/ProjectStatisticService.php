@@ -768,7 +768,7 @@ readonly class ProjectStatisticService
 
         $result = $qb->getQuery()->getScalarResult();
         foreach ($result as $row) {
-            $projectViews[$row['id']]->setDurationMonth($row['duration']);
+            $projectViews[$row['id']]->setDurationMonth(intval($row['duration']));
         }
 
         return array_values($projectViews);

@@ -13,6 +13,9 @@
             "src/ApiResource/.gitignore"
         ]
     },
+    "babdev/pagerfanta-bundle": {
+        "version": "v4.4.0"
+    },
     "bamarni/composer-bin-plugin": {
         "version": "v1.5.0"
     },
@@ -24,6 +27,9 @@
     },
     "brick/math": {
         "version": "0.9.2"
+    },
+    "craue/config-bundle": {
+        "version": "2.7.0"
     },
     "dama/doctrine-test-bundle": {
         "version": "8.2",
@@ -549,6 +555,15 @@
             "src/Kernel.php"
         ]
     },
+    "symfony/google-mailer": {
+        "version": "6.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "4.4",
+            "ref": "f8fd4ddb9b477510f8f4bce2b9c054ab428c0120"
+        }
+    },
     "symfony/http-client": {
         "version": "v4.4.25"
     },
@@ -890,6 +905,18 @@
     },
     "webmozart/assert": {
         "version": "1.10.0"
+    },
+    "willdurand/hateoas-bundle": {
+        "version": "2.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "2.0",
+            "ref": "34df072c6edaa61ae19afb2f3a239f272fecab87"
+        },
+        "files": [
+            "config/packages/bazinga_hateoas.yaml"
+        ]
     },
     "zircote/swagger-php": {
         "version": "3.2.3"

@@ -21,7 +21,13 @@ use App\General\Domain\Entity\Traits\Timestampable;
 use App\General\Domain\Entity\Traits\Uuid;
 use App\General\Domain\Enum\Language;
 use App\General\Domain\Enum\Locale;
+use App\Resume\Domain\Entity\Experience;
+use App\Resume\Domain\Entity\Formation;
+use App\Resume\Domain\Entity\Hobby;
+use App\Resume\Domain\Entity\Reference;
+use App\Resume\Domain\Entity\Skill;
 use App\Tool\Domain\Service\Interfaces\LocalizationServiceInterface;
+use App\User\Domain\Entity\Enum\SexEnum;
 use App\User\Domain\Entity\Interfaces\UserGroupAwareInterface;
 use App\User\Domain\Entity\Traits\Blameable;
 use App\User\Domain\Entity\Traits\UserRelations;
@@ -288,6 +294,82 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     private string $email = '';
 
     #[ORM\Column(
+        name: 'phone',
+        type: Types::STRING,
+        length: 255,
+        nullable: false,
+    )]
+    #[Groups([
+        'User',
+        'User.phone',
+
+        self::SET_USER_PROFILE,
+        self::SET_USER_BASIC,
+    ])]
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
+    private string $phone = '';
+
+    #[ORM\Column(
+        name: 'description',
+        type: Types::STRING,
+        length: 255,
+        nullable: false,
+    )]
+    #[Groups([
+        'User',
+        'User.description',
+
+        self::SET_USER_PROFILE,
+        self::SET_USER_BASIC,
+    ])]
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
+    private string $description = '';
+
+    #[ORM\Column(
+        name: 'birthday',
+        type: 'datetime',
+        nullable: true
+    )]
+    #[Groups([
+        'User',
+        'User.birthday',
+
+        self::SET_USER_PROFILE,
+        self::SET_USER_BASIC,
+    ])]
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
+    private ?DateTimeInterface $birthday = null;
+
+    #[ORM\Column(
+        name: 'sex',
+        type: 'string',
+        enumType: SexEnum::class
+    )]
+    #[Groups([
+        'User',
+        'User.sex',
+
+        self::SET_USER_PROFILE,
+        self::SET_USER_BASIC,
+    ])]
+    private SexEnum $sex;
+
+    #[ORM\Embedded(
+        class: Address::class
+    )]
+    #[Groups([
+        'User',
+        'User.address',
+
+        self::SET_USER_PROFILE,
+        self::SET_USER_BASIC,
+    ])]
+    private Address $address;
+
+    #[ORM\Column(
         name: 'language',
         type: AppTypes::ENUM_LANGUAGE,
         nullable: false,
@@ -432,6 +514,47 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     #[MaxDepth(1)]
     private Collection $calendarImages;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('get')]
+    private ?string $linkedInUrl = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('get')]
+    private ?string $googleUrl = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('get')]
+    private ?string $facebookUrl = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('get')]
+    private ?string $githubUrl = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('get')]
+    private ?string $instagramUrl = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $tweeterUrl = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Experience::class)]
+    private Collection $experiences;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Hobby::class)]
+    private Collection $hobbies;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: \App\Resume\Domain\Entity\Language::class)]
+    private Collection $languages;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reference::class)]
+    private Collection $references;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Skill::class)]
+    private Collection $skills;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Formation::class)]
+    private Collection $formations;
+
     /**
      * Constructor
      *
@@ -452,6 +575,12 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         $this->images = new ArrayCollection();
         $this->calendars = new ArrayCollection();
         $this->calendarImages = new ArrayCollection();
+        $this->experiences = new ArrayCollection();
+        $this->hobbies = new ArrayCollection();
+        $this->languages = new ArrayCollection();
+        $this->references = new ArrayCollection();
+        $this->skills = new ArrayCollection();
+        $this->formations = new ArrayCollection();
     }
 
     public function __serialize(): array
@@ -715,6 +844,9 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
 
     /**
      * Gets the hash id of this user.
+     *
+     * @throws RandomException
+     * @return string
      */
     public function getIdHash(): string
     {
@@ -723,6 +855,9 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
 
     /**
      * Gets the hash id of this user.
+     *
+     * @throws RandomException
+     * @return string
      */
     public function getIdHashShort(): string
     {
@@ -786,6 +921,87 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         $this->email = $email;
 
         return $this;
+    }
+
+    public  function getPhone(): string
+    {
+        return $this->phone;
+    }
+    public  function setPhone(string $phone):void
+    {
+        $this->phone = $phone;
+    }
+    public  function getDescription(): string
+    {
+        return $this->description;
+    }
+    public  function setDescription(string $description):void
+    {
+        $this->description = $description;
+    }
+    public  function getBirthday(): ?DateTimeInterface
+    {
+        return $this->birthday;
+    }
+    public  function setBirthday(?DateTimeInterface $birthday):void
+    {
+        $this->birthday = $birthday;
+    }
+    public  function getSex(): SexEnum
+    {
+        return $this->sex;
+    }
+    public  function setSex(SexEnum $sex):void
+    {
+        $this->sex = $sex;
+    }
+    public  function getLinkedInUrl(): ?string
+    {
+        return $this->linkedInUrl;
+    }
+    public  function setLinkedInUrl(?string $linkedInUrl):void
+    {
+        $this->linkedInUrl = $linkedInUrl;
+    }
+    public  function getGoogleUrl(): ?string
+    {
+        return $this->googleUrl;
+    }
+    public  function setGoogleUrl(?string $googleUrl):void
+    {
+        $this->googleUrl = $googleUrl;
+    }
+    public  function getFacebookUrl(): ?string
+    {
+        return $this->facebookUrl;
+    }
+    public  function setFacebookUrl(?string $facebookUrl):void
+    {
+        $this->facebookUrl = $facebookUrl;
+    }
+    public  function getGithubUrl(): ?string
+    {
+        return $this->githubUrl;
+    }
+    public  function setGithubUrl(?string $githubUrl):void
+    {
+        $this->githubUrl = $githubUrl;
+    }
+    public  function getInstagramUrl(): ?string
+    {
+        return $this->instagramUrl;
+    }
+    public  function setInstagramUrl(?string $instagramUrl):void
+    {
+        $this->instagramUrl = $instagramUrl;
+    }
+    public  function getTweeterUrl(): ?string
+    {
+        return $this->tweeterUrl;
+    }
+    public  function setTweeterUrl(?string $tweeterUrl):void
+    {
+        $this->tweeterUrl = $tweeterUrl;
     }
 
     public function getLanguage(): Language
@@ -1176,17 +1392,26 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         return $this->getUsername();
     }
 
+    public  function getAddress(): Address
+    {
+        return $this->address;
+    }
+    public  function setAddress(Address $address):void
+    {
+        $this->address = $address;
+    }
+
     public function hasEmail(): bool
     {
         return $this->email !== null;
     }
 
+    /**
+     * @throws Exception
+     */
     public function getLastLogin(): ?DateTime
     {
-        if ($this->lastLogin !== null) {
-            // make sure to use the users own timezone
-            $this->lastLogin->setTimezone(new DateTimeZone($this->getTimezone()));
-        }
+        $this->lastLogin?->setTimezone(new DateTimeZone($this->getTimezone()));
 
         return $this->lastLogin;
     }
@@ -1220,11 +1445,19 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         return $this;
     }
 
+    /**
+     * @param $confirmationToken
+     *
+     * @return void
+     */
     public function setConfirmationToken($confirmationToken): void
     {
         $this->confirmationToken = $confirmationToken;
     }
 
+    /**
+     * @throws Exception
+     */
     public function markPasswordRequested(): void
     {
         $this->setPasswordRequestedAt(new DateTimeImmutable('now', new DateTimeZone($this->getTimezone())));
@@ -1291,6 +1524,11 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         return $this->hasRole(static::ROLE_ADMIN);
     }
 
+    /**
+     * @param $role
+     *
+     * @return bool
+     */
     public function hasRole($role): bool
     {
         return in_array(strtoupper($role), $this->getRoles(), true);
@@ -1331,9 +1569,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
             $initial = mb_substr($initial, 0, $length, 'UTF-8');
         }
 
-        $initial = mb_strtoupper($initial);
-
-        return $initial;
+        return mb_strtoupper($initial);
     }
 
     public function getAccountNumber(): ?string
@@ -1791,8 +2027,7 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
     public function removeCalendarImage(CalendarImage $calendarImage): self
     {
         if ($this->calendarImages->removeElement($calendarImage)) {
-            // set the owning side to null (unless already changed)
-            if ($calendarImage->getUser() == $this) {
+            if ($calendarImage->getUser() === $this) {
                 $calendarImage->setUser(null);
             }
         }
@@ -1834,5 +2069,176 @@ class User implements EntityInterface, UserInterface, UserGroupAwareInterface, E
         }
 
         return (float)number_format((round($holidays * 2) / 2), 1);
+    }
+
+    /**
+     * @return Collection<int, Experience>
+     */
+    public function getExperiences(): Collection
+    {
+        return $this->experiences;
+    }
+
+    public function addExperience(Experience $experience): static
+    {
+        if (!$this->experiences->contains($experience)) {
+            $this->experiences->add($experience);
+            $experience->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExperience(Experience $experience): static
+    {
+        if ($this->experiences->removeElement($experience)) {
+            // set the owning side to null (unless already changed)
+            if ($experience->getUser() === $this) {
+                $experience->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Hobby>
+     */
+    public function getHobbies(): Collection
+    {
+        return $this->hobbies;
+    }
+
+    public function addHobby(Hobby $hobby): static
+    {
+        if (!$this->hobbies->contains($hobby)) {
+            $this->hobbies->add($hobby);
+            $hobby->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHobby(Hobby $hobby): static
+    {
+        if ($this->hobbies->removeElement($hobby)) {
+            // set the owning side to null (unless already changed)
+            if ($hobby->getUser() === $this) {
+                $hobby->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, \App\Resume\Domain\Entity\Language>
+     */
+    public function getLanguages(): Collection
+    {
+        return $this->languages;
+    }
+
+    public function addLanguage(\App\Resume\Domain\Entity\Language $language): static
+    {
+        if (!$this->languages->contains($language)) {
+            $this->languages->add($language);
+            $language->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLanguage(\App\Resume\Domain\Entity\Language $language): static
+    {
+        if ($this->languages->removeElement($language)) {
+            // set the owning side to null (unless already changed)
+            if ($language->getUser() === $this) {
+                $language->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getReferences(): ArrayCollection|Collection
+    {
+        return $this->references;
+    }
+
+    public function addLReference(Reference $reference): static
+    {
+        if (!$this->references->contains($reference)) {
+            $this->references->add($reference);
+            $reference->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReference(Reference $reference): static
+    {
+        if ($this->references->removeElement($reference)) {
+            // set the owning side to null (unless already changed)
+            if ($reference->getUser() === $this) {
+                $reference->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSkills(): ArrayCollection|Collection
+    {
+        return $this->skills;
+    }
+
+    public function addSkill(Skill $skill): static
+    {
+        if (!$this->skills->contains($skill)) {
+            $this->skills->add($skill);
+            $skill->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSkill(Skill $skill): static
+    {
+        if ($this->skills->removeElement($skill)) {
+            // set the owning side to null (unless already changed)
+            if ($skill->getUser() === $this) {
+                $skill->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFormations(): ArrayCollection|Collection
+    {
+        return $this->formations;
+    }
+
+    public function addFormation(Formation $formation): static
+    {
+        if (!$this->formations->contains($formation)) {
+            $this->formations->add($formation);
+            $formation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFormation(Formation $formation): static
+    {
+        if ($this->formations->removeElement($formation)) {
+            // set the owning side to null (unless already changed)
+            if ($formation->getUser() === $this) {
+                $formation->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -6,7 +6,10 @@ namespace App\Crm\Infrastructure\DataFixtures;
 
 use App\Crm\Domain\Entity\AccessToken;
 use App\Crm\Domain\Entity\UserPreference;
+use App\User\Domain\Entity\Address;
+use App\User\Domain\Entity\Enum\SexEnum;
 use App\User\Domain\Entity\User;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -59,6 +62,7 @@ final class UserFixtures extends Fixture implements FixtureGroupInterface
      */
     private function loadDefaultAccounts(ObjectManager $manager): void
     {
+        $address = $this->createAddress();
         $allUsers = $this->getUserDefinition();
         foreach ($allUsers as $userData) {
             $user = new User();
@@ -72,6 +76,17 @@ final class UserFixtures extends Fixture implements FixtureGroupInterface
             $user->setLastLogin(new \DateTime('now'));
             $user->setPlainPassword($this->passwordHasher->hashPassword($user, $userData[8]));
             $user->setApiToken($this->passwordHasher->hashPassword($user, $userData[9]));
+
+            $user->setDescription('Hi, I’m ' . $userData[2] . ', Decisions: If you can’t decide, the answer is no.
+             If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).');
+            $user->setPhone('+4999999999999');
+            $user->setBirthday(new DateTime('now'));
+            $user->setSex(SexEnum::Male);
+            $user->setAddress($address);
+            $user->setGoogleUrl('google_id');
+            $user->setInstagramUrl('instagram_id');
+            $user->setFacebookUrl('facebook_id');
+            $user->setTweeterUrl('twitter_id');
             $manager->persist($user);
 
             $prefs = $this->getUserPreferences($user, $userData[7]);
@@ -134,7 +149,7 @@ final class UserFixtures extends Fixture implements FixtureGroupInterface
 
             $existingName[] = $username;
             $existingEmail[] = $email;
-
+            $address = $this->createAddress();
             $user = new User();
             $user->setAlias($faker->name());
             $user->setTitle(substr($faker->jobTitle(), 0, 49));
@@ -144,6 +159,17 @@ final class UserFixtures extends Fixture implements FixtureGroupInterface
             $user->setEnabled(true);
             $user->setLastLogin(new \DateTime('now'));
             $user->setPlainPassword($this->passwordHasher->hashPassword($user, self::DEFAULT_PASSWORD));
+            $user->setDescription('Hi, I’m ' . $faker->name() . ', Decisions: If you can’t decide, the answer is no.
+             If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).');
+            $user->setPhone('+4999999999999');
+            $user->setBirthday(new DateTime('now'));
+            $user->setSex(SexEnum::Male);
+            $user->setAddress($address);
+            $user->setGoogleUrl('google_id');
+            $user->setInstagramUrl('instagram_id');
+            $user->setFacebookUrl('facebook_id');
+            $user->setTweeterUrl('twitter_id');
+
             $manager->persist($user);
 
             $prefs = $this->getUserPreferences($user);
@@ -291,5 +317,16 @@ final class UserFixtures extends Fixture implements FixtureGroupInterface
                 self::DEFAULT_API_TOKEN . '_super',
             ],
         ];
+    }
+
+    private function createAddress(): Address
+    {
+        return new Address(
+            'Germany',
+            'Köln',
+            '50859',
+            'Widdersdorder landstr',
+            '11'
+        );
     }
 }

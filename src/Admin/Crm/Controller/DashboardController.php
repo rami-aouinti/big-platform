@@ -25,7 +25,9 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use function count;
 
 /**
- * Dashboard controller for the admin area.
+* Class DashboardController
+ * @package App\Admin\Crm\Controller
+ * @author Rami Aouinti <rami.aouinti@tkdeutschland.de>
  */
 #[Route(path: '/dashboard')]
 #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]

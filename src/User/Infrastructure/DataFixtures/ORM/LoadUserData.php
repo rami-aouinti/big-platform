@@ -11,8 +11,11 @@ use App\General\Domain\Enum\Locale;
 use App\General\Domain\Rest\UuidHelper;
 use App\Role\Application\Security\Interfaces\RolesServiceInterface;
 use App\Tests\Utils\PhpUnitUtil;
+use App\User\Domain\Entity\Address;
+use App\User\Domain\Entity\Enum\SexEnum;
 use App\User\Domain\Entity\User;
 use App\User\Domain\Entity\UserGroup;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -87,6 +90,7 @@ final class LoadUserData extends Fixture implements OrderedFixtureInterface
      */
     private function createUser(ObjectManager $manager, ?string $role = null): bool
     {
+        $address = $this->createAddress();
         $suffix = $role === null ? '' : '-' . $this->rolesService->getShort($role);
         // Create new entity
         $entity = (new User())
@@ -99,6 +103,17 @@ final class LoadUserData extends Fixture implements OrderedFixtureInterface
             ->setLastLogin(new \DateTime('now'))
             ->setEnabled(true)
             ->setPlainPassword('password' . $suffix);
+
+        $entity->setDescription('Hi, I’m john.doe' . $suffix . ', Decisions: If you can’t decide, the answer is no.
+             If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).');
+        $entity->setPhone('+4999999999999');
+        $entity->setBirthday(new DateTime('now'));
+        $entity->setSex(SexEnum::Male);
+        $entity->setAddress($address);
+        $entity->setGoogleUrl('google_id');
+        $entity->setInstagramUrl('instagram_id');
+        $entity->setFacebookUrl('facebook_id');
+        $entity->setTweeterUrl('twitter_id');
 
         $entity->setFullName('john' . $suffix);
         $entity->setAlias('john' . $suffix);
@@ -146,5 +161,16 @@ final class LoadUserData extends Fixture implements OrderedFixtureInterface
         }
 
         return $preferences;
+    }
+
+    private function createAddress(): Address
+    {
+        return new Address(
+            'Germany',
+            'Köln',
+            '50859',
+            'Widdersdorder landstr',
+            '11'
+        );
     }
 }

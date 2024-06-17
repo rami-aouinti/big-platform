@@ -15,6 +15,9 @@ parameters:
     jwt.role: '%env(resolve:JWT_ROLE)%'
     backend.title.login: 'API Backend Login'
     backend.title.main: 'API Backend'
+    uploadDir: 'uploads'
+    uploadAbsoluteDir: '%kernel.project_dir%/public/%uploadDir%'
+    avatars_directory: '%kernel.project_dir%/public/uploads/avatars'
 
 services:
     # default configuration for services in *this* file
@@ -36,6 +39,8 @@ services:
             $lockUserOnLoginFailureAttempts: '%env(int:LOCK_USER_ON_LOGIN_FAILURE_ATTEMPTS)%'
             array $enabledLocales: '%kernel.enabled_locales%'
             string $defaultLocale: '%locale%'
+            $uploadDir: '%uploadDir%'
+            $uploadAbsoluteDir: '%uploadAbsoluteDir%'
 
     _instanceof:
         App\General\Application\Rest\Interfaces\RestResourceInterface:
@@ -120,6 +125,10 @@ services:
     # ================================================================================
     # SECURITY & VOTER
     # ================================================================================
+
+    App\EntityListener\:
+        resource: '../src/Resume/Application/EntityListener'
+        tags: [ 'doctrine.orm.entity_listener' ]
 
     App\Admin\Auth\Security\RoleService:
         arguments:

@@ -16,6 +16,8 @@ namespace App\Blog\Infrastructure\DataFixtures;
 use App\Blog\Domain\Entity\Comment;
 use App\Blog\Domain\Entity\Post;
 use App\Blog\Domain\Entity\Tag;
+use App\User\Domain\Entity\Address;
+use App\User\Domain\Entity\Enum\SexEnum;
 use App\User\Domain\Entity\User;
 use DateTime;
 use DateTimeImmutable;
@@ -51,6 +53,7 @@ final class AppFixtures extends Fixture
 
     private function loadUsers(ObjectManager $manager): void
     {
+        $address = $this->createAddress();
         foreach ($this->getUserData() as [$fullname, $username, $password, $email, $roles]) {
             $user = new User();
             $user->setFullName($fullname);
@@ -59,7 +62,16 @@ final class AppFixtures extends Fixture
             $user->setEmail($email);
             $user->setRoles($roles);
             $user->setLastLogin(new DateTime('now'));
-
+            $user->setDescription('Hi, I’m ' . $fullname . ', Decisions: If you can’t decide, the answer is no.
+             If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).');
+            $user->setPhone('+4999999999999');
+            $user->setBirthday(new DateTime('now'));
+            $user->setSex(SexEnum::Male);
+            $user->setAddress($address);
+            $user->setGoogleUrl('google_id');
+            $user->setInstagramUrl('instagram_id');
+            $user->setFacebookUrl('facebook_id');
+            $user->setTweeterUrl('twitter_id');
             $manager->persist($user);
             $this->addReference($username, $user);
         }
@@ -283,5 +295,16 @@ final class AppFixtures extends Fixture
 
             return $tag;
         }, $selectedTags);
+    }
+
+    private function createAddress(): Address
+    {
+        return new Address(
+            'Germany',
+            'Köln',
+            '50859',
+            'Widdersdorder landstr',
+            '11'
+        );
     }
 }

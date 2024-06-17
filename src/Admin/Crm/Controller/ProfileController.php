@@ -99,10 +99,13 @@ final class ProfileController extends AbstractController
     }
 
     /**
-     * @throws OptimisticLockException
-     * @throws NotFoundExceptionInterface
-     * @throws ORMException
+     * @param User           $profile
+     * @param Request        $request
+     * @param UserRepository $userRepository
+     *
      * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @return Response
      */
     #[Route(path: '/{username}/edit', name: 'user_profile_edit', methods: ['GET', 'POST'])]
     #[IsGranted('edit', 'profile')]

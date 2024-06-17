@@ -95,6 +95,11 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Calendar/Domain/Entity'
                         prefix: 'App\Calendar\Domain\Entity'
                         alias: Calendar
+                    Resume:
+                        type: attribute
+                        dir: '%kernel.project_dir%/src/Resume/Domain/Entity'
+                        prefix: 'App\Resume\Domain\Entity'
+                        alias: Resume
                 dql:
                     datetime_functions:
                         datesub: DoctrineExtensions\Query\Mysql\DateSub

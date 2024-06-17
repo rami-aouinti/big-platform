@@ -11,9 +11,12 @@ use App\Crm\Transport\Form\Type\TimezoneType;
 use App\Crm\Transport\Form\Type\UserLanguageType;
 use App\Crm\Transport\Form\Type\UserLocaleType;
 use App\Crm\Transport\Form\Type\YesNoType;
+use App\General\Domain\Enum\Language;
+use App\General\Domain\Enum\Locale;
 use App\User\Domain\Entity\User;
 use App\User\Transport\Form\Type\Console\UserType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,7 +30,7 @@ class UserEditType extends AbstractType
     use ColorTrait;
 
     public function __construct(
-        private SystemConfiguration $configuration
+        private readonly SystemConfiguration $configuration
     ) {
     }
 
@@ -73,12 +76,17 @@ class UserEditType extends AbstractType
         $builder->add('email', MailType::class);
 
         if ($options['include_preferences']) {
-            $builder->add('language', UserLanguageType::class, [
-                'required' => true,
+
+            $builder->add('language', ChoiceType::class, [
+                'choices' => Language::cases(),
+                'choice_label' => fn(Language $enum) => $enum->name,
+                'choice_value' => fn(Language $enum) => $enum->value,
             ]);
 
-            $builder->add('locale', UserLocaleType::class, [
-                'required' => true,
+            $builder->add('locale', ChoiceType::class, [
+                'choices' => Locale::cases(),
+                'choice_label' => fn(Locale $enum) => $enum->name,
+                'choice_value' => fn(Locale $enum) => $enum->value,
             ]);
 
             $builder->add('timezone', TimezoneType::class, [
